@@ -1,6 +1,6 @@
 package fr.eni.clinique.dal;
 
-import fr.eni.spectacle.bll.BLLException;
+import fr.eni.clinique.bll.BLLException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

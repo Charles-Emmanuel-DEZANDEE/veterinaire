@@ -1,12 +1,10 @@
 package fr.eni.clinique.dal;
 
-import fr.eni.spectacle.bll.BLLException;
-import fr.eni.spectacle.bo.Client;
-import fr.eni.spectacle.bo.Reservation;
-import fr.eni.spectacle.bo.Spectacle;
+import fr.eni.clinique.bll.BLLException;
 
 public class DAOFactory {
 
+	/*
 	// TODO instancier avec le bon JDBC
 	public static Dao<Spectacle> getSpectacleDAO() throws DALException, BLLException {
 		Dao<Spectacle> sDao = new StectacleDAOJdbcImpl();
@@ -24,5 +22,5 @@ public class DAOFactory {
 		Dao<Client> cDao = new ClientDAOJdbcImpl();
 		return cDao;
 	}
-
+*/
 }
