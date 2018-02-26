@@ -9,7 +9,7 @@ public class InternalFrame1 extends JInternalFrame {
 		super("Titre Frame 1", true, true, true,true);
 		
 		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-		setBounds(100, 100,400, 200);
+		setBounds(100, 100, 400, 200);
 
 	}
 
