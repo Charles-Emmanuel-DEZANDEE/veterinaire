@@ -80,19 +80,22 @@ public class PersonnelsDAOJdbcImpl implements Dao{
 	
 	        Personnels data = null;
 
-         	if (res.next()){
-                data = new Personnels(res.getInt("CodePers"),
-                		res.getString("Nom"),
-                		res.getString("MotPasse"),
-                		res.getString("Role"),
-                		res.getBoolean("Archive"));
-	        //on ferme les connections
-	        stmt.close();
-	        //connect.close();
-             }
+	        if (res != null){
+	        	if (res.next()){
+	                data = new Personnels(res.getInt("CodePers"),
+	                		res.getString("Nom"),
+	                		res.getString("MotPasse"),
+	                		res.getString("Role"),
+	                		res.getBoolean("Archive"));
+		        //on ferme les connections
+		        stmt.close();
+		        //connect.close();
+	             }
 
-         	return data;
-
+	         	return data;
+	        }else{
+	        	return null;
+	        }
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
@@ -107,23 +110,28 @@ public class PersonnelsDAOJdbcImpl implements Dao{
             ResultSet res = stmt.executeQuery();
             //on boucle sur les résultats
             List<Personnels> data = new ArrayList<>();
-            int i = 0;
-            while (res.next()){
-                //data.add(this.selectById(res.getInt("id")));
-                    data.add(new Personnels(res.getInt("CodePers"),
-                    		res.getString("Nom"),
-                    		res.getString("MotPasse"),
-                    		res.getString("Role"),
-                    		res.getBoolean("Archive")));
-                    i++;
+            
+            if (res != null){
+            	int i = 0;
+                while (res.next()){
+                    //data.add(this.selectById(res.getInt("id")));
+                        data.add(new Personnels(res.getInt("CodePers"),
+                        		res.getString("Nom"),
+                        		res.getString("MotPasse"),
+                        		res.getString("Role"),
+                        		res.getBoolean("Archive")));
+                        i++;
+                }
+
+                //on ferme les connections
+                stmt.close();
+                //connect.close();
+
+                return data;
+            }else{
+            	return null;
             }
             
-
-            //on ferme les connections
-            stmt.close();
-            //connect.close();
-
-            return data;
 
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
@@ -181,6 +189,36 @@ public class PersonnelsDAOJdbcImpl implements Dao{
         throw new DALException(e.getMessage());
 	    }
 	}
+    
+    public Personnels selectByNom(int nom) throws DALException {
+    	try{
+	        String sql = "SELECT * FROM Personnels WHERE Nom = ?";
+	        PreparedStatement stmt = this.connect.prepareStatement(sql);
+	
+	        stmt.setInt(1,nom);//"reference,
+	
+	        ResultSet res = stmt.executeQuery();
+	
+	        Personnels data = null;
+	        if(res != null){
+	        	if (res.next()){
+	                data = new Personnels(res.getInt("CodePers"),
+	                		res.getString("Nom"),
+	                		res.getString("MotPasse"),
+	                		res.getString("Role"),
+	                		res.getBoolean("Archive"));
+		        //on ferme les connections
+		        stmt.close();
+		        //connect.close();
+	             }
+	         	return data;
+	        }else{
+	        	return null;
+	        }
+        } catch (SQLException e) {
+            throw new DALException(e.getMessage());
+        }
+    }
     
              
 	public void finalize() throws SQLException {
