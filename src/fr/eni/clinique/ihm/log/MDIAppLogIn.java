@@ -14,8 +14,6 @@ public class MDIAppLogIn extends JFrame {
 	private static final long serialVersionUID = 1L;
     private static MDIAppLogIn instance;
 
-    private InternalLogIn frmLog;
-
 	private JLabel labelLogNom;
 	private JLabel labelLogPassword;
     private JLabel labelErrorUser;
@@ -180,7 +178,6 @@ public class MDIAppLogIn extends JFrame {
 	public JButton getButtonLogValider() {
 		if (this.buttonLogValider == null) {
 			this.buttonLogValider = new JButton("Valider");
-//			this.buttonLogValider.setActionCommand("validerLogIn");
             this.buttonLogValider.addActionListener(new ActionListener() {
 
                 @Override
@@ -206,7 +203,6 @@ public class MDIAppLogIn extends JFrame {
 	public JButton getButtonRetourn() {
 		if (this.buttonRetour == null) {
 			this.buttonRetour = new JButton("Retour");
-//			this.buttonRetour.setActionCommand("validerLogIn");
             this.buttonRetour.addActionListener(new ActionListener() {
 
                 @Override
@@ -229,11 +225,4 @@ public class MDIAppLogIn extends JFrame {
 		return this.buttonRetour;
 	}
 
-    public void setFieldLogNom(JTextField fieldLogNom) {
-        this.fieldLogNom = fieldLogNom;
-    }
-
-    public void setFieldLogPassword(JTextField fieldLogPassword) {
-        this.fieldLogPassword = fieldLogPassword;
-    }
 }

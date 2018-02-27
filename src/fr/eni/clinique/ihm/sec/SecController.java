@@ -19,8 +19,9 @@ public class SecController {
         return instance;
     }
 
-//    public void startApp(){
-//        fenetreSec.init();
-//    }
-
+	public void startApp() throws BLLException, DALException {
+		fenetreSec.init();
+		fenetreSec.revalidate();
+		fenetreSec.repaint();
+	}
 }
