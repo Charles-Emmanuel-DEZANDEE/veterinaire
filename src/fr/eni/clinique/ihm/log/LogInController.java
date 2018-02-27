@@ -1,6 +1,8 @@
 package fr.eni.clinique.ihm.log;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.PersonnelsManager;
+import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
 
 public class LogInController {
@@ -9,7 +11,7 @@ public class LogInController {
 
 
     private LogInController() throws DALException, BLLException {
-        fenetreLogIn = new MDIAppLogIn();
+        fenetreLogIn = MDIAppLogIn.getInstance();
     }
 
     public static synchronized LogInController getInstance() throws DALException, BLLException{
@@ -23,15 +25,21 @@ public class LogInController {
         fenetreLogIn.initLog();
     }
 
-    public void validLogIn (){
-        String nom = fenetreLogIn.getFieldLogNom().getText();
-        String password = fenetreLogIn.getfieldLogPassword().getText();
+    public void validLogIn (String nom, String password) throws BLLException, DALException {
+
+        //String nom = fenetreLogIn.getFieldLogNom().getText();
+        System.out.println("test nom");
+        System.out.println(nom);
+        //String password = fenetreLogIn.getfieldLogPassword().getText();
+        System.out.println("test pass");
+        System.out.println(password);
+
 
         //on fait find by nom
-        //Personnel user = ;
+        Personnels  user = PersonnelsManager.getInstance().getPersonnelById(1);
 
         //on récupére le mdp
-        String passwordBase = "";//user.getPassword();
+        String passwordBase = user.getMotPasse();
 
         //on compare le mot de passe enregistrer avec la saisie
 

@@ -12,8 +12,10 @@ import java.awt.event.ActionListener;
 public class MDIAppLogIn extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+    private static MDIAppLogIn instance;
 
-	private JDesktopPane desktopPane;
+
+    private JDesktopPane desktopPane;
 	private JMenuBar menuBarre;
 	private JMenu menuAgenda;
 
@@ -25,8 +27,17 @@ public class MDIAppLogIn extends JFrame {
 	private JTextField fieldLogPassword;
 	private JButton buttonLogValider;
 
+	//singleton
+    public static synchronized MDIAppLogIn getInstance() throws DALException, BLLException{
+        if (instance == null){
+            instance = new MDIAppLogIn();
+        }
+        return instance;
+    }
 
-	public MDIAppLogIn() {
+
+
+    private MDIAppLogIn() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -37,7 +48,7 @@ public class MDIAppLogIn extends JFrame {
 		desktopPane = new JDesktopPane();
 
 		// Associer le JDesktopPane à la JFrame
-		setContentPane(desktopPane);
+		//setContentPane(desktopPane);
 
         //insertion du texte
         createLogPanel();
@@ -143,7 +154,9 @@ public class MDIAppLogIn extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        LogInController.getInstance().validLogIn();
+                        System.out.println("valider");
+                        //on envoi les saisies
+                        LogInController.getInstance().validLogIn(getFieldLogNom().getText(),getfieldLogPassword().getText());
                     } catch (DALException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
