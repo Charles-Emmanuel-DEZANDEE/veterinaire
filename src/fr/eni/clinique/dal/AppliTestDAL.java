@@ -47,7 +47,7 @@ public class AppliTestDAL {
 			//Modification d'un personnel
 			System.out.println("\nModification d'un Personnel  : " );
 			System.out.println("Personnel avant modification : "  + p1.toString());
-			p1.setNom("chang�");
+			p1.setNom("changé");
 			p1.setMotPasse("motPasse");
 			personnelsDAO.update(p1);
 			System.out.println("Personnel après modification  : " + p1.toString() );
