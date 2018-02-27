@@ -27,16 +27,9 @@ public class LogInController {
 
     public void validLogIn (String nom, String password) throws BLLException, DALException {
 
-        //String nom = fenetreLogIn.getFieldLogNom().getText();
-        System.out.println("test nom");
-        System.out.println(nom);
-        //String password = fenetreLogIn.getfieldLogPassword().getText();
-        System.out.println("test pass");
-        System.out.println(password);
-
 
         //on fait find by nom
-        Personnels  user = PersonnelsManager.getInstance().getPersonnelById(1);
+        Personnels  user = PersonnelsManager.getInstance().getPersonnelByNom(nom);
 
         //on récupére le mdp
         String passwordBase = user.getMotPasse();
