@@ -70,7 +70,6 @@ public class MDIAppSecretaire extends JFrame {
 		panel2.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(5, 5, 5, 5);
-		//Ligne 1
 		gbc.gridwidth = 1;
 		gbc.gridx = 0;
 		gbc.gridy = 0;

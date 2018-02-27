@@ -30,8 +30,6 @@ public class MDIAppAdm extends JFrame  {
 	private JButton buttonReinitialiserPersonnel;
 	private JPanel panelPersonnel;
 
-
-
 	public MDIAppAdm() throws BLLException, DALException {
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
