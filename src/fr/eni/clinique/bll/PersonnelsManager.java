@@ -13,7 +13,7 @@ public class PersonnelsManager {
 	private static PersonnelsManager instance;
 	
 	public PersonnelsManager() throws DALException, BLLException {
-		//Instancierr le Data Access Object
+		//Instancier le Data Access Object
 		daoPersonnels =DAOFactory.getPersonnelsDAO();
 	}
 
