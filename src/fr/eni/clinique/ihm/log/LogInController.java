@@ -14,58 +14,71 @@ public class LogInController {
         fenetreLogIn = MDIAppLogIn.getInstance();
     }
 
-    public static synchronized LogInController getInstance() throws DALException, BLLException{
-        if (instance == null){
+    public static synchronized LogInController getInstance() throws DALException, BLLException {
+        if (instance == null) {
             instance = new LogInController();
         }
         return instance;
     }
 
-    public void startApp(){
+    public void startApp() {
         fenetreLogIn.initLog();
     }
 
-    public void validLogIn (String nom, String password) throws BLLException, DALException {
+    public void validLogIn(String nom, String password) throws BLLException, DALException {
 
 
         //on fait find by nom
-        Personnels  user = PersonnelsManager.getInstance().getPersonnelByNom(nom);
+        Personnels user = PersonnelsManager.getInstance().getPersonnelByNom(nom);
 
-        //on récupére le mdp
-        String passwordBase = user.getMotPasse();
+        if (user != null) {
 
-        //on compare le mot de passe enregistrer avec la saisie
+            //on récupére le mdp
+            String passwordBase = user.getMotPasse();
 
-        if (password == passwordBase){
-            //on ferme la fenetre de connexion
-            fenetreLogIn.exit();
-            //on lance une nouvelle fenetre suivant le role de l'user
-            String role = ""; // user.getRole();
-            switch (role) {
-                case "adm":
-                    System.out.println("admin");
-                    //todo controleur + mdia
-                    break;
-                case "sec":
-                    System.out.println("secretaire");
-                    //todo controleur + mdia
+            System.out.println(nom);
+            System.out.println(password);
+            System.out.println(user.toString());
+            System.out.println(user.getNom());
+            System.out.println(passwordBase);
 
-                    break;
-                case "vet":
-                    System.out.println("veterinaire");
-                    //todo controleur + mdia
 
-                    break;
+            //on compare le mot de passe enregistrer avec la saisie
 
-                default:
-                    System.out.println("Probleme");
+            if (password.equals(passwordBase)) {
+                System.out.println("mot de pass bon");
+                //on ferme la fenetre de connexion
+                fenetreLogIn.exit();
+                //on lance une nouvelle fenetre suivant le role de l'user
+                String role = ""; // user.getRole();
+                switch (role) {
+                    case "adm":
+                        System.out.println("admin");
+                        //todo controleur + mdia
+                        break;
+                    case "sec":
+                        System.out.println("secretaire");
+                        //todo controleur + mdia
+
+                        break;
+                    case "vet":
+                        System.out.println("veterinaire");
+                        //todo controleur + mdia
+
+                        break;
+
+                    default:
+                        System.out.println("Probleme");
+                }
+
             }
-
         }
         //sinon on affiche la modal
 
-        else{
+
+        else {
             fenetreLogIn.showError();
+            System.out.println("Probleme");
         }
 
     }

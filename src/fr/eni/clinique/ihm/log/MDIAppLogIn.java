@@ -48,7 +48,7 @@ public class MDIAppLogIn extends JFrame {
 		desktopPane = new JDesktopPane();
 
 		// Associer le JDesktopPane à la JFrame
-		//setContentPane(desktopPane);
+		setContentPane(desktopPane);
 
         //insertion du texte
         createLogPanel();
