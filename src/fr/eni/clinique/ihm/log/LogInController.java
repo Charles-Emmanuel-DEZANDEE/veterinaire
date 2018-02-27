@@ -21,7 +21,7 @@ public class LogInController {
         return instance;
     }
 
-    public void startApp() {
+    public void startApp() throws BLLException, DALException {
         fenetreLogIn.initLog();
     }
 
@@ -36,21 +36,14 @@ public class LogInController {
             //on récupére le mdp
             String passwordBase = user.getMotPasse();
 
-            System.out.println(nom);
-            System.out.println(password);
-            System.out.println(user.toString());
-            System.out.println(user.getNom());
-            System.out.println(passwordBase);
-
-
             //on compare le mot de passe enregistrer avec la saisie
 
             if (password.equals(passwordBase)) {
                 System.out.println("mot de pass bon");
                 //on ferme la fenetre de connexion
-                fenetreLogIn.exit();
+                //fenetreLogIn.exit();
                 //on lance une nouvelle fenetre suivant le role de l'user
-                String role = ""; // user.getRole();
+                String role = user.getRole();
                 switch (role) {
                     case "adm":
                         System.out.println("admin");
@@ -68,17 +61,21 @@ public class LogInController {
                         break;
 
                     default:
-                        System.out.println("Probleme");
+                        System.out.println("Pas de role existant");
                 }
 
             }
+            //sinon on affiche l'erreur de pass
+
+            else {
+                fenetreLogIn.showError(2);
+                System.out.println("Probleme de pass");
+            }
         }
-        //sinon on affiche la modal
-
-
+        //sinon on affiche l'erreur de user
         else {
-            fenetreLogIn.showError();
-            System.out.println("Probleme");
+            fenetreLogIn.showError(1);
+            System.out.println("Probleme de user");
         }
 
     }
