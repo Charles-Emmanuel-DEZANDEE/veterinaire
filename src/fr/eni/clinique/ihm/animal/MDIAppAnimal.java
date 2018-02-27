@@ -1,4 +1,4 @@
-package fr.eni.clinique.ihm.log;
+package fr.eni.clinique.ihm.animal;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.dal.DALException;
@@ -9,15 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class MDIAppLogIn extends JFrame {
+public class MDIAppAnimal extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-    private static MDIAppLogIn instance;
+    private static final long serialVersionUID = 1L;
+    private static MDIAppAnimal instance;
 
-    private InternalLogIn frmLog;
-
-	private JLabel labelLogNom;
-	private JLabel labelLogPassword;
+    private JLabel labelLogNom;
+    private JLabel labelLogPassword;
     private JLabel labelErrorUser;
     private JLabel labelErrorPass;
     private JTextField fieldLogNom;
@@ -25,68 +23,28 @@ public class MDIAppLogIn extends JFrame {
     private JButton buttonLogValider;
     private JButton buttonRetour;
 
-	//singleton
-    public static synchronized MDIAppLogIn getInstance() throws DALException, BLLException{
-        if (instance == null){
-            instance = new MDIAppLogIn();
+    //singleton
+    public static synchronized MDIAppAnimal getInstance() throws DALException, BLLException {
+        if (instance == null) {
+            instance = new MDIAppAnimal();
         }
         return instance;
     }
 
 
-
-    private MDIAppLogIn() {
+    private MDIAppAnimal() {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setSize(500, 300);
+        setSize(600, 600);
         setResizable(false);
         setTitle("Connexion");
         setVisible(true);
 
-	}
-	public void initLog() throws BLLException, DALException {
-
-        createLogPanel();
-        instance.revalidate();
-        instance.repaint();
     }
 
-    public void showError (int cas){
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
+    public void init() throws BLLException, DALException {
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-
-        // Ligne 1
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        switch (cas) {
-            case 1:
-                panel.add(this.getLabelErrorUser(), gbc);
-
-                break;
-            case 2:
-                panel.add(this.getLabelErrorPass(), gbc);
-                break;
-
-            default:
-                System.out.println("Probleme erreur");
-        }
-
-        //ligne 2
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        panel.add(this.getButtonRetourn(), gbc);
-
-        setContentPane(panel);
-        instance.revalidate();
-        instance.repaint();
-
-    }
-
-	public void createLogPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
 
@@ -116,79 +74,75 @@ public class MDIAppLogIn extends JFrame {
         panel.add(this.getButtonLogValider(), gbc);
 
         setContentPane(panel);
+        instance.revalidate();
+        instance.repaint();
     }
 
 
-	public void exit(){
+    public void exit() {
         setVisible(false);
     }
-
-    public void reconnexion(){
-        String vide = "";
-        getFieldLogNom().setText(vide);
-        getfieldLogPassword().setText(vide);
+    
+    public void afficher() {
         setVisible(true);
-
     }
 
-	public JLabel getLabelLogNom() {
-		if (this.labelLogNom == null) {
-			this.labelLogNom = new JLabel("Nom : ");
-			this.labelLogNom.setFont(new Font("Serif", Font.PLAIN, 20));
-		}
-		return this.labelLogNom;
-	}
 
-	public JLabel getLabelLogPassword() {
-		if (this.labelLogPassword == null) {
-			this.labelLogPassword = new JLabel("Mot de passe : ");
-			this.labelLogPassword.setFont(new Font("Serif", Font.PLAIN, 20));
-		}
-		return this.labelLogPassword;
-	}
+    public JLabel getLabelLogNom() {
+        if (this.labelLogNom == null) {
+            this.labelLogNom = new JLabel("Nom : ");
+            this.labelLogNom.setFont(new Font("Serif", Font.PLAIN, 20));
+        }
+        return this.labelLogNom;
+    }
 
-	public JLabel getLabelErrorUser() {
-		if (this.labelErrorUser == null) {
-			this.labelErrorUser = new JLabel("L'utilisateur est inconnu ");
-			this.labelErrorUser.setFont(new Font("Serif", Font.PLAIN, 20));
-		}
-		return this.labelErrorUser;
-	}
+    public JLabel getLabelLogPassword() {
+        if (this.labelLogPassword == null) {
+            this.labelLogPassword = new JLabel("Mot de passe : ");
+            this.labelLogPassword.setFont(new Font("Serif", Font.PLAIN, 20));
+        }
+        return this.labelLogPassword;
+    }
 
-	public JLabel getLabelErrorPass() {
-		if (this.labelErrorPass == null) {
-			this.labelErrorPass = new JLabel("Le mot de passe est faux ");
-			this.labelErrorPass.setFont(new Font("Serif", Font.PLAIN, 20));
-		}
-		return this.labelErrorPass;
-	}
+    public JLabel getLabelErrorUser() {
+        if (this.labelErrorUser == null) {
+            this.labelErrorUser = new JLabel("L'utilisateur est inconnu ");
+            this.labelErrorUser.setFont(new Font("Serif", Font.PLAIN, 20));
+        }
+        return this.labelErrorUser;
+    }
 
-	public JTextField getFieldLogNom() {
-		if (this.fieldLogNom == null) {
-			this.fieldLogNom = new JTextField(20);
-		}
-		return this.fieldLogNom;
-	}
+    public JLabel getLabelErrorPass() {
+        if (this.labelErrorPass == null) {
+            this.labelErrorPass = new JLabel("Le mot de passe est faux ");
+            this.labelErrorPass.setFont(new Font("Serif", Font.PLAIN, 20));
+        }
+        return this.labelErrorPass;
+    }
 
-	public JTextField getfieldLogPassword() {
-		if (this.fieldLogPassword == null) {
-			this.fieldLogPassword = new JTextField(20);
-		}
-		return this.fieldLogPassword;
-	}
+    public JTextField getFieldLogNom() {
+        if (this.fieldLogNom == null) {
+            this.fieldLogNom = new JTextField(20);
+        }
+        return this.fieldLogNom;
+    }
 
-	public JButton getButtonLogValider() {
-		if (this.buttonLogValider == null) {
-			this.buttonLogValider = new JButton("Valider");
-//			this.buttonLogValider.setActionCommand("validerLogIn");
+    public JTextField getfieldLogPassword() {
+        if (this.fieldLogPassword == null) {
+            this.fieldLogPassword = new JTextField(20);
+        }
+        return this.fieldLogPassword;
+    }
+
+    public JButton getButtonLogValider() {
+        if (this.buttonLogValider == null) {
+            this.buttonLogValider = new JButton("Valider");
             this.buttonLogValider.addActionListener(new ActionListener() {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
                         System.out.println("valider");
-                        //on envoi les saisies
-                        LogInController.getInstance().validLogIn(getFieldLogNom().getText(),getfieldLogPassword().getText());
                     } catch (DALException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
@@ -199,22 +153,20 @@ public class MDIAppLogIn extends JFrame {
                 }
             });
 
-		}
-		return this.buttonLogValider;
-	}
+        }
+        return this.buttonLogValider;
+    }
 
-	public JButton getButtonRetourn() {
-		if (this.buttonRetour == null) {
-			this.buttonRetour = new JButton("Retour");
+    public JButton getButtonAnnuler() {
+        if (this.buttonRetour == null) {
+            this.buttonRetour = new JButton("Annuler");
 //			this.buttonRetour.setActionCommand("validerLogIn");
             this.buttonRetour.addActionListener(new ActionListener() {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        System.out.println("retour");
-                        //on remet la saisie
-                        initLog();
+                        System.out.println("annuler");
                     } catch (DALException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
@@ -225,15 +177,8 @@ public class MDIAppLogIn extends JFrame {
                 }
             });
 
-		}
-		return this.buttonRetour;
-	}
-
-    public void setFieldLogNom(JTextField fieldLogNom) {
-        this.fieldLogNom = fieldLogNom;
+        }
+        return this.buttonRetour;
     }
 
-    public void setFieldLogPassword(JTextField fieldLogPassword) {
-        this.fieldLogPassword = fieldLogPassword;
-    }
 }
