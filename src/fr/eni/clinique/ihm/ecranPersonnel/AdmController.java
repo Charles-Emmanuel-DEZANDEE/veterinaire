@@ -1,4 +1,4 @@
-package fr.eni.clinique.ihm.Adm;
+package fr.eni.clinique.ihm.ecranPersonnel;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.dal.DALException;
@@ -19,8 +19,10 @@ public class AdmController {
         return instance;
     }
 
-//    public void startApp(){
-//        fenetreAdm.initLog();
-//    }
+    public void startApp() throws BLLException, DALException {
+    	fenetreAdm.initGestionPersonnel();
+		fenetreAdm.revalidate();
+		fenetreAdm.repaint();
+	}
 
 }
