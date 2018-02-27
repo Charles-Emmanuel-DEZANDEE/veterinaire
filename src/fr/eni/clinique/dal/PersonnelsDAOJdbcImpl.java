@@ -190,12 +190,12 @@ public class PersonnelsDAOJdbcImpl implements Dao{
 	    }
 	}
     
-    public Personnels selectByNom(int nom) throws DALException {
+    public Personnels selectByNom(String nom) throws DALException {
     	try{
 	        String sql = "SELECT * FROM Personnels WHERE Nom = ?";
 	        PreparedStatement stmt = this.connect.prepareStatement(sql);
 	
-	        stmt.setInt(1,nom);//"reference,
+	        stmt.setString(1,nom);//"reference,
 	
 	        ResultSet res = stmt.executeQuery();
 	
