@@ -38,6 +38,10 @@ public class AppliTestDAL {
 			//Sélection de l'article par id
 			Personnels p = personnelsDAO.selectById(p2.getCodePers());
 			System.out.println("\nSélection de Personnel par id  : " + p.toString() );
+			
+			//Sélection de l'article par nom
+			Personnels p4 = ((PersonnelsDAOJdbcImpl)personnelsDAO).selectByNom(p2.getNom());
+			System.out.println("\nSélection de Personnel par nom  : " + p4.toString() );
 
 			//Sélection de tous les personnels
 			List<Personnels> personnels = personnelsDAO.selectAll();

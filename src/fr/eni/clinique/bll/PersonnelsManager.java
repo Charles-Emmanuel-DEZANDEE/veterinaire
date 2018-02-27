@@ -37,7 +37,7 @@ public class PersonnelsManager {
 		return personnel;
 	}
 	
-	public Personnels getPersonnelByNom(int nom) throws BLLException{
+	public Personnels getPersonnelByNom(String nom) throws BLLException{
 		Personnels personnel=null;
 		try {
 			personnel = ((PersonnelsDAOJdbcImpl)daoPersonnels).selectByNom(nom);
