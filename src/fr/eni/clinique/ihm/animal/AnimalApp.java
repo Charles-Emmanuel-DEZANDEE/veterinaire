@@ -1,11 +1,12 @@
-package fr.eni.clinique.ihm.ecranPersonnel;
+package fr.eni.clinique.ihm.animal;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.ihm.ecranPersonnel.AdmController;
 
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
-public class PersonnelApp {
+public class AnimalApp {
 	
 	public static void main(String[] args) {
 		
@@ -14,7 +15,7 @@ public class PersonnelApp {
 			@Override
 			public void run(){
 				try {
-					AdmController.getInstance().startApp();
+					AnimalController.getInstance().start();
 				} catch (BLLException e) {
 					e.printStackTrace();
 				} catch (DALException e) {

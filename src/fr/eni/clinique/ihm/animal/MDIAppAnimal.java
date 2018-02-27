@@ -14,13 +14,29 @@ public class MDIAppAnimal extends JFrame {
     private static final long serialVersionUID = 1L;
     private static MDIAppAnimal instance;
 
-    private JLabel labelLogNom;
-    private JLabel labelLogPassword;
-    private JLabel labelErrorUser;
-    private JLabel labelErrorPass;
-    private JTextField fieldLogNom;
-    private JTextField fieldLogPassword;
-    private JButton buttonLogValider;
+    private JLabel labelClient;
+    private JLabel Client;
+
+    private JLabel labelCode;
+    private JLabel Code;
+
+    private JLabel labelNom;
+    private JTextField fieldNom;
+    private JComboBox<String> cboTypeAnimal;
+
+    private JLabel labelCouleur;
+    private JTextField fieldCouleur;
+
+    private JLabel labelEspece;
+    private JComboBox<String> cboEspece;
+
+    private JLabel labelRace;
+    private JComboBox<String> cboRace;
+
+    private JLabel labelTatouage;
+    private JTextField fieldTatouage;
+
+    private JButton buttonValider;
     private JButton buttonRetour;
 
     //singleton
@@ -51,27 +67,102 @@ public class MDIAppAnimal extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 
+        //ligne 0
+
+
         // Ligne 1
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(this.getLabelLogNom(), gbc);
+        panel.add(this.getLabelClient(), gbc);
+        gbc.gridwidth = 3;
         gbc.gridx = 1;
         gbc.gridy = 0;
-        panel.add(this.getFieldLogNom(), gbc);
+        panel.add(this.getClient(), gbc);
 
         // Ligne 2
+        gbc.gridwidth = 1;
         gbc.gridx = 0;
         gbc.gridy = 1;
-        panel.add(this.getLabelLogPassword(), gbc);
+        panel.add(this.getLabelCode(), gbc);
         gbc.gridx = 1;
         gbc.gridy = 1;
-        panel.add(this.getfieldLogPassword(), gbc);
+        panel.add(this.getCode(), gbc);
 
         //ligne 3
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        panel.add(this.getLabelNom(), gbc);
         gbc.gridwidth = 2;
         gbc.gridx = 1;
         gbc.gridy = 2;
+        panel.add(this.getFieldNom(), gbc);
+        gbc.gridwidth = 1;
+        gbc.gridx = 3;
+        gbc.gridy = 2;
+        panel.add(this.getCboTypeAnimal(), gbc);
+
+        //ligne 4
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        panel.add(this.getLabelCouleur(), gbc);
+        gbc.gridwidth = 2;
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panel.add(this.getFieldCouleur(), gbc);
+
+        //ligne 5
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        panel.add(this.getLabelEspece(), gbc);
+        gbc.gridwidth = 1;
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        panel.add(this.getCboEspece(), gbc);
+        gbc.gridwidth = 1;
+        gbc.gridx = 2;
+        gbc.gridy = 4;
+        panel.add(this.getLabelRace(), gbc);
+        gbc.gridwidth = 1;
+        gbc.gridx = 3;
+        gbc.gridy = 4;
+        panel.add(this.getCboRace(), gbc);
+
+        //ligne 6
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        panel.add(this.getLabelTatouage(), gbc);
+        gbc.gridwidth = 2;
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        panel.add(this.getFieldTatouage(), gbc);
+
+        //ligne 7
+        gbc.gridwidth = 4;
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        panel.add(new JLabel("-----------------------------"), gbc);
+
+
+
+        //ligne 8
+        gbc.gridwidth = 1;
+        gbc.gridx = 2;
+        gbc.gridy = 7;
+        panel.add(this.getButtonAnnuler(), gbc);
+        gbc.gridwidth = 1;
+        gbc.gridx = 3;
+        gbc.gridy = 7;
         panel.add(this.getButtonLogValider(), gbc);
+
+
+
+
+
+
 
         setContentPane(panel);
         instance.revalidate();
@@ -82,79 +173,137 @@ public class MDIAppAnimal extends JFrame {
     public void exit() {
         setVisible(false);
     }
-    
+
     public void afficher() {
         setVisible(true);
     }
 
-
-    public JLabel getLabelLogNom() {
-        if (this.labelLogNom == null) {
-            this.labelLogNom = new JLabel("Nom : ");
-            this.labelLogNom.setFont(new Font("Serif", Font.PLAIN, 20));
+    public JLabel getLabelClient() {
+        if (this.labelClient == null) {
+            this.labelClient = new JLabel("Client : ");
+            this.labelClient.setFont(new Font("Serif", Font.PLAIN, 20));
         }
-        return this.labelLogNom;
+
+        return labelClient;
     }
 
-    public JLabel getLabelLogPassword() {
-        if (this.labelLogPassword == null) {
-            this.labelLogPassword = new JLabel("Mot de passe : ");
-            this.labelLogPassword.setFont(new Font("Serif", Font.PLAIN, 20));
+    public JLabel getClient() {
+        if (this.Client == null) {
+            this.Client = new JLabel("client to string ");
+            this.Client.setFont(new Font("Serif", Font.PLAIN, 30));
         }
-        return this.labelLogPassword;
+
+        return Client;
     }
 
-    public JLabel getLabelErrorUser() {
-        if (this.labelErrorUser == null) {
-            this.labelErrorUser = new JLabel("L'utilisateur est inconnu ");
-            this.labelErrorUser.setFont(new Font("Serif", Font.PLAIN, 20));
+    public JLabel getLabelCode() {
+        if (this.labelCode == null) {
+            this.labelCode = new JLabel("Code : ");
+            this.labelCode.setFont(new Font("Serif", Font.PLAIN, 20));
         }
-        return this.labelErrorUser;
+
+        return labelCode;
     }
 
-    public JLabel getLabelErrorPass() {
-        if (this.labelErrorPass == null) {
-            this.labelErrorPass = new JLabel("Le mot de passe est faux ");
-            this.labelErrorPass.setFont(new Font("Serif", Font.PLAIN, 20));
+    public JLabel getCode() {
+        if (this.Code == null) {
+            this.Code = new JLabel("xxx ");
+            this.Code.setFont(new Font("Serif", Font.PLAIN, 20));
         }
-        return this.labelErrorPass;
+
+        return Code;
     }
 
-    public JTextField getFieldLogNom() {
-        if (this.fieldLogNom == null) {
-            this.fieldLogNom = new JTextField(20);
+    public JLabel getLabelNom() {
+        if (this.labelNom == null) {
+            this.labelNom = new JLabel("Nom : ");
+            this.labelNom.setFont(new Font("Serif", Font.PLAIN, 20));
         }
-        return this.fieldLogNom;
+
+        return labelNom;
     }
 
-    public JTextField getfieldLogPassword() {
-        if (this.fieldLogPassword == null) {
-            this.fieldLogPassword = new JTextField(20);
+    public JTextField getFieldNom() {
+        if (this.fieldNom == null) {
+            this.fieldNom = new JTextField(20);
         }
-        return this.fieldLogPassword;
+
+        return fieldNom;
     }
+
+
+    public JLabel getLabelCouleur() {
+        if (this.labelCouleur == null) {
+            this.labelCouleur = new JLabel("Couleur : ");
+            this.labelCouleur.setFont(new Font("Serif", Font.PLAIN, 20));
+        }
+
+        return labelCouleur;
+    }
+
+    public JTextField getFieldCouleur() {
+        if (this.fieldCouleur == null) {
+            this.fieldCouleur = new JTextField(20);
+        }
+        return fieldCouleur;
+    }
+
+    public JLabel getLabelEspece() {
+        if (this.labelEspece == null) {
+            this.labelEspece = new JLabel("Espece : ");
+            this.labelEspece.setFont(new Font("Serif", Font.PLAIN, 20));
+        }
+
+        return labelEspece;
+    }
+
+    public JLabel getLabelRace() {
+        if (this.labelRace == null) {
+            this.labelRace = new JLabel("Race : ");
+            this.labelRace.setFont(new Font("Serif", Font.PLAIN, 20));
+        }
+
+        return labelRace;
+    }
+
+    public JLabel getLabelTatouage() {
+        if (this.labelTatouage == null) {
+            this.labelTatouage = new JLabel("Tatouage : ");
+            this.labelTatouage.setFont(new Font("Serif", Font.PLAIN, 20));
+        }
+
+        return labelTatouage;
+    }
+
+    public JTextField getFieldTatouage() {
+        if (this.fieldTatouage == null) {
+            this.fieldTatouage = new JTextField(20);
+        }
+        return fieldTatouage;
+    }
+
 
     public JButton getButtonLogValider() {
-        if (this.buttonLogValider == null) {
-            this.buttonLogValider = new JButton("Valider");
-            this.buttonLogValider.addActionListener(new ActionListener() {
+        if (this.buttonValider == null) {
+            this.buttonValider = new JButton("Valider");
+            this.buttonValider.addActionListener(new ActionListener() {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    try {
-                        System.out.println("valider");
-                    } catch (DALException e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
-                    } catch (BLLException e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
-                    }
+//                    try {
+//                        System.out.println("valider");
+//                    } catch (DALException e1) {
+//                        // TODO Auto-generated catch block
+//                        e1.printStackTrace();
+//                    } catch (BLLException e1) {
+//                        // TODO Auto-generated catch block
+//                        e1.printStackTrace();
+//                    }
                 }
             });
 
         }
-        return this.buttonLogValider;
+        return this.buttonValider;
     }
 
     public JButton getButtonAnnuler() {
@@ -165,15 +314,15 @@ public class MDIAppAnimal extends JFrame {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    try {
-                        System.out.println("annuler");
-                    } catch (DALException e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
-                    } catch (BLLException e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
-                    }
+//                    try {
+//                        System.out.println("annuler");
+//                    } catch (DALException e1) {
+//                        // TODO Auto-generated catch block
+//                        e1.printStackTrace();
+//                    } catch (BLLException e1) {
+//                        // TODO Auto-generated catch block
+//                        e1.printStackTrace();
+//                    }
                 }
             });
 
@@ -181,4 +330,27 @@ public class MDIAppAnimal extends JFrame {
         return this.buttonRetour;
     }
 
+    public JComboBox<String> getCboTypeAnimal() {
+        if (cboTypeAnimal == null) {
+            String[] places = { "Femelle", "Male" };
+            cboTypeAnimal = new JComboBox<String>(places);
+        }
+        return cboTypeAnimal;
+    }
+
+    public JComboBox<String> getCboRace() {
+        if (cboRace == null) {
+            String[] places = { "Femelle", "Male" };
+            cboRace = new JComboBox<String>(places);
+        }
+        return cboRace;
+    }
+
+    public JComboBox<String> getCboEspece() {
+        if (cboEspece == null) {
+            String[] places = { "Femelle", "Male" };
+            cboEspece = new JComboBox<String>(places);
+        }
+        return cboEspece;
+    }
 }
