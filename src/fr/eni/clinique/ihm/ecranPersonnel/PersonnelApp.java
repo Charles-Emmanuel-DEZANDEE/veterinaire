@@ -14,7 +14,7 @@ public class PersonnelApp {
 			@Override
 			public void run(){
 				try {
-					AdmController.getInstance().startApp();
+					GererPersonnelController.getInstance().startApp();
 				} catch (BLLException e) {
 					e.printStackTrace();
 				} catch (DALException e) {
