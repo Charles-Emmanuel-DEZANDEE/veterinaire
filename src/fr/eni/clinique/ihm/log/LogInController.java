@@ -4,6 +4,7 @@ import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.PersonnelsManager;
 import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.ihm.acceuil.AcceuilController;
 
 public class LogInController {
     private MDIAppLogIn fenetreLogIn;
@@ -40,30 +41,24 @@ public class LogInController {
 
             if (password.equals(passwordBase)) {
                 System.out.println("mot de pass bon");
-                //on ferme la fenetre de connexion
-                //fenetreLogIn.exit();
                 //on lance une nouvelle fenetre suivant le role de l'user
                 String role = user.getRole();
                 switch (role) {
                     case "adm":
                         System.out.println("admin");
-                        //todo controleur + mdia
+                        AcceuilController.getInstance().start(3);
                         break;
                     case "sec":
                         System.out.println("secretaire");
-                        //todo controleur + mdia
-
+                        AcceuilController.getInstance().start(1);
                         break;
                     case "vet":
                         System.out.println("veterinaire");
-                        //todo controleur + mdia
-
+                        AcceuilController.getInstance().start(2);
                         break;
-
                     default:
                         System.out.println("Pas de role existant");
                 }
-
             }
             //sinon on affiche l'erreur de pass
 
@@ -77,6 +72,12 @@ public class LogInController {
             fenetreLogIn.showError(1);
             System.out.println("Probleme de user");
         }
+        //on ferme la fenetre de connexion
+        fenetreLogIn.exit();
 
+    }
+
+    public MDIAppLogIn getFenetreLogIn() {
+        return fenetreLogIn;
     }
 }

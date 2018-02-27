@@ -120,7 +120,15 @@ public class MDIAppLogIn extends JFrame {
 
 
 	public void exit(){
-        System.exit(0);
+        setVisible(false);
+    }
+
+    public void reconnexion(){
+        String vide = "";
+        getFieldLogNom().setText(vide);
+        getfieldLogPassword().setText(vide);
+        setVisible(true);
+
     }
 
 	public JLabel getLabelLogNom() {
@@ -221,5 +229,11 @@ public class MDIAppLogIn extends JFrame {
 		return this.buttonRetour;
 	}
 
+    public void setFieldLogNom(JTextField fieldLogNom) {
+        this.fieldLogNom = fieldLogNom;
+    }
 
+    public void setFieldLogPassword(JTextField fieldLogPassword) {
+        this.fieldLogPassword = fieldLogPassword;
+    }
 }
