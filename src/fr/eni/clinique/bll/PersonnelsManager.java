@@ -25,10 +25,10 @@ public class PersonnelsManager {
 		return PersonnelsManager.instance;
 	}
 	
-	public Personnels getPersonnelById(int CodePers) throws BLLException{
+	public Personnels getPersonnelById(int codePers) throws BLLException{
 		Personnels personnel=null;
 		try {
-			personnel = daoPersonnels.selectById(CodePers);
+			personnel = daoPersonnels.selectById(codePers);
 		} catch (DALException e) {
 			e.printStackTrace();
 			throw new BLLException("Erreur r?cup?ration du personnel par Id", e);
@@ -37,7 +37,20 @@ public class PersonnelsManager {
 		return personnel;
 	}
 	
-	public List<Personnels> getPersonnels() throws BLLException{
+	public Personnels getPersonnelByNom(int nom) throws BLLException{
+		Personnels personnel=null;
+		try {
+			personnel = ((PersonnelsDAOJdbcImpl)daoPersonnels).selectByNom(nom);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Erreur r?cup?ration du personnel par Id", e);
+		}
+		
+		return personnel;
+	}
+	
+	
+	public List<Personnels> getListePersonnel() throws BLLException{
 		List<Personnels> personnels=null;
 		try {
 			personnels = daoPersonnels.selectAll();
