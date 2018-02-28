@@ -1,6 +1,7 @@
 package fr.eni.clinique.ihm.animal;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
 
 import javax.swing.*;
@@ -14,7 +15,10 @@ public class AnimalApp {
 			@Override
 			public void run(){
 				try {
-					AnimalController.getInstance().start();
+					Clients client = new Clients("test", "prenom", "adr",
+							"adr2", "12364", "ville", "1234567890",
+							"mutuelle", "mail", "remarque", false);
+					AnimalController.getInstance().nouveau(client);
 				} catch (BLLException e) {
 					e.printStackTrace();
 				} catch (DALException e) {
