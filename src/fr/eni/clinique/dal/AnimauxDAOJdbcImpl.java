@@ -143,9 +143,6 @@ public class AnimauxDAOJdbcImpl implements Dao{
 			PreparedStatement stmt = this.connect.prepareStatement(sql);
 
 			stmt.setInt(1,client.getCodeClient());//"reference,
-
-
-
 			ResultSet res = stmt.executeQuery();
 //on boucle sur les résultats
 			List<Animaux> data = new ArrayList<>();
@@ -160,13 +157,9 @@ public class AnimauxDAOJdbcImpl implements Dao{
 						res.getString("Tatouage"),
 						res.getString("Antecedents"),
 						res.getBoolean("Archive")));
-
 			}
-
-
 			//on ferme les connections
 			stmt.close();
-			//connect.close();
 
 			return data;
 
