@@ -2,11 +2,11 @@ package fr.eni.clinique.ihm.gestionClient;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.ihm.gestionClient.SecController;
+import fr.eni.clinique.ihm.gestionClient.ClientController;
 
 import javax.swing.*;
 
-public class SecApp {
+public class ClientApp {
 	
 	public static void main(String[] args) {
 		
@@ -15,7 +15,7 @@ public class SecApp {
 			@Override
 			public void run(){
 				try {
-					SecController.getInstance().startApp();
+					ClientController.getInstance().startApp();
 				} catch (BLLException e) {
 					e.printStackTrace();
 				} catch (DALException e) {

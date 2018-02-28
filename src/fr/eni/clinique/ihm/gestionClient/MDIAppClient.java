@@ -1,5 +1,6 @@
 package fr.eni.clinique.ihm.gestionClient;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import java.awt.Font;
@@ -14,13 +15,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.ihm.ecranPersonnel.PersonnelsTable;
 
-public class MDIAppSecretaire extends JFrame {
+public class MDIAppClient extends JFrame {
 	
 	private JLabel labelRechercherClients;
 	private JLabel labelAjouterClients;
@@ -61,7 +64,7 @@ public class MDIAppSecretaire extends JFrame {
 	
 	private JTable table = new JTable(data, columnNames);
 			
-	public MDIAppSecretaire() {
+	public MDIAppClient() {
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -71,14 +74,14 @@ public class MDIAppSecretaire extends JFrame {
 		setVisible(true);
 	}
 	
-	public void init(){
+	public void init() throws BLLException, DALException{
 		JPanel panel = new JPanel();
 		JPanel panel2 = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		panel2.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(5, 5, 5, 5);
-		gbc.gridwidth = 1;
+		gbc.gridwidth = 2;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		panel.add(panel2, gbc);
@@ -112,6 +115,8 @@ public class MDIAppSecretaire extends JFrame {
 		gbc.gridx = 4;
 		gbc.gridy = 1;
 		panel2.add(this.getLabelAnnulerClients(), gbc);
+		
+		gbc.gridwidth = 2;
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		panel.add(this.getLabelCodeClient(), gbc);
@@ -175,7 +180,15 @@ public class MDIAppSecretaire extends JFrame {
 		gbc.gridx = 1;
 		gbc.gridy = 11;
 		panel.add(this.getFieldRemarqueClient(), gbc);
-		setContentPane(panel);
+		gbc.gridx = 2;
+		gbc.gridy = 0;
+		ClientsTable tableClients = new ClientsTable();
+		tableClients.setFillsViewportHeight(true);
+		tableClients.setPreferredScrollableViewportSize(new Dimension(300, 300));
+		panel.add(tableClients, gbc);
+		
+		JScrollPane scroll = new JScrollPane(panel);
+		setContentPane(scroll);
 	}
 	
 	//Button
@@ -188,7 +201,7 @@ public class MDIAppSecretaire extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					try {
-						SecController.getInstance().startApp();
+						ClientController.getInstance().startApp();
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -211,7 +224,7 @@ public class MDIAppSecretaire extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					try {
-						SecController.getInstance().startApp();
+						ClientController.getInstance().startApp();
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -234,7 +247,7 @@ public class MDIAppSecretaire extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					try {
-						SecController.getInstance().startApp();
+						ClientController.getInstance().startApp();
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -257,7 +270,7 @@ public class MDIAppSecretaire extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					try {
-						SecController.getInstance().startApp();
+						ClientController.getInstance().startApp();
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -280,7 +293,7 @@ public class MDIAppSecretaire extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					try {
-						SecController.getInstance().startApp();
+						ClientController.getInstance().startApp();
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
