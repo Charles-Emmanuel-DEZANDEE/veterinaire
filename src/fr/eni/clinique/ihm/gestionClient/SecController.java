@@ -1,4 +1,4 @@
-package fr.eni.clinique.ihm.sec;
+package fr.eni.clinique.ihm.gestionClient;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.dal.DALException;
