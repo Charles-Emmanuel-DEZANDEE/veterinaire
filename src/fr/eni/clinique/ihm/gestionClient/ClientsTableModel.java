@@ -5,14 +5,15 @@ import javax.swing.table.AbstractTableModel;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.AnimauxManager;
 import fr.eni.clinique.bo.Animaux;
+import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
 
 public class ClientsTableModel extends AbstractTableModel{
 	
 	private List<Animaux> listeAnimaux;
 	
-	public ClientsTableModel() throws BLLException, DALException{
-		this.listeAnimaux = AnimauxManager.getInstance().selectAnimauxByClient();
+	public ClientsTableModel(Clients c1) throws BLLException, DALException{
+		this.listeAnimaux = AnimauxManager.getInstance().getAnimalByClient(c1);
 	}
 	
 	@Override

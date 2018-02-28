@@ -16,11 +16,9 @@ public class ClientsDAOJdbcImpl implements Dao {
         this.connect = ConnectionSingleton.getConnection().getConnect();
     }
 
-    public void insert(Object a2) throws DALException {
-        Clients a1 = (Clients) a2;
+    public void insert(Object c2) throws DALException {
+        Clients c1 = (Clients) c2;
         try {
-
-
             String sql = "INSERT INTO Clients(" +
                     "NomClient," +
                     "PrenomClient," +
@@ -45,26 +43,26 @@ public class ClientsDAOJdbcImpl implements Dao {
                     "?," +
                     "?," +
                     "?," +
-                    "?," +
+                    "?" +
                     ")";
             PreparedStatement stmt = this.connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, a1.getClient());
-            stmt.setString(2, a1.getPrenomClient());
-            stmt.setString(3, a1.getAdresse1());
-            stmt.setString(4, a1.getAdresse2());
-            stmt.setString(5, a1.getCodePostal());
-            stmt.setString(6, a1.getVille());
-            stmt.setString(7, a1.getNumTel());
-            stmt.setString(8, a1.getAssurance());
-            stmt.setString(9, a1.getEmail());
-            stmt.setString(10, a1.getRemarque());
-            stmt.setBoolean(11, a1.isArchive());
+            stmt.setString(1, c1.getClient());
+            stmt.setString(2, c1.getPrenomClient());
+            stmt.setString(3, c1.getAdresse1());
+            stmt.setString(4, c1.getAdresse2());
+            stmt.setString(5, c1.getCodePostal());
+            stmt.setString(6, c1.getVille());
+            stmt.setString(7, c1.getNumTel());
+            stmt.setString(8, c1.getAssurance());
+            stmt.setString(9, c1.getEmail());
+            stmt.setString(10, c1.getRemarque());
+            stmt.setBoolean(11, c1.isArchive());
 
             int nbRows = stmt.executeUpdate();
             if (nbRows == 1) {
                 ResultSet rs = stmt.getGeneratedKeys();
                 if (rs.next()) {
-                    a1.setCodeClient(rs.getInt(1));
+                    c1.setCodeClient(rs.getInt(1));
                 }
                 stmt.close();
             }

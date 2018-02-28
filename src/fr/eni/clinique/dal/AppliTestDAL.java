@@ -29,14 +29,7 @@ public class AppliTestDAL {
 		Clients c3 = new Clients("Client3", "PrenomClient", "Adresse1", "Adresse2", "CP", "Ville", "NumTel", "Assurance", "Email", "Remarque", false);
 	
 		try {
-			
-			
-			
-			
-			
-			
-			
-			
+
 //			System.out.println("Ajout de la liste du personnel... ");
 //			personnelsDAO.insert(p1);
 //			System.out.println("Personnel ajouté : " + p1.toString());
@@ -52,17 +45,18 @@ public class AppliTestDAL {
 			System.out.println("Client ajouté : " + c2.toString());
 			clientsDAO.insert(c3);
 			System.out.println("Client ajouté : " + c3.toString());
+			
 			Animaux a1 = new Animaux("NomAnimal1", "M", "Noir", "Race", "Espece", c1.getCodeClient(), "Tatouage", "Antecedents", false);
 			Animaux a2 = new Animaux("NomAnimal2", "M", "Noir", "Race", "Espece", c2.getCodeClient(), "Tatouage", "Antecedents", false);
 			Animaux a3 = new Animaux("NomAnimal3", "M", "Noir", "Race", "Espece", c3.getCodeClient(), "Tatouage", "Antecedents", false);
 
-			System.out.println("Ajout de la liste des animaux... ");
-			animauxDAO.insert(a1);
-			System.out.println("Animal ajouté : " + a1.toString());
-			animauxDAO.insert(a2);
-			System.out.println("Animal ajouté : " + a2.toString());
-			animauxDAO.insert(a3);
-			System.out.println("Animal ajouté : " + a3.toString());
+//			System.out.println("Ajout de la liste des animaux... ");
+//			animauxDAO.insert(a1);
+//			System.out.println("Animal ajouté : " + a1.toString());
+//			animauxDAO.insert(a2);
+//			System.out.println("Animal ajouté : " + a2.toString());
+//			animauxDAO.insert(a3);
+//			System.out.println("Animal ajouté : " + a3.toString());
 			
 			//Séléction du personnel par id
 			Personnels p = personnelsDAO.selectById(p2.getCodePers());
@@ -78,19 +72,19 @@ public class AppliTestDAL {
 			afficherPersonnels(personnels);
 
 			//Modification d'un personnel
-//			System.out.println("\nModification d'un Personnel  : " );
-//			System.out.println("Personnel avant modification : "  + p1.toString());
-//			p1.setNom("changÃ©");
-//			p1.setMotPasse("motPasse");
-//			personnelsDAO.update(p1);
-//			System.out.println("Personnel aprÃ¨s modification  : " + p1.toString() );	
+			System.out.println("\nModification d'un Personnel  : " );
+			System.out.println("Personnel avant modification : "  + p1.toString());
+    		p1.setNom("changé");
+     		p1.setMotPasse("motPasse");
+			personnelsDAO.update(p1);
+			System.out.println("Personnel aprÃ¨s modification  : " + p1.toString() );	
 			
 			//Suppression d'un personnel
-			//personnelsDAO.update(p1);
-//			System.out.println("\nSuppression de Personnel  : " + p1.toString());
-//			personnels = personnelsDAO.selectAll();
-//			System.out.println("Liste des Personnel aprÃ¨s suppression : "  );
-//			afficherPersonnels(personnels);
+			personnelsDAO.update(p1);
+			System.out.println("\nSuppression de Personnel  : " + p1.toString());
+			personnels = personnelsDAO.selectAll();
+			System.out.println("Liste des Personnel aprÃ¨s suppression : "  );
+			afficherPersonnels(personnels);
 			System.out.println("---------------------------------------------------------------");
 			
 			
