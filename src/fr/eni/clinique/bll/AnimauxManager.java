@@ -1,12 +1,11 @@
 package fr.eni.clinique.bll;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.clinique.bo.Animaux;
-import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.dal.DAOFactory;
-import fr.eni.clinique.dal.Dao;
-import fr.eni.clinique.dal.AnimauxDAOJdbcImpl;
+import fr.eni.clinique.bo.Clients;
+import fr.eni.clinique.dal.*;
 
 public class AnimauxManager {
 	private static Dao<Animaux> daoAnimaux;
@@ -29,18 +28,30 @@ public class AnimauxManager {
 			animal = daoAnimaux.selectById(CodeAnimal);
 		} catch (DALException e) {
 			e.printStackTrace();
-			throw new BLLException("Erreur récupération de l'animal par Id", e);
+			throw new BLLException("Erreur rï¿½cupï¿½ration de l'animal par Id", e);
 		}
 		return animal;
 	}
 	
+	public List<Animaux> getAnimalByClient(Clients client) throws BLLException{
+		List<Animaux> data = new ArrayList<>();
+		try {
+			//personnel = ((PersonnelsDAOJdbcImpl)daoPersonnels).selectByNom(nom);
+			data = ((AnimauxDAOJdbcImpl)daoAnimaux).selectAminauxByClient(client);
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Erreur rï¿½cupï¿½ration de l'animal par Id", e);
+		}
+		return data;
+	}
+
 	public Animaux getAnimalByNom(String NomAnimal) throws BLLException{
 		Animaux animal = null;
 		try {
 			animal = ((AnimauxDAOJdbcImpl)daoAnimaux).selectByNom(NomAnimal);
 		} catch (DALException e) {
 			e.printStackTrace();
-			throw new BLLException("Erreur récupération de l'animal par Nom", e);
+			throw new BLLException("Erreur rï¿½cupï¿½ration de l'animal par Nom", e);
 		}
 		return animal;
 	}
@@ -51,7 +62,7 @@ public class AnimauxManager {
 			animaux = daoAnimaux.selectAll();
 		} catch (DALException e) {
 			e.printStackTrace();
-			throw new BLLException("Erreur récupération de la liste des animaux", e);
+			throw new BLLException("Erreur rï¿½cupï¿½ration de la liste des animaux", e);
 		}	
 		return animaux;
 	}
@@ -122,7 +133,7 @@ public class AnimauxManager {
 			valider = false;
 		}
 		if(animal.getEspece() == null){
-			sb.append("L'Espèce est obligatoire \n");
+			sb.append("L'Espï¿½ce est obligatoire \n");
 			valider = false;
 		}
 		if(!valider){
