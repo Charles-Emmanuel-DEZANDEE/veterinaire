@@ -1,7 +1,10 @@
 package fr.eni.clinique.dal;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Animaux;
+import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Personnels;
+import fr.eni.clinique.bo.Races;
 
 public class DAOFactory {
 
@@ -10,19 +13,20 @@ public class DAOFactory {
 		Dao<Personnels> sDao = new PersonnelsDAOJdbcImpl();
 		return sDao;
 	}
+
+	public static Dao<Animaux> getAnimauxDAO() throws DALException, BLLException {
+		Dao<Animaux> aDao = new AnimauxDAOJdbcImpl();
+		return aDao;
+	}
 	
+	public static Dao<Clients> getClientsDAO() throws DALException, BLLException {
+		Dao<Clients> aDao = new ClientsDAOJdbcImpl();
+		return aDao;
+	}
 	
-	/*
-	public static Dao<Reservation> getReservationDAO() throws DALException, BLLException {
-		// todo mettre le jdbc de reservation
-		Dao<Reservation> rDao = new ReservationDAOJdbcImpl();
-		return rDao;
+	public static Dao<Races> getRacesDAO() throws DALException, BLLException {
+		Dao<Races> aDao = new RacesDAOJdbcImpl();
+		return aDao;
 	}
 
-	public static Dao<Client> getClientDAO() throws DALException, BLLException {
-		// todo mettre le jdbc de reservation
-		Dao<Client> cDao = new ClientDAOJdbcImpl();
-		return cDao;
-	}
-*/
 }

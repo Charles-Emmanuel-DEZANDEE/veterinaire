@@ -1,5 +1,8 @@
 package fr.eni.clinique.bo;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class Clients {
 	
 	private int CodeClient;
@@ -14,9 +17,11 @@ public class Clients {
 	private String Email;
 	private String Remarque;
 	private boolean Archive;
-	
+	private List<Animaux> listeAnimaux;
+
+
 	public Clients(){
-		
+		this.listeAnimaux = new ArrayList<>();
 	}
 	
 	public Clients(int CodeClient, String Client, String PrenomClient, String Adresse1,
@@ -147,7 +152,15 @@ public class Clients {
 	public void setArchive(boolean archive) {
 		Archive = archive;
 	}
-	
+
+	public List<Animaux> getListeAnimaux() {
+		return listeAnimaux;
+	}
+
+	public void setListeAnimaux(List<Animaux> listeAnimaux) {
+		this.listeAnimaux = listeAnimaux;
+	}
+
 	public String toString(){
 		return this.CodeClient + ' ' + this.Client + ' ' + this.PrenomClient + ' ' + 
 				this.Adresse1 + ' ' + this.Adresse2 + ' ' + this.CodePostal + ' ' +
