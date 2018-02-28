@@ -139,7 +139,7 @@ public class AnimauxDAOJdbcImpl implements Dao{
 
 	public List<Animaux> selectAminauxByClient(Clients client)throws DALException{
 		try{
-			String sql = "SELECT * FROM Animaux WHERE client = ?";
+			String sql = "SELECT * FROM Animaux WHERE client = ? and Archive = FALSE ";
 			PreparedStatement stmt = this.connect.prepareStatement(sql);
 
 			stmt.setInt(1,client.getCodeClient());//"reference,

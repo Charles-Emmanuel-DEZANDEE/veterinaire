@@ -36,11 +36,10 @@ public class AnimauxManager {
 	public List<Animaux> getAnimalByClient(Clients client) throws BLLException{
 		List<Animaux> data = new ArrayList<>();
 		try {
-			//personnel = ((PersonnelsDAOJdbcImpl)daoPersonnels).selectByNom(nom);
 			data = ((AnimauxDAOJdbcImpl)daoAnimaux).selectAminauxByClient(client);
 		} catch (DALException e) {
 			e.printStackTrace();
-			throw new BLLException("Erreur r�cup�ration de l'animal par Id", e);
+			throw new BLLException("Erreur r�cup�ration de l'animal par client", e);
 		}
 		return data;
 	}

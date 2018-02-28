@@ -4,6 +4,7 @@ import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Personnels;
+import fr.eni.clinique.bo.Races;
 
 public class DAOFactory {
 
@@ -23,4 +24,9 @@ public class DAOFactory {
 		return aDao;
 	}
 	
+	public static Dao<Races> getRacesDAO() throws DALException, BLLException {
+		Dao<Races> aDao = new RacesDAOJdbcImpl();
+		return aDao;
+	}
+
 }
