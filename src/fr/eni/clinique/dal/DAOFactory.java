@@ -1,6 +1,7 @@
 package fr.eni.clinique.dal;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Personnels;
 
 public class DAOFactory {
@@ -8,6 +9,11 @@ public class DAOFactory {
 	
 	public static Dao<Personnels> getPersonnelsDAO() throws DALException, BLLException {
 		Dao<Personnels> sDao = new PersonnelsDAOJdbcImpl();
+		return sDao;
+	}
+
+	public static Dao<Animaux> getAnimauxDAO() throws DALException, BLLException {
+		Dao<Animaux> sDao = new AnimauxDAOJdbcImpl();
 		return sDao;
 	}
 	

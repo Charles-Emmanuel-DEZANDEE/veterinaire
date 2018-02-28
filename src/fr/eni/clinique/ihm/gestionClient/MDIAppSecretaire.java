@@ -1,4 +1,4 @@
-package fr.eni.clinique.ihm.sec;
+package fr.eni.clinique.ihm.gestionClient;
 
 import java.awt.FlowLayout;
 
@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import fr.eni.clinique.bll.BLLException;
@@ -53,6 +54,13 @@ public class MDIAppSecretaire extends JFrame {
 	private JButton buttonValiderClients;
 	private JButton buttonAnnulerClients;
 	
+	String[] columnNames = {"Numéro", "Nom", "Sexe", "Couleur", "Race", "Espèce", "Tatouage"};
+	Object[][] data = {{"78415", "Buly", "M", "Noir", "Chien", "Bulldog", ""},
+					  {"89512", "Mirza", "M", "Brun", "Chien", "Caniche", "#10-2545-6"},
+					  {"99851", "Zaza", "S", "Roux", "Chat", "Goutiere", ""}};
+	
+	private JTable table = new JTable(data, columnNames);
+			
 	public MDIAppSecretaire() {
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

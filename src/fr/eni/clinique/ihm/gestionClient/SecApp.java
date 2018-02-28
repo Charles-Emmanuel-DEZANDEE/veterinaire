@@ -1,8 +1,8 @@
-package fr.eni.clinique.ihm.sec;
+package fr.eni.clinique.ihm.gestionClient;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.ihm.sec.SecController;
+import fr.eni.clinique.ihm.gestionClient.SecController;
 
 import javax.swing.*;
 
