@@ -77,7 +77,7 @@ public class PersonnelsManager {
 		}
 	}
 	
-	public void updateReservation(Personnels personnel) throws BLLException{
+	public void updatePersonnels(Personnels personnel) throws BLLException{
 		try {
 			this.validerPersonnel(personnel);
 			daoPersonnels.update(personnel);
@@ -97,15 +97,25 @@ public class PersonnelsManager {
 		
 	}
 	
-	public void archivePersonnel(int  codePers) throws BLLException{
-		Personnels personnel=null;
+	public void archivePersonnel(Personnels  personnel) throws BLLException{
 		try {
-			personnel = this.getPersonnelById(codePers);
 			// archiver
 			personnel.setArchive(true);
 			daoPersonnels.update(personnel);
 		} catch (DALException e) {
-			throw new BLLException("Echec de la suppression de la reservation - ", e);
+			throw new BLLException("Echec de la suppression du personnel - ", e);
+		}
+		
+	}
+	
+	public void reinitMotPasse(String  nomPersonnel, String motPasse) throws BLLException{
+		Personnels personnel=null;
+		try {
+			personnel = this.getPersonnelByNom(nomPersonnel);
+			personnel.setMotPasse(motPasse);
+			daoPersonnels.update(personnel);
+		} catch (DALException e) {
+			throw new BLLException("Echec de la reinitialisation du mot de passe - ", e);
 		}
 		
 	}

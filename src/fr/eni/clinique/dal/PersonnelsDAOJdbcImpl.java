@@ -103,7 +103,7 @@ public class PersonnelsDAOJdbcImpl implements Dao{
 
     public List<Personnels> selectAll() throws DALException {
         try{
-            String sql = "SELECT * FROM Personnels";
+            String sql = "SELECT * FROM Personnels where Archive='false'";
             PreparedStatement stmt = this.connect.prepareStatement(sql);
 
 
@@ -151,11 +151,11 @@ public class PersonnelsDAOJdbcImpl implements Dao{
                     ;
             PreparedStatement stmt = this.connect.prepareStatement(sql);
 
-            stmt.setInt(1,r1.getCodePers());//"CodePers,
-            stmt.setString(2,r1.getNom());//"Nom,
-            stmt.setString(3,r1.getMotPasse());//"MotPasse,
-            stmt.setString(4, r1.getRole());//"Role,\
-            stmt.setBoolean(5,r1.isArchive());//"Archive,
+            stmt.setString(1,r1.getNom());//"Nom,
+            stmt.setString(2,r1.getMotPasse());//"MotPasse,
+            stmt.setString(3, r1.getRole());//"Role,\
+            stmt.setBoolean(4,r1.isArchive());//"Archive,
+            stmt.setInt(5,r1.getCodePers());//"CodePers,
 
 
             // on update

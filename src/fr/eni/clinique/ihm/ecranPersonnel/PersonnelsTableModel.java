@@ -17,6 +17,10 @@ public class PersonnelsTableModel extends AbstractTableModel{
 		this.listePersonnel = PersonnelsManager.getInstance().getListePersonnel();
 	}
 	
+	public List<Personnels> getListePersonnel() {
+		return listePersonnel;
+	}
+
 	@Override
 	public int getColumnCount() {
 		// TODO Auto-generated method stub

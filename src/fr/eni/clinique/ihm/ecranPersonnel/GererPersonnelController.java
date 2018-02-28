@@ -1,6 +1,10 @@
 package fr.eni.clinique.ihm.ecranPersonnel;
 
+import java.util.List;
+
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.PersonnelsManager;
+import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
 
 public class GererPersonnelController {
@@ -25,9 +29,23 @@ public class GererPersonnelController {
 	}
     
     public void nouveauPersonnels() throws BLLException, DALException {
-    	fenetreAjoutPersonnel = new FenetreAjoutPersonnel();
-    	fenetreAjoutPersonnel.setVisible(true);
-		
+    	AjoutPersonnelController.getInstance(fenetreAdm);
 	}
+    
+    public void reinitMotPasse(Personnels personnelAModif) throws BLLException, DALException{
+    	PersonnelsManager.getInstance().updatePersonnels(personnelAModif);
+    	//fenetreAjoutPersonnel.exit();
+    }
 
+    
+    public void removePersonnel(Personnels personnelsASupp) throws BLLException, DALException {
+    		PersonnelsManager.getInstance().archivePersonnel(personnelsASupp);
+	}
+    
+    public void ajouterPersonnel(Personnels newPersonnel) throws BLLException, DALException{
+    	PersonnelsManager.getInstance().addPersonnel(newPersonnel);
+    	//fenetreAjoutPersonnel.exit();
+    }
+
+    
 }

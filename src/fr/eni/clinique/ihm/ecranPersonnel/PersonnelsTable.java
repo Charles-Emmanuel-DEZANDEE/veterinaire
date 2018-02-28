@@ -7,8 +7,16 @@ import fr.eni.clinique.dal.DALException;
 
 public class PersonnelsTable extends JTable{
 	
+	private PersonnelsTableModel model;
+	
 	public PersonnelsTable() throws BLLException, DALException {
-		super(new PersonnelsTableModel());
+		model = new PersonnelsTableModel();
+		setModel(model);
 	}
+
+	public PersonnelsTableModel getPersonnelsModel() {
+		return model;
+	}
+	
 
 }

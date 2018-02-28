@@ -6,13 +6,17 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
 
 
@@ -22,7 +26,7 @@ public class MDIAppGestionPersonnel extends JFrame  {
 	private JButton buttonAjouterPersonnel;
 	private JButton buttonSupprimerPersonnel;
 	private JButton buttonReinitialiserPersonnel;
-	private JPanel panelPersonnel;
+	private PersonnelsTable tablePersonnels;
 
 
 
@@ -57,6 +61,7 @@ public class MDIAppGestionPersonnel extends JFrame  {
 		
 		gbc.gridx = 2;
 		gbc.gridy = 0;
+		gbc.anchor = GridBagConstraints.WEST;
 		panel.add(this.getButtonReinitialiserPersonnel(), gbc);
 
 		// Ligne 2
@@ -64,15 +69,21 @@ public class MDIAppGestionPersonnel extends JFrame  {
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		
-		PersonnelsTable tablePersonnels = new PersonnelsTable();
-		tablePersonnels.setFillsViewportHeight(true);
-		tablePersonnels.setPreferredScrollableViewportSize(new Dimension(800, 500));
-		panel.add(tablePersonnels, gbc);
+		panel.add(getTablePersonnels(), gbc);
 		
 		JScrollPane scroll = new JScrollPane(panel);
 		setContentPane(scroll);	
 	}
 	
+	public PersonnelsTable getTablePersonnels() throws BLLException, DALException {
+		if (this.tablePersonnels == null) {
+			this.tablePersonnels = new PersonnelsTable();
+			//this.tablePersonnels.setFillsViewportHeight(true);
+			this.tablePersonnels.setPreferredSize(new Dimension(400, 300));
+			this.tablePersonnels.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		}
+		return this.tablePersonnels;
+	}
 	
 	public JButton getButtonAjouterPersonnel() {
 		if (this.buttonAjouterPersonnel == null) {
@@ -84,6 +95,8 @@ public class MDIAppGestionPersonnel extends JFrame  {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
+						//TODO mettre a jour la listePersonnels de la table 
+						
 						GererPersonnelController.getInstance().nouveauPersonnels();
 					} catch (DALException e1) {
 						// TODO Auto-generated catch block
@@ -104,13 +117,27 @@ public class MDIAppGestionPersonnel extends JFrame  {
 		if (this.buttonSupprimerPersonnel == null) {
 			this.buttonSupprimerPersonnel = new JButton("supp");
 			
-			/*
 			this.buttonSupprimerPersonnel.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						AdmController.getInstance().rechercherArtiste();
+						int[] ligneTableau = getTablePersonnels().getSelectedRows();
+						Personnels personnelsASupp = null;
+						
+						if (ligneTableau.length == 1){
+							personnelsASupp = getTablePersonnels().getPersonnelsModel().getListePersonnel().get(ligneTableau[0]);
+							
+							//mise à jour en base
+							GererPersonnelController.getInstance().removePersonnel(personnelsASupp);
+							
+							//mise à jour de la liste du personnels dans la JTable
+							getTablePersonnels().getPersonnelsModel().getListePersonnel().remove(ligneTableau[0]);
+							
+							//mettre à jour la table
+							getTablePersonnels().getPersonnelsModel().fireTableDataChanged();
+						}
+						
 					} catch (DALException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -120,7 +147,7 @@ public class MDIAppGestionPersonnel extends JFrame  {
 					}
 				}
 			});
-			*/
+			
 		}
 		return this.buttonSupprimerPersonnel;
 	}
@@ -128,13 +155,23 @@ public class MDIAppGestionPersonnel extends JFrame  {
 	public JButton getButtonReinitialiserPersonnel() {
 		if (this.buttonReinitialiserPersonnel == null) {
 			this.buttonReinitialiserPersonnel = new JButton("réinit");
-			/*
+			
 			this.buttonReinitialiserPersonnel.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						AdmController.getInstance().rechercherArtiste();
+						int[] ligneTableau = getTablePersonnels().getSelectedRows();
+						Personnels personnelsAModif = null;
+						
+						if (ligneTableau.length == 1){
+							personnelsAModif = getTablePersonnels().getPersonnelsModel().getListePersonnel().get(ligneTableau[0]);
+							ReinitMotPasseController.getInstance(MDIAppGestionPersonnel.this, personnelsAModif);
+							//FenetreReinitMotPassePersonnel fentreModifMotPasse = new FenetreReinitMotPassePersonnel(MDIAppGestionPersonnel.this, personnelsAModif);
+							
+							//mettre à jour la table
+							getTablePersonnels().getPersonnelsModel().fireTableDataChanged();
+						}
 					} catch (DALException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -144,7 +181,7 @@ public class MDIAppGestionPersonnel extends JFrame  {
 					}
 				}
 			});
-			*/
+			
 		}
 		return this.buttonReinitialiserPersonnel;
 	}
