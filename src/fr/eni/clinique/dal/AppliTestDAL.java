@@ -2,6 +2,7 @@ package fr.eni.clinique.dal;
 
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Personnels;
 
 import java.sql.Date;
@@ -12,9 +13,10 @@ public class AppliTestDAL {
 
 	public static void main(String[] args) throws DALException, BLLException {
 
-		//DÃ©claration et instanciation de la DAO
+		//Déclaration et instanciation de la DAO
 		Dao<Personnels> personnelsDAO = DAOFactory.getPersonnelsDAO();
-		
+		Dao<Animaux> animauxDAO = DAOFactory.getAnimauxDAO();
+		Dao<Clients> clientsDAO = DAOFactory.getClientsDAO();
 		
 		
 		//Instanciation du jeu d'essai

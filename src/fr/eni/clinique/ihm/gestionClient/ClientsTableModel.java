@@ -12,7 +12,7 @@ public class ClientsTableModel extends AbstractTableModel{
 	private List<Animaux> listeAnimaux;
 	
 	public ClientsTableModel() throws BLLException, DALException{
-		this.listeAnimaux = AnimauxManager.getInstance().getListeAnimaux();
+		this.listeAnimaux = AnimauxManager.getInstance().getListeAnimauxByClient();
 	}
 	
 	@Override

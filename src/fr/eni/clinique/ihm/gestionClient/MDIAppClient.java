@@ -56,13 +56,6 @@ public class MDIAppClient extends JFrame {
 	private JButton buttonSupprimerClients;
 	private JButton buttonValiderClients;
 	private JButton buttonAnnulerClients;
-	
-	String[] columnNames = {"Numéro", "Nom", "Sexe", "Couleur", "Race", "Espèce", "Tatouage"};
-	Object[][] data = {{"78415", "Buly", "M", "Noir", "Chien", "Bulldog", ""},
-					  {"89512", "Mirza", "M", "Brun", "Chien", "Caniche", "#10-2545-6"},
-					  {"99851", "Zaza", "S", "Roux", "Chat", "Goutiere", ""}};
-	
-	private JTable table = new JTable(data, columnNames);
 			
 	public MDIAppClient() {
 		
