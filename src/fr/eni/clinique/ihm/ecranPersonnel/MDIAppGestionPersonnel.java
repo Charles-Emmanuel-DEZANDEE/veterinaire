@@ -24,14 +24,12 @@ public class MDIAppGestionPersonnel extends JFrame  {
 	private JButton buttonReinitialiserPersonnel;
 	private JPanel panelPersonnel;
 
-<<<<<<< HEAD:src/fr/eni/clinique/ihm/ecranPersonnel/MDIAppGestionPersonnel.java
+
 
 
 	public MDIAppGestionPersonnel() throws BLLException, DALException {
-=======
-	public MDIAppAdm() throws BLLException, DALException {
->>>>>>> adb866ba1a08188b8dd7e257627c563e72ade7fa:src/fr/eni/clinique/ihm/ecranPersonnel/MDIAppAdm.java
 
+	
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(450, 350);

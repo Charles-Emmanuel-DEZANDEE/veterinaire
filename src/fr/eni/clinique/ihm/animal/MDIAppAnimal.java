@@ -1,6 +1,7 @@
 package fr.eni.clinique.ihm.animal;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
 
 import javax.swing.*;
@@ -22,7 +23,7 @@ public class MDIAppAnimal extends JFrame {
 
     private JLabel labelNom;
     private JTextField fieldNom;
-    private JComboBox<String> cboTypeAnimal;
+    private JComboBox<String> cboGenreAnimal;
 
     private JLabel labelCouleur;
     private JTextField fieldCouleur;
@@ -59,16 +60,13 @@ public class MDIAppAnimal extends JFrame {
 
     }
 
-    public void init() throws BLLException, DALException {
+    public void init(Clients client, Boolean nouveau) throws BLLException, DALException {
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
-
-        //ligne 0
-
 
         // Ligne 1
         gbc.gridx = 0;
@@ -77,16 +75,18 @@ public class MDIAppAnimal extends JFrame {
         gbc.gridwidth = 3;
         gbc.gridx = 1;
         gbc.gridy = 0;
-        panel.add(this.getClient(), gbc);
+        panel.add(this.getClient(client), gbc);
 
         // Ligne 2
-        gbc.gridwidth = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        panel.add(this.getLabelCode(), gbc);
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        panel.add(this.getCode(), gbc);
+        if (nouveau) {
+            gbc.gridwidth = 1;
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            panel.add(this.getLabelCode(), gbc);
+            gbc.gridx = 1;
+            gbc.gridy = 1;
+            panel.add(this.getCode(), gbc);
+        }
 
         //ligne 3
         gbc.gridwidth = 1;
@@ -100,7 +100,7 @@ public class MDIAppAnimal extends JFrame {
         gbc.gridwidth = 1;
         gbc.gridx = 3;
         gbc.gridy = 2;
-        panel.add(this.getCboTypeAnimal(), gbc);
+        panel.add(this.getCboGenreAnimal(), gbc);
 
         //ligne 4
         gbc.gridwidth = 1;
@@ -146,8 +146,6 @@ public class MDIAppAnimal extends JFrame {
         gbc.gridy = 6;
         panel.add(new JLabel("-----------------------------"), gbc);
 
-
-
         //ligne 8
         gbc.gridwidth = 1;
         gbc.gridx = 2;
@@ -156,12 +154,7 @@ public class MDIAppAnimal extends JFrame {
         gbc.gridwidth = 1;
         gbc.gridx = 3;
         gbc.gridy = 7;
-        panel.add(this.getButtonLogValider(), gbc);
-
-
-
-
-
+        panel.add(this.getButtonLogValider(client), gbc);
 
 
         setContentPane(panel);
@@ -170,7 +163,7 @@ public class MDIAppAnimal extends JFrame {
     }
 
 
-    public void exit() {
+    public void cacher() {
         setVisible(false);
     }
 
@@ -187,9 +180,9 @@ public class MDIAppAnimal extends JFrame {
         return labelClient;
     }
 
-    public JLabel getClient() {
+    public JLabel getClient(Clients client) {
         if (this.Client == null) {
-            this.Client = new JLabel("client to string ");
+            this.Client = new JLabel(client.getClient()+ " - " + client.getPrenomClient());
             this.Client.setFont(new Font("Serif", Font.PLAIN, 30));
         }
 
@@ -207,7 +200,7 @@ public class MDIAppAnimal extends JFrame {
 
     public JLabel getCode() {
         if (this.Code == null) {
-            this.Code = new JLabel("xxx ");
+            this.Code = new JLabel("");
             this.Code.setFont(new Font("Serif", Font.PLAIN, 20));
         }
 
@@ -283,7 +276,7 @@ public class MDIAppAnimal extends JFrame {
     }
 
 
-    public JButton getButtonLogValider() {
+    public JButton getButtonLogValider(Clients client) {
         if (this.buttonValider == null) {
             this.buttonValider = new JButton("Valider");
             this.buttonValider.addActionListener(new ActionListener() {
@@ -330,17 +323,17 @@ public class MDIAppAnimal extends JFrame {
         return this.buttonRetour;
     }
 
-    public JComboBox<String> getCboTypeAnimal() {
-        if (cboTypeAnimal == null) {
+    public JComboBox<String> getCboGenreAnimal() {
+        if (cboGenreAnimal == null) {
             String[] places = { "Femelle", "Male" };
-            cboTypeAnimal = new JComboBox<String>(places);
+            cboGenreAnimal = new JComboBox<String>(places);
         }
-        return cboTypeAnimal;
+        return cboGenreAnimal;
     }
 
     public JComboBox<String> getCboRace() {
         if (cboRace == null) {
-            String[] places = { "Femelle", "Male" };
+            String[] places = { "Labrador", "Siamois", "étalon", "jerry","holly" };
             cboRace = new JComboBox<String>(places);
         }
         return cboRace;
@@ -348,7 +341,7 @@ public class MDIAppAnimal extends JFrame {
 
     public JComboBox<String> getCboEspece() {
         if (cboEspece == null) {
-            String[] places = { "Femelle", "Male" };
+            String[] places = { "Chat", "Chiens", "sourris", "cheval", "vache" };
             cboEspece = new JComboBox<String>(places);
         }
         return cboEspece;
