@@ -1,6 +1,7 @@
 package fr.eni.clinique.bo;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Clients {
 	
@@ -20,7 +21,7 @@ public class Clients {
 
 
 	public Clients(){
-		
+		this.listeAnimaux = new ArrayList<>();
 	}
 	
 	public Clients(int CodeClient, String Client, String PrenomClient, String Adresse1,
