@@ -2,7 +2,6 @@ package fr.eni.clinique.ihm.animal;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.ihm.ecranPersonnel.AdmController;
 
 import javax.swing.*;
 
