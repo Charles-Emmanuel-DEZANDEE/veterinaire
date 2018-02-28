@@ -161,7 +161,6 @@ public class Clients {
 		this.listeAnimaux = listeAnimaux;
 	}
 
-
 	public String toString(){
 		return this.CodeClient + ' ' + this.Client + ' ' + this.PrenomClient + ' ' + 
 				this.Adresse1 + ' ' + this.Adresse2 + ' ' + this.CodePostal + ' ' +

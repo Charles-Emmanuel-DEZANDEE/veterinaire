@@ -46,7 +46,7 @@ public class AnimauxDAOJdbcImpl implements Dao{
 		                    "?,"+
 		                    "?,"+
 		                    "?,"+
-		                    "?,"+
+		                    "?"+
 		                    ")";
         PreparedStatement stmt = this.connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);          
         stmt.setString(1,a1.getNomAnimal());
