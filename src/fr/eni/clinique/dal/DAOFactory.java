@@ -13,8 +13,8 @@ public class DAOFactory {
 	}
 
 	public static Dao<Animaux> getAnimauxDAO() throws DALException, BLLException {
-		Dao<Animaux> sDao = new AnimauxDAOJdbcImpl();
-		return sDao;
+		Dao<Animaux> aDao = new AnimauxDAOJdbcImpl();
+		return aDao;
 	}
 	
 	
