@@ -26,8 +26,10 @@ public class MDIAppGestionPersonnel extends JFrame  {
 
 
 
+
 	public MDIAppGestionPersonnel() throws BLLException, DALException {
 
+	
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(450, 350);
