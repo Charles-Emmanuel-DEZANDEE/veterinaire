@@ -5,6 +5,7 @@ import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Personnels;
+import fr.eni.clinique.bo.Races;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -14,11 +15,12 @@ public class AppliTestDAL {
 
 	public static void main(String[] args) throws DALException, BLLException {
 
-		//Déclaration et instanciation de la DAO
+		//Dï¿½claration et instanciation de la DAO
 		Dao<Personnels> personnelsDAO = DAOFactory.getPersonnelsDAO();
 		Dao<Animaux> animauxDAO = DAOFactory.getAnimauxDAO();
 		Dao<Clients> clientsDAO = DAOFactory.getClientsDAO();
-		
+		Dao<Races> racesDAO = DAOFactory.getRacesDAO();
+
 		
 		//Instanciation du jeu d'essai
 		Personnels p1 = new Personnels("MAHMOUDI", "12345", "vet", false);
@@ -32,41 +34,66 @@ public class AppliTestDAL {
 
 //			System.out.println("Ajout de la liste du personnel... ");
 //			personnelsDAO.insert(p1);
-//			System.out.println("Personnel ajouté : " + p1.toString());
+//			System.out.println("Personnel ajoutï¿½ : " + p1.toString());
 //			personnelsDAO.insert(p2);
-//			System.out.println("Personnel ajouté : " + p2.toString());
+//			System.out.println("Personnel ajoutï¿½ : " + p2.toString());
 //			personnelsDAO.insert(p3);
-//			System.out.println("Personnel ajouté : " + p3.toString());
+//			System.out.println("Personnel ajoutï¿½ : " + p3.toString());
 			
 			System.out.println("Ajout de la liste des clients... ");
 			clientsDAO.insert(c1);
-			System.out.println("Client ajouté : " + c1.toString());
+			System.out.println("Client ajoutï¿½ : " + c1.toString());
 			clientsDAO.insert(c2);
-			System.out.println("Client ajouté : " + c2.toString());
+			System.out.println("Client ajoutï¿½ : " + c2.toString());
 			clientsDAO.insert(c3);
-			System.out.println("Client ajouté : " + c3.toString());
-			
-			Animaux a1 = new Animaux("NomAnimal1", "M", "Noir", "Race", "Espece", c1.getCodeClient(), "Tatouage", "Antecedents", false);
-			Animaux a2 = new Animaux("NomAnimal2", "M", "Noir", "Race", "Espece", c2.getCodeClient(), "Tatouage", "Antecedents", false);
-			Animaux a3 = new Animaux("NomAnimal3", "M", "Noir", "Race", "Espece", c3.getCodeClient(), "Tatouage", "Antecedents", false);
+			System.out.println("Client ajoutï¿½ : " + c3.toString());
+
+			Races r1 = new Races("chien", "labrador");
+			Races r2 = new Races("chien", "tekel");
+			Races r3 = new Races("chien", "caniche");
+			Races r4 = new Races("chat", "persan");
+			Races r5 = new Races("chat", "siamois");
+
+			racesDAO.insert(r1);
+			System.out.println("races ajoutï¿½ : " + r1.toString());
+			racesDAO.insert(r2);
+			System.out.println("races ajoutï¿½ : " + r2.toString());
+			racesDAO.insert(r3);
+			System.out.println("races ajoutï¿½ : " + r3.toString());
+			racesDAO.insert(r4);
+			System.out.println("races ajoutï¿½ : " + r4.toString());
+			racesDAO.insert(r5);
+			System.out.println("races ajoutï¿½ : " + r5.toString());
+
+			Animaux a1 = new Animaux("NomAnimal1", "M", "Noir", r1.getRace(), r1.getEspece(), c1.getCodeClient(), "Tatouage", "Antecedents", false);
+			Animaux a2 = new Animaux("NomAnimal2", "M", "Noir", r2.getRace(), r2.getEspece(), c2.getCodeClient(), "Tatouage", "Antecedents", false);
+			Animaux a3 = new Animaux("NomAnimal3", "M", "Noir", r4.getRace(), r4.getEspece(), c3.getCodeClient(), "Tatouage", "Antecedents", false);
+
+			animauxDAO.insert(a1);
+			System.out.println("animal ajoutï¿½ : " + a1.toString());
+			animauxDAO.insert(a2);
+			System.out.println("animal ajoutï¿½ : " + a2.toString());
+			animauxDAO.insert(a3);
+			System.out.println("animal ajoutï¿½ : " + a3.toString());
+
 
 //			System.out.println("Ajout de la liste des animaux... ");
 //			animauxDAO.insert(a1);
-//			System.out.println("Animal ajouté : " + a1.toString());
+//			System.out.println("Animal ajoutï¿½ : " + a1.toString());
 //			animauxDAO.insert(a2);
-//			System.out.println("Animal ajouté : " + a2.toString());
+//			System.out.println("Animal ajoutï¿½ : " + a2.toString());
 //			animauxDAO.insert(a3);
-//			System.out.println("Animal ajouté : " + a3.toString());
+//			System.out.println("Animal ajoutï¿½ : " + a3.toString());
 			
-			//Séléction du personnel par id
+			//Sï¿½lï¿½ction du personnel par id
 			Personnels p = personnelsDAO.selectById(p2.getCodePers());
 			System.out.println("\nSÃ©lection de Personnel par id  : " + p.toString() );
 			
-			//Séléction du personnel par nom
+			//Sï¿½lï¿½ction du personnel par nom
 			Personnels p4 = ((PersonnelsDAOJdbcImpl)personnelsDAO).selectByNom(p2.getNom());
 			System.out.println("\nSÃ©lection de Personnel par nom  : " + p4.toString() );
 
-			//Séléction de tous les personnels
+			//Sï¿½lï¿½ction de tous les personnels
 			List<Personnels> personnels = personnelsDAO.selectAll();
 			System.out.println("\nSÃ©lection de tous les Personnels  : "  );
 			afficherPersonnels(personnels);
@@ -74,7 +101,7 @@ public class AppliTestDAL {
 			//Modification d'un personnel
 			System.out.println("\nModification d'un Personnel  : " );
 			System.out.println("Personnel avant modification : "  + p1.toString());
-    		p1.setNom("changé");
+    		p1.setNom("changï¿½");
      		p1.setMotPasse("motPasse");
 			personnelsDAO.update(p1);
 			System.out.println("Personnel aprÃ¨s modification  : " + p1.toString() );	

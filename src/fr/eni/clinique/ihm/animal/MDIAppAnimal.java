@@ -325,27 +325,43 @@ public class MDIAppAnimal extends JFrame {
     }
 
     public JComboBox<String> getCboGenreAnimal() {
-        if (cboGenreAnimal == null) {
-            String[] places = { "Femelle", "Male" };
-            cboGenreAnimal = new JComboBox<String>(places);
+        if (this.cboGenreAnimal == null) {
+            String[] places = { "Femelle", "Male","hermaphrodite" };
+            this.cboGenreAnimal = new JComboBox<String>(places);
         }
-        return cboGenreAnimal;
+        return this.cboGenreAnimal;
     }
 
     public JComboBox<String> getCboRace() throws BLLException, DALException {
-        if (cboRace == null) {
+        if (this.cboRace == null) {
             String[] places = { "Labrador", "Siamois", "étalon", "jerry","holly" };
-            cboRace = new JComboBox(RacesManager.getInstance().getListeRaces().toArray());
+//            this.cboRace = new JComboBox(RacesManager.getInstance().getListeRacesByEspece(cboEspece.getSelectedItem().toString()).toArray());
         }
-        return cboRace;
+        return this.cboRace;
     }
 
     public JComboBox<String> getCboEspece() throws BLLException, DALException {
-        if (cboEspece == null) {
+        if (this.cboEspece == null) {
             String[] places = { "Chat", "Chiens", "sourris", "cheval", "vache" };
-            cboEspece = new JComboBox<String>(places);
+//            cboEspece = new JComboBox<String>(places);
+            this.cboEspece = new JComboBox(RacesManager.getInstance().getListeEspece().toArray());
+            this.cboEspece.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+//                    try {
+                        System.out.println("selection espece");
+                    try {
+                        cboRace = new JComboBox(RacesManager.getInstance().getListeRacesByEspece(cboEspece.getSelectedItem().toString()).toArray());
+                    } catch (BLLException e1) {
+                        e1.printStackTrace();
+                    } catch (DALException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            });
         }
-        return cboEspece;
+        return this.cboEspece;
     }
 
 

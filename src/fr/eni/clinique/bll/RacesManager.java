@@ -9,6 +9,7 @@ import fr.eni.clinique.dal.Dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class RacesManager {
 	private static Dao<Races> daoRaces;
@@ -27,7 +28,7 @@ public class RacesManager {
 	
 
 //todo
-	public List<Races> getAnimalByEspece(String race, String espece) throws BLLException{
+	public List<Races> getListeRacesByEspece(String espece) throws BLLException{
 		List<Races> r1 = null;
 		try {
 			r1 = ((RacesDAOJdbcImpl)daoRaces).selectByEspece(espece);
@@ -47,6 +48,16 @@ public class RacesManager {
 			throw new BLLException("Erreur r�cup�ration de la liste des races", e);
 		}	
 		return races;
+	}
+
+	public List<String> getListeEspece() throws BLLException {
+		List<Races> races = getListeRaces();
+		ListIterator<Races> it = races.listIterator();
+		List<String> especes = null;
+		while(it.hasNext()){
+			especes.add( it.next().getEspece());
+		}
+		return especes;
 	}
 	
 	public void addrace(Races race) throws BLLException {
