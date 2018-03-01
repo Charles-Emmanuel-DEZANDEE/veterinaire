@@ -1,6 +1,5 @@
 package fr.eni.clinique.dal;
 
-import fr.eni.clinique.bll.BLLException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,34 +7,27 @@ import java.sql.SQLException;
 
 public class ConnectionSingleton {
 
-    private static ConnectionSingleton instance;
-    private Connection connect;
-
-    public Connection getConnect() {
+	static {
+            try {
+				Class.forName(Settings.getProperty("driverDB"));
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
+	
+    public static Connection getConnect() {
+    	Connection connect=null;
+    	String url = Settings.getProperty("urldb");
+        try {
+			connect = DriverManager.getConnection(url, Settings.getProperty("userdb"),Settings.getProperty("passworddb"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         return connect;
     }
 
-    private ConnectionSingleton() throws DALException {
 
-        try {
-            Class.forName(Settings.getProperty("driverDB"));
-            //DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
-
-
-            String url = Settings.getProperty("urldb");
-            this.connect = DriverManager.getConnection(url, Settings.getProperty("userdb"),Settings.getProperty("passworddb"));
-        } catch (SQLException e) {
-            throw new DALException(e.getMessage());
-        } catch (ClassNotFoundException e) {
-            throw new DALException(e.getMessage());
-        }
-
-    }
-
-    public static ConnectionSingleton getConnection() throws BLLException, DALException{
-        if ( ConnectionSingleton.instance == null){
-            ConnectionSingleton.instance = new ConnectionSingleton();
-        }
-        return ConnectionSingleton.instance;
-    }
+  
 }

@@ -13,7 +13,7 @@ public class ClientsDAOJdbcImpl implements Dao {
     private Connection connect;
 
     public ClientsDAOJdbcImpl() throws DALException, BLLException {
-        this.connect = ConnectionSingleton.getConnection().getConnect();
+        this.connect = ConnectionSingleton.getInstance().getConnect();
     }
 
     public void insert(Object c2) throws DALException {
