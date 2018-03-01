@@ -78,10 +78,10 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
 	                		res.getString("Role"),
 	                		res.getBoolean("Archive"));
 		        //on ferme les connections
-		        stmt.close();
-		        connect.close();
 	             }
-	         	return data;
+                stmt.close();
+                connect.close();
+                return data;
 	        }else{
 	        	//on ferme les connections
 		        stmt.close();
@@ -206,10 +206,11 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
 	                		res.getString("MotPasse"),
 	                		res.getString("Role"),
 	                		res.getBoolean("Archive"));
-		        //on ferme les connections
-		        stmt.close();
-		        connect.close();
+
 	             }
+                //on ferme les connections
+                stmt.close();
+                connect.close();
 	         	return data;
 	        }else{
 	        	//on ferme les connections
