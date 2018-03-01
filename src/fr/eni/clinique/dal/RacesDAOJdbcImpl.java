@@ -9,16 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RacesDAOJdbcImpl implements Dao {
+public class RacesDAOJdbcImpl implements DaoRaces {
 
     private Connection connect;
 
-    public RacesDAOJdbcImpl() throws DALException, BLLException {
-        this.connect = ConnectionSingleton.getInstance().getConnect();
-    }
+//    public RacesDAOJdbcImpl() throws DALException, BLLException {
+//        this.connect = ConnectionSingleton.getInstance().getConnect();
+//    }
 
-    public void insert(Object a2) throws DALException {
-        Races a1 = (Races) a2;
+    public void insert(Races a1) throws DALException {
+        Connection connect = ConnectionSingleton.getConnect();
+
         try {
             String sql = "INSERT INTO Races(" +
                     "Race," +
@@ -34,6 +35,7 @@ public class RacesDAOJdbcImpl implements Dao {
 
             int nbRows = stmt.executeUpdate();
             stmt.close();
+            connect.close();
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
@@ -41,6 +43,8 @@ public class RacesDAOJdbcImpl implements Dao {
 
     public Races selectByPK(String race, String espece) throws DALException {
         try {
+            Connection connect = ConnectionSingleton.getConnect();
+
             String sql = "SELECT * FROM Races WHERE Race = ? and Espece = ?";
             PreparedStatement stmt = this.connect.prepareStatement(sql);
 
@@ -57,6 +61,7 @@ public class RacesDAOJdbcImpl implements Dao {
                             res.getString("Espece")
                     );
                     stmt.close();
+                    connect.close();
                 }
                 return data;
             } else {
@@ -69,6 +74,8 @@ public class RacesDAOJdbcImpl implements Dao {
 
     public List<Races> selectByEspece(String espece) throws DALException {
         try {
+            Connection connect = ConnectionSingleton.getConnect();
+
             String sql = "SELECT * FROM Races WHERE Espece = ?";
             PreparedStatement stmt = this.connect.prepareStatement(sql);
             stmt.setString(1, espece);//"race,
@@ -86,6 +93,7 @@ public class RacesDAOJdbcImpl implements Dao {
                     i++;
                 }
                 stmt.close();
+                connect.close();
                 return data;
             } else {
                 return null;
@@ -97,12 +105,14 @@ public class RacesDAOJdbcImpl implements Dao {
 
 
     @Override
-    public Object selectById(int id) throws DALException {
+    public Races selectById(int id) throws DALException {
         return null;
     }
 
     public List<Races> selectAll() throws DALException {
         try {
+            Connection connect = ConnectionSingleton.getConnect();
+
             String sql = "SELECT * FROM Races";
             PreparedStatement stmt = this.connect.prepareStatement(sql);
             ResultSet res = stmt.executeQuery();
@@ -118,6 +128,7 @@ public class RacesDAOJdbcImpl implements Dao {
                     i++;
                 }
                 stmt.close();
+                connect.close();
                 return data;
             } else {
                 return null;
@@ -129,24 +140,27 @@ public class RacesDAOJdbcImpl implements Dao {
 
 
 
-    public void update(Object a2) throws DALException {
+    public void update(Races a2) throws DALException {
     }
 
     public void delete(String race, String espece) throws DALException {
         try {
+            Connection connect = ConnectionSingleton.getConnect();
+
             String sql = "DELETE FROM Races WHERE Race = ? and Espece = ?";
             PreparedStatement stmt = this.connect.prepareStatement(sql);
             stmt.setString(1, race);
             stmt.setString(2, espece);
             stmt.executeUpdate();
             stmt.close();
+            connect.close();
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
     }
 
 
-    public void finalize() throws SQLException {
-        connect.close();
-    }
+//    public void finalize() throws SQLException {
+//        connect.close();
+//    }
 }
