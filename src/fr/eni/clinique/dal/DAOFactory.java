@@ -9,23 +9,23 @@ import fr.eni.clinique.bo.Races;
 public class DAOFactory {
 
 	
-	public static Dao<Personnels> getPersonnelsDAO() throws DALException, BLLException {
-		Dao<Personnels> sDao = new PersonnelsDAOJdbcImpl();
-		return sDao;
+	public static DaoPersonnels getPersonnelsDAO() throws DALException, BLLException {
+		DaoPersonnels daoPersonnels = new PersonnelsDAOJdbcImpl();
+		return daoPersonnels;
 	}
 
-	public static Dao<Animaux> getAnimauxDAO() throws DALException, BLLException {
-		Dao<Animaux> aDao = new AnimauxDAOJdbcImpl();
+	public static DaoAnimaux getAnimauxDAO() throws DALException, BLLException {
+		DaoAnimaux daoAnimau = new AnimauxDAOJdbcImpl();
+		return daoAnimau;
+	}
+	
+	public static DaoClients getClientsDAO() throws DALException, BLLException {
+		DaoClients aDao = new ClientsDAOJdbcImpl();
 		return aDao;
 	}
 	
-	public static Dao<Clients> getClientsDAO() throws DALException, BLLException {
-		Dao<Clients> aDao = new ClientsDAOJdbcImpl();
-		return aDao;
-	}
-	
-	public static Dao<Races> getRacesDAO() throws DALException, BLLException {
-		Dao<Races> aDao = new RacesDAOJdbcImpl();
+	public static DaoRaces getRacesDAO() throws DALException, BLLException {
+        DaoRaces aDao = new RacesDAOJdbcImpl();
 		return aDao;
 	}
 

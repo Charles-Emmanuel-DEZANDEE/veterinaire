@@ -95,9 +95,11 @@ public class MDIAppGestionPersonnel extends JFrame  {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						//TODO mettre a jour la listePersonnels de la table 
+						//GererPersonnelController.getInstance().nouveauPersonnels();
+						AjoutPersonnelController.getInstance(MDIAppGestionPersonnel.this, MDIAppGestionPersonnel.this.getTablePersonnels());
 						
-						GererPersonnelController.getInstance().nouveauPersonnels();
+						//mettre à jour la table
+						getTablePersonnels().getPersonnelsModel().fireTableDataChanged();
 					} catch (DALException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

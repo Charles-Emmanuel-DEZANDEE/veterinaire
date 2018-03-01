@@ -12,23 +12,14 @@ import java.util.List;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Personnels;
 
-public class PersonnelsDAOJdbcImpl implements Dao{
+public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
 
-    private Connection connect;
-
-    public PersonnelsDAOJdbcImpl() throws DALException, BLLException {
-        //connections à la base de donnée
-
-        this.connect = ConnectionSingleton.getConnection().getConnect();
-
-
-    }
 
 
     // fait par MAHMOUDI
-    public void insert(Object r2) throws DALException {
-        Personnels r1 = (Personnels) r2;
-
+    @Override
+    public void insert(Personnels r1) throws DALException {
+        Connection connect = ConnectionSingleton.getConnect();
         try {
             String sql = "INSERT INTO Personnels (" +
                     "Nom," +       // Nom
@@ -44,7 +35,7 @@ public class PersonnelsDAOJdbcImpl implements Dao{
                     "?,"+//"Role,\
                     "?"+//"Archive,
                     ")";
-            PreparedStatement stmt = this.connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                    
             stmt.setString(1,r1.getNom());//"Nom,
             stmt.setString(2,r1.getMotPasse());//"MotPasse,
@@ -58,21 +49,20 @@ public class PersonnelsDAOJdbcImpl implements Dao{
                 if (rs.next()){
                 	r1.setCodePers(rs.getInt(1));
                 }
-                //on ferme les connections
-                stmt.close();
-                //connect.close();
-
             }
-
+            //on ferme les connections
+            stmt.close();
+            connect.close();
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
     }
 
     public Personnels selectById(int id) throws DALException {
+    	Connection connect = ConnectionSingleton.getConnect();
     	try{
 	        String sql = "SELECT * FROM Personnels WHERE CodePers = ?";
-	        PreparedStatement stmt = this.connect.prepareStatement(sql);
+	        PreparedStatement stmt = connect.prepareStatement(sql);
 	
 	        stmt.setInt(1,id);//"reference,
 	
@@ -89,22 +79,26 @@ public class PersonnelsDAOJdbcImpl implements Dao{
 	                		res.getBoolean("Archive"));
 		        //on ferme les connections
 		        stmt.close();
-		        //connect.close();
+		        connect.close();
 	             }
-
 	         	return data;
 	        }else{
+	        	//on ferme les connections
+		        stmt.close();
+		        connect.close();
 	        	return null;
 	        }
-        } catch (SQLException e) {
+        } 
+    	catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
     }
 
     public List<Personnels> selectAll() throws DALException {
-        try{
+    	Connection connect = ConnectionSingleton.getConnect();
+    	try{
             String sql = "SELECT * FROM Personnels where Archive='false'";
-            PreparedStatement stmt = this.connect.prepareStatement(sql);
+            PreparedStatement stmt = connect.prepareStatement(sql);
 
 
             ResultSet res = stmt.executeQuery();
@@ -125,10 +119,13 @@ public class PersonnelsDAOJdbcImpl implements Dao{
 
                 //on ferme les connections
                 stmt.close();
-                //connect.close();
+                connect.close();
 
                 return data;
             }else{
+            	//on ferme les connections
+                stmt.close();
+                connect.close();
             	return null;
             }
             
@@ -139,8 +136,8 @@ public class PersonnelsDAOJdbcImpl implements Dao{
 
     }
 
-    public void update(Object r2) throws DALException {
-    	Personnels r1 = (Personnels) r2;
+    public void update(Personnels r1) throws DALException {
+    	Connection connect = ConnectionSingleton.getConnect();
         try {
             String sql = "UPDATE Personnels  SET " +
                     "Nom =?," +
@@ -149,7 +146,7 @@ public class PersonnelsDAOJdbcImpl implements Dao{
                     "Archive =? " +
                     "WHERE CodePers =?"
                     ;
-            PreparedStatement stmt = this.connect.prepareStatement(sql);
+            PreparedStatement stmt = connect.prepareStatement(sql);
 
             stmt.setString(1,r1.getNom());//"Nom,
             stmt.setString(2,r1.getMotPasse());//"MotPasse,
@@ -163,7 +160,7 @@ public class PersonnelsDAOJdbcImpl implements Dao{
 
             //on ferme les connections
             stmt.close();
-            //connect.close();
+            connect.close();
 
 
         } catch (SQLException e) {
@@ -173,16 +170,17 @@ public class PersonnelsDAOJdbcImpl implements Dao{
     }
 
     public void delete(int CodePers) throws DALException {
-        try {
+    	Connection connect = ConnectionSingleton.getConnect();
+    	try {
         String sql = "DELETE FROM Personnels WHERE CodePers = ?";
-        PreparedStatement stmt = this.connect.prepareStatement(sql);
+        PreparedStatement stmt = connect.prepareStatement(sql);
 
         stmt.setInt(1,CodePers);//"reference,
 
         stmt.executeUpdate();
             //on ferme les connections
             stmt.close();
-            //connect.close();
+            connect.close();
 
 
         } catch (SQLException e) {
@@ -191,9 +189,10 @@ public class PersonnelsDAOJdbcImpl implements Dao{
 	}
     
     public Personnels selectByNom(String nom) throws DALException {
+    	Connection connect = ConnectionSingleton.getConnect();
     	try{
 	        String sql = "SELECT * FROM Personnels WHERE Nom = ?";
-	        PreparedStatement stmt = this.connect.prepareStatement(sql);
+	        PreparedStatement stmt = connect.prepareStatement(sql);
 	
 	        stmt.setString(1,nom);//"reference,
 	
@@ -209,21 +208,19 @@ public class PersonnelsDAOJdbcImpl implements Dao{
 	                		res.getBoolean("Archive"));
 		        //on ferme les connections
 		        stmt.close();
-		        //connect.close();
+		        connect.close();
 	             }
 	         	return data;
 	        }else{
+	        	//on ferme les connections
+                stmt.close();
+                connect.close();
 	        	return null;
 	        }
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
     }
-    
              
-	public void finalize() throws SQLException {
-	    connect.close();
-	}
-	
 
 }

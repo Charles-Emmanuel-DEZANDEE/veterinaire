@@ -8,16 +8,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientsDAOJdbcImpl implements Dao {
+public class ClientsDAOJdbcImpl implements DaoClients {
 
     private Connection connect;
 
-    public ClientsDAOJdbcImpl() throws DALException, BLLException {
-        this.connect = ConnectionSingleton.getConnection().getConnect();
-    }
 
-    public void insert(Object c2) throws DALException {
-        Clients c1 = (Clients) c2;
+    public void insert(Clients c1) throws DALException {
+        Connection connect = ConnectionSingleton.getConnect();
+
         try {
             String sql = "INSERT INTO Clients(" +
                     "NomClient," +
@@ -65,6 +63,7 @@ public class ClientsDAOJdbcImpl implements Dao {
                     c1.setCodeClient(rs.getInt(1));
                 }
                 stmt.close();
+                connect.close();
             }
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
@@ -73,6 +72,8 @@ public class ClientsDAOJdbcImpl implements Dao {
 
     public Clients selectById(int id) throws DALException {
         try {
+            Connection connect = ConnectionSingleton.getConnect();
+
             String sql = "SELECT * FROM Clients WHERE CodeClient = ?";
             PreparedStatement stmt = this.connect.prepareStatement(sql);
 
@@ -84,17 +85,6 @@ public class ClientsDAOJdbcImpl implements Dao {
 
             if (res != null) {
                 if (res.next()) {
-                    //			private String Client;
-//			private String PrenomClient;
-//			private String Adresse1;
-//			private String Adresse2;
-//			private String CodePostal;
-//			private String Ville;
-//			private String NumTel;
-//			private String Assurance;
-//			private String Email;
-//			private String Remarque;
-//			private boolean Archive;
 
                     data = new Clients(
                             res.getInt("CodeClient"),
@@ -111,6 +101,7 @@ public class ClientsDAOJdbcImpl implements Dao {
                             res.getBoolean("Archive")
                     );
                     stmt.close();
+                    connect.close();
                 }
                 return data;
             } else {
@@ -123,6 +114,8 @@ public class ClientsDAOJdbcImpl implements Dao {
 
     public List<Clients> selectAll() throws DALException {
         try {
+            Connection connect = ConnectionSingleton.getConnect();
+
             String sql = "SELECT * FROM Clients";
             PreparedStatement stmt = this.connect.prepareStatement(sql);
             ResultSet res = stmt.executeQuery();
@@ -149,6 +142,7 @@ public class ClientsDAOJdbcImpl implements Dao {
                     i++;
                 }
                 stmt.close();
+                connect.close();
                 return data;
             } else {
                 return null;
@@ -158,8 +152,9 @@ public class ClientsDAOJdbcImpl implements Dao {
         }
     }
 
-    public void update(Object a2) throws DALException {
-        Clients a1 = (Clients) a2;
+    public void update(Clients a1) throws DALException {
+        Connection connect = ConnectionSingleton.getConnect();
+
         try {
 
             String sql = "UPDATE Clients  SET " +
@@ -191,6 +186,7 @@ public class ClientsDAOJdbcImpl implements Dao {
 
             stmt.executeUpdate();
             stmt.close();
+            connect.close();
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
@@ -198,11 +194,14 @@ public class ClientsDAOJdbcImpl implements Dao {
 
     public void delete(int CodeClient) throws DALException {
         try {
+            Connection connect = ConnectionSingleton.getConnect();
+
             String sql = "DELETE FROM Clients WHERE CodeClient = ?";
             PreparedStatement stmt = this.connect.prepareStatement(sql);
             stmt.setInt(1, CodeClient);
             stmt.executeUpdate();
             stmt.close();
+            connect.close();
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }

@@ -6,19 +6,25 @@ import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOFactory;
 import fr.eni.clinique.dal.Dao;
-import fr.eni.clinique.dal.PersonnelsDAOJdbcImpl;
+import fr.eni.clinique.dal.DaoPersonnels;
 
 public class PersonnelsManager {
-	private static Dao<Personnels> daoPersonnels;
+	private static DaoPersonnels daoPersonnels;
 	private static PersonnelsManager instance;
 	
-	public PersonnelsManager() throws DALException, BLLException {
+	public PersonnelsManager() throws  BLLException {
 		//Instancier le Data Access Object
-		daoPersonnels =DAOFactory.getPersonnelsDAO();
+		
+		try {
+			daoPersonnels =DAOFactory.getPersonnelsDAO();
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			throw new BLLException("Erreur création du DaoPersonnels", e);
+		}
 	}
 
 	// fait par MAHMOUDI
-	public static PersonnelsManager getInstance() throws BLLException, DALException{
+	public static PersonnelsManager getInstance() throws BLLException{
 		if ( PersonnelsManager.instance == null){
 			PersonnelsManager.instance = new PersonnelsManager();
 		}
@@ -40,7 +46,7 @@ public class PersonnelsManager {
 	public Personnels getPersonnelByNom(String nom) throws BLLException{
 		Personnels personnel=null;
 		try {
-			personnel = ((PersonnelsDAOJdbcImpl)daoPersonnels).selectByNom(nom);
+			personnel = daoPersonnels.selectByNom(nom);
 		} catch (DALException e) {
 			e.printStackTrace();
 			throw new BLLException("Erreur r?cup?ration du personnel par Id", e);
@@ -89,7 +95,7 @@ public class PersonnelsManager {
 	
 	public void removePersonnel(int  codePers) throws BLLException{
 		try {
-			((PersonnelsDAOJdbcImpl)daoPersonnels).delete(codePers);
+			daoPersonnels.delete(codePers);
 
 		} catch (DALException e) {
 			throw new BLLException("Echec de la suppression de la reservation - ", e);
