@@ -14,9 +14,9 @@ public class DAOFactory {
 		return daoPersonnels;
 	}
 
-	public static Dao<Animaux> getAnimauxDAO() throws DALException, BLLException {
-		Dao<Animaux> aDao = new AnimauxDAOJdbcImpl();
-		return aDao;
+	public static DaoAnimaux getAnimauxDAO() throws DALException, BLLException {
+		DaoAnimaux daoAnimau = new AnimauxDAOJdbcImpl();
+		return daoAnimau;
 	}
 	
 	public static Dao<Clients> getClientsDAO() throws DALException, BLLException {

@@ -49,12 +49,10 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
                 if (rs.next()){
                 	r1.setCodePers(rs.getInt(1));
                 }
-                //on ferme les connections
-                stmt.close();
-                connect.close();
-
             }
-
+            //on ferme les connections
+            stmt.close();
+            connect.close();
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
@@ -83,12 +81,15 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
 		        stmt.close();
 		        connect.close();
 	             }
-
 	         	return data;
 	        }else{
+	        	//on ferme les connections
+		        stmt.close();
+		        connect.close();
 	        	return null;
 	        }
-        } catch (SQLException e) {
+        } 
+    	catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
     }
@@ -122,6 +123,9 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
 
                 return data;
             }else{
+            	//on ferme les connections
+                stmt.close();
+                connect.close();
             	return null;
             }
             
@@ -208,6 +212,9 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
 	             }
 	         	return data;
 	        }else{
+	        	//on ferme les connections
+                stmt.close();
+                connect.close();
 	        	return null;
 	        }
         } catch (SQLException e) {
