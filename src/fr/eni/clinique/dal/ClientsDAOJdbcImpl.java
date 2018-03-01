@@ -43,7 +43,7 @@ public class ClientsDAOJdbcImpl implements DaoClients {
                     "?," +
                     "?" +
                     ")";
-            PreparedStatement stmt = this.connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, c1.getClient());
             stmt.setString(2, c1.getPrenomClient());
             stmt.setString(3, c1.getAdresse1());
@@ -75,7 +75,7 @@ public class ClientsDAOJdbcImpl implements DaoClients {
             Connection connect = ConnectionSingleton.getConnect();
 
             String sql = "SELECT * FROM Clients WHERE CodeClient = ?";
-            PreparedStatement stmt = this.connect.prepareStatement(sql);
+            PreparedStatement stmt = connect.prepareStatement(sql);
 
             stmt.setInt(1, id);//"reference,
 
@@ -117,7 +117,7 @@ public class ClientsDAOJdbcImpl implements DaoClients {
             Connection connect = ConnectionSingleton.getConnect();
 
             String sql = "SELECT * FROM Clients";
-            PreparedStatement stmt = this.connect.prepareStatement(sql);
+            PreparedStatement stmt = connect.prepareStatement(sql);
             ResultSet res = stmt.executeQuery();
             List<Clients> data = new ArrayList<>();
             if (res != null) {
@@ -170,7 +170,7 @@ public class ClientsDAOJdbcImpl implements DaoClients {
                     "Remarque =?," +
                     "Archive =?" +
                     "WHERE CodeClient =?";
-            PreparedStatement stmt = this.connect.prepareStatement(sql);
+            PreparedStatement stmt = connect.prepareStatement(sql);
             stmt.setString(1, a1.getClient());
             stmt.setString(2, a1.getPrenomClient());
             stmt.setString(3, a1.getAdresse1());
@@ -197,7 +197,7 @@ public class ClientsDAOJdbcImpl implements DaoClients {
             Connection connect = ConnectionSingleton.getConnect();
 
             String sql = "DELETE FROM Clients WHERE CodeClient = ?";
-            PreparedStatement stmt = this.connect.prepareStatement(sql);
+            PreparedStatement stmt = connect.prepareStatement(sql);
             stmt.setInt(1, CodeClient);
             stmt.executeUpdate();
             stmt.close();
