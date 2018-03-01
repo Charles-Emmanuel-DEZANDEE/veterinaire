@@ -19,13 +19,13 @@ public class DAOFactory {
 		return aDao;
 	}
 	
-	public static Dao<Clients> getClientsDAO() throws DALException, BLLException {
-		Dao<Clients> aDao = new ClientsDAOJdbcImpl();
+	public static DaoClients getClientsDAO() throws DALException, BLLException {
+		DaoClients aDao = new ClientsDAOJdbcImpl();
 		return aDao;
 	}
 	
-	public static Dao<Races> getRacesDAO() throws DALException, BLLException {
-		Dao<Races> aDao = new RacesDAOJdbcImpl();
+	public static DaoRaces getRacesDAO() throws DALException, BLLException {
+        DaoRaces aDao = new RacesDAOJdbcImpl();
 		return aDao;
 	}
 
