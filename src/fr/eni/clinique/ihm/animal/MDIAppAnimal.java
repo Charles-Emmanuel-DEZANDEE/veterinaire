@@ -334,9 +334,9 @@ public class MDIAppAnimal extends JFrame {
 
     public JComboBox<String> getCboRace() throws BLLException, DALException {
         if (this.cboRace == null) {
-            String[] places = { "Labrador", "Siamois", "étalon", "jerry","holly" };
-//            this.cboRace = new JComboBox(RacesManager.getInstance().getListeRacesByEspece(cboEspece.getSelectedItem().toString()).toArray());
-            this.cboRace = new JComboBox<String>(places);
+//            String[] places = { "Labrador", "Siamois", "étalon", "jerry","holly" };
+            this.cboRace = new JComboBox(RacesManager.getInstance().getListeRaces(cboEspece.getSelectedItem().toString()).toArray());
+//            this.cboRace = new JComboBox<String>(places);
         }
         return this.cboRace;
     }
@@ -357,13 +357,18 @@ public class MDIAppAnimal extends JFrame {
                     String espece = (String)cb.getSelectedItem();
                     System.out.println(espece);
 
-//                    try {
-//                        cboRace = new JComboBox(RacesManager.getInstance().getListeRacesByEspece(cboEspece.getSelectedItem().toString()).toArray());
-//                    } catch (BLLException e1) {
-//                        e1.printStackTrace();
-//                    } catch (DALException e1) {
-//                        e1.printStackTrace();
-//                    }
+                    try {
+                        cboRace= new JComboBox(RacesManager.getInstance().getListeRaces((String)cb.getSelectedItem()).toArray());
+                        cboRace.revalidate();
+                        cboRace.repaint();
+                        instance.revalidate();
+                        instance.repaint();
+
+                    } catch (BLLException e1) {
+                        e1.printStackTrace();
+                    } catch (DALException e1) {
+                        e1.printStackTrace();
+                    }
                 }
             });
         }
