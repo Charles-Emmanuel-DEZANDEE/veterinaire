@@ -1,6 +1,7 @@
 package fr.eni.clinique.ihm.gestionClient;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.ihm.gestionClient.ClientController;
 
@@ -12,7 +13,6 @@ public class ClientApp {
 		
 		SwingUtilities.invokeLater(new Runnable(){
 			
-			@Override
 			public void run(){
 				try {
 					ClientController.getInstance().startApp();

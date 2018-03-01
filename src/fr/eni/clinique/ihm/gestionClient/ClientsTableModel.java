@@ -12,8 +12,8 @@ public class ClientsTableModel extends AbstractTableModel{
 	
 	private List<Animaux> listeAnimaux;
 	
-	public ClientsTableModel(Clients c1) throws BLLException, DALException{
-		this.listeAnimaux = AnimauxManager.getInstance().getAnimalByClient(c1);
+	public ClientsTableModel() throws BLLException, DALException{
+		//this.listeAnimaux = AnimauxManager.getInstance().getAnimalByClient();
 	}
 	
 	@Override
