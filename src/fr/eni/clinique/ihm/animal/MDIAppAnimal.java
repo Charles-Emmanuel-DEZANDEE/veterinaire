@@ -343,7 +343,7 @@ public class MDIAppAnimal extends JFrame {
 
     public JComboBox<String> getCboEspece() throws BLLException, DALException {
         if (this.cboEspece == null) {
-            //String[] places = { "Chat", "Chiens", "sourris", "cheval", "vache" };
+            String[] places = { "Chat", "Chiens", "sourris", "cheval", "vache" };
 //            cboEspece = new JComboBox<String>(places);
 
             this.cboEspece = new JComboBox(RacesManager.getInstance().getListeEspece().toArray());
@@ -353,6 +353,10 @@ public class MDIAppAnimal extends JFrame {
                 public void actionPerformed(ActionEvent e) {
 //                    try {
                         System.out.println("selection espece");
+                    JComboBox cb = (JComboBox)e.getSource();
+                    String espece = (String)cb.getSelectedItem();
+                    System.out.println(espece);
+
 //                    try {
 //                        cboRace = new JComboBox(RacesManager.getInstance().getListeRacesByEspece(cboEspece.getSelectedItem().toString()).toArray());
 //                    } catch (BLLException e1) {
