@@ -109,7 +109,7 @@ public class MDIAppClient extends JFrame {
 				this.panel2.add(this.getButtonRechercherClients());
 				gbc.gridx = 0;
 				gbc.gridy = 1;
-				this.panel2.add(this.getLabelRechercherClients());
+				 this.panel2.add(this.getLabelRechercherClients());
 				gbc.gridx = 1;
 				gbc.gridy = 0;
 				this.panel2.add(this.getButtonAjouterClients());

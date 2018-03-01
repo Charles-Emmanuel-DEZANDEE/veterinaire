@@ -11,7 +11,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Personnels;
@@ -20,10 +20,10 @@ import fr.eni.clinique.dal.DALException;
 public class FenetreReinitMotPassePersonnel extends JDialog {
 
 	private JLabel labelMotPasse;
-	private JTextField fieldMotPasse;
+	private JPasswordField fieldMotPasse;
 	private JButton buttonValider;	
+	private JButton buttonAnnuler;	
 	private Personnels personnelsAModif;
-	private static FenetreReinitMotPassePersonnel instance;
 	
 
 	public FenetreReinitMotPassePersonnel(JFrame parent, Personnels personnelsAModif) throws BLLException, DALException {
@@ -34,16 +34,8 @@ public class FenetreReinitMotPassePersonnel extends JDialog {
 		setResizable(false);
 		this.personnelsAModif = personnelsAModif;
 		initReinitMotPasse();
-		setVisible(true);
 	}
 	
-	public static synchronized FenetreReinitMotPassePersonnel getInstance(JFrame parent, Personnels personnelsAModif) throws DALException, BLLException{
-        if (instance == null){
-            instance = new FenetreReinitMotPassePersonnel( parent,  personnelsAModif);
-        }
-        instance.setVisible(true);
-        return instance;
-    }
 
 	public void initReinitMotPasse() throws BLLException, DALException {
 		JPanel panel = new JPanel();
@@ -62,10 +54,14 @@ public class FenetreReinitMotPassePersonnel extends JDialog {
 		panel.add(this.getFieldMotPasse(), gbc);
 		
 		// Ligne 3
-		gbc.gridwidth = 3;
 		gbc.gridx = 0;
 		gbc.gridy = 1;	
+		panel.add(this.getButtonAnnuler(), gbc);
+		gbc.gridx = 1;
+		gbc.gridy = 1;	
+		gbc.anchor = GridBagConstraints.EAST;
 		panel.add(this.getButtonValider(), gbc);
+		
 		setContentPane(panel);
 	}
 
@@ -77,9 +73,9 @@ public class FenetreReinitMotPassePersonnel extends JDialog {
 		return this.labelMotPasse;
 	}
 	
-	public JTextField getFieldMotPasse() {
+	public JPasswordField getFieldMotPasse() {
 		if (this.fieldMotPasse == null) {
-			this.fieldMotPasse = new JTextField(20);
+			this.fieldMotPasse = new JPasswordField(20);
 		}
 		return this.fieldMotPasse;
 	}
@@ -97,10 +93,8 @@ public class FenetreReinitMotPassePersonnel extends JDialog {
 					FenetreReinitMotPassePersonnel.this.personnelsAModif.setMotPasse(fieldMotPasse.getText());
 					try {
 						GererPersonnelController.getInstance().reinitMotPasse(FenetreReinitMotPassePersonnel.this.personnelsAModif);
-						FenetreReinitMotPassePersonnel.this.setVisible(false);
+						FenetreReinitMotPassePersonnel.this.dispose();
 						
-						//vider les champs
-						fieldMotPasse.setText("");
 					} catch (BLLException e1) {
 						e1.printStackTrace();
 					} catch (DALException e1) {
@@ -113,6 +107,23 @@ public class FenetreReinitMotPassePersonnel extends JDialog {
 		}
 		return this.buttonValider;
 	}
+	
+	public JButton getButtonAnnuler(){
+		if (this.buttonAnnuler == null) {
+			this.buttonAnnuler = new JButton("Annuler");
+			
+			this.buttonAnnuler.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					FenetreReinitMotPassePersonnel.this.dispose();
+				}
+			});
+
+		}
+		return this.buttonAnnuler;
+	}
+	
 	
 	public void exit(){
 		System.exit(0);

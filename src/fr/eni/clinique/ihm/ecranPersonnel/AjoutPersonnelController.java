@@ -12,29 +12,17 @@ public class AjoutPersonnelController {
     private static AjoutPersonnelController instance;
 
 
-    private AjoutPersonnelController(JFrame parent, PersonnelsTable tablePersonnels) throws DALException, BLLException {
-    	fenetreAjoutPersonnel = new FenetreAjoutPersonnel(parent, tablePersonnels);
-    }
-
-    public static synchronized AjoutPersonnelController getInstance(JFrame parent, PersonnelsTable tablePersonnels) throws DALException, BLLException{
+    public static synchronized AjoutPersonnelController getInstance() throws DALException, BLLException{
         if (instance == null){
-            instance = new AjoutPersonnelController(parent, tablePersonnels);
-        }else{
-        	instance.fenetreAjoutPersonnel.revalidate();
-            instance.fenetreAjoutPersonnel.repaint();
-            instance.fenetreAjoutPersonnel.setVisible(true);
+            instance = new AjoutPersonnelController();
         }
-        
         return instance;
     }
-
-    public void startApp() throws BLLException, DALException {
+    
+    public void afficherFenetreAjout(JFrame parent, PersonnelsTable tablePersonnels) throws BLLException, DALException{
+    	fenetreAjoutPersonnel = new FenetreAjoutPersonnel(parent, tablePersonnels);
     	fenetreAjoutPersonnel.setVisible(true);
-	}
-    
-    public void retourGererPersonnel() throws BLLException, DALException {
-		
-	}
-    
+    }
+
 
 }

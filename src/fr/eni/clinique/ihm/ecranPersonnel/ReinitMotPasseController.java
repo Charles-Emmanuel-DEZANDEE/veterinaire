@@ -12,27 +12,19 @@ public class ReinitMotPasseController {
     private static ReinitMotPasseController instance;
 
 
-    private ReinitMotPasseController(JFrame parent, Personnels personnelsAModif) throws DALException, BLLException {
-    	 if (instance == null){
-    		 fenetreReinitMotPasse = FenetreReinitMotPassePersonnel.getInstance(parent, personnelsAModif);
-    	 }
-    }
 
-    public static synchronized ReinitMotPasseController getInstance(JFrame parent, Personnels personnelsAModif) throws DALException, BLLException{
+    public static synchronized ReinitMotPasseController getInstance() throws DALException, BLLException{
         if (instance == null){
-            instance = new ReinitMotPasseController( parent,  personnelsAModif);
-        }
-        else{
-        	instance.fenetreReinitMotPasse.revalidate();
-            instance.fenetreReinitMotPasse.repaint();
-            instance.fenetreReinitMotPasse.setVisible(true);
+            instance = new ReinitMotPasseController();
         }
         return instance;
     }
 
-    public void startApp() throws BLLException, DALException {
+    public void afficherFenetreReinit(JFrame parent, Personnels personnelsAModif) throws BLLException, DALException{
+    	fenetreReinitMotPasse = new FenetreReinitMotPassePersonnel(parent, personnelsAModif);
     	fenetreReinitMotPasse.setVisible(true);
-	}
+    }
+    
     
     public void retourGererPersonnel() throws BLLException, DALException {
 		

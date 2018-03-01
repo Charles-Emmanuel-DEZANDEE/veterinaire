@@ -96,7 +96,7 @@ public class MDIAppGestionPersonnel extends JFrame  {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						//GererPersonnelController.getInstance().nouveauPersonnels();
-						AjoutPersonnelController.getInstance(MDIAppGestionPersonnel.this, MDIAppGestionPersonnel.this.getTablePersonnels());
+						AjoutPersonnelController.getInstance().afficherFenetreAjout(MDIAppGestionPersonnel.this, MDIAppGestionPersonnel.this.getTablePersonnels());
 						
 						//mettre à jour la table
 						getTablePersonnels().getPersonnelsModel().fireTableDataChanged();
@@ -168,8 +168,7 @@ public class MDIAppGestionPersonnel extends JFrame  {
 						
 						if (ligneTableau.length == 1){
 							personnelsAModif = getTablePersonnels().getPersonnelsModel().getListePersonnel().get(ligneTableau[0]);
-							ReinitMotPasseController.getInstance(MDIAppGestionPersonnel.this, personnelsAModif);
-							//FenetreReinitMotPassePersonnel fentreModifMotPasse = new FenetreReinitMotPassePersonnel(MDIAppGestionPersonnel.this, personnelsAModif);
+							ReinitMotPasseController.getInstance().afficherFenetreReinit(MDIAppGestionPersonnel.this, personnelsAModif);
 							
 							//mettre à jour la table
 							getTablePersonnels().getPersonnelsModel().fireTableDataChanged();
