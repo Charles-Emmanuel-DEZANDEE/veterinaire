@@ -1,9 +1,11 @@
 package fr.eni.clinique.dal;
 
-import fr.eni.clinique.bo.Personnels;
+import fr.eni.clinique.bo.Races;
 
-public interface DaoPersonnels extends Dao<Personnels>{
+import java.util.List;
 
-	public Personnels selectByNom(String nom)throws DALException;
-	public void delete(int  codePers)throws DALException;
+public interface DaoRaces extends Dao<Races>{
+
+	public List<Races> selectByEspece(String espece)throws DALException;
+	public Races selectByPK(String race, String espece)throws DALException;
 }
