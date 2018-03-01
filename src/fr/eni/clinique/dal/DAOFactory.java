@@ -1,10 +1,6 @@
 package fr.eni.clinique.dal;
 
 import fr.eni.clinique.bll.BLLException;
-import fr.eni.clinique.bo.Animaux;
-import fr.eni.clinique.bo.Clients;
-import fr.eni.clinique.bo.Personnels;
-import fr.eni.clinique.bo.Races;
 
 public class DAOFactory {
 
