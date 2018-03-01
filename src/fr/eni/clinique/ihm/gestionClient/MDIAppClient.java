@@ -1,5 +1,6 @@
 package fr.eni.clinique.ihm.gestionClient;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
@@ -57,7 +58,10 @@ public class MDIAppClient extends JFrame {
 	private JButton buttonSupprimerClients;
 	private JButton buttonValiderClients;
 	private JButton buttonAnnulerClients;
-			
+	private JPanel panel2;
+	private JPanel panel3;
+	private JPanel panel4;
+	
 	public MDIAppClient() {
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -69,122 +73,163 @@ public class MDIAppClient extends JFrame {
 	}
 	
 	public void init() throws BLLException, DALException{
+		
 		JPanel panel = new JPanel();
-		JPanel panel2 = new JPanel();
 		panel.setLayout(new GridBagLayout());
-		panel2.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(5, 5, 5, 5);
-		gbc.gridwidth = 2;
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		panel.add(panel2, gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		panel2.add(this.getButtonRechercherClients(), gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		panel2.add(this.getLabelRechercherClients(), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 0;
-		panel2.add(this.getButtonAjouterClients(), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 1;
-		panel2.add(this.getLabelAjouterClients(), gbc);
-		gbc.gridx = 2;
-		gbc.gridy = 0;
-		panel2.add(this.getButtonSupprimerClients(), gbc);
-		gbc.gridx = 2;
-		gbc.gridy = 1;
-		panel2.add(this.getLabelSupprimerClients(), gbc);
-		gbc.gridx = 3;
-		gbc.gridy = 0;
-		panel2.add(this.getButtonValiderClients(), gbc);
-		gbc.gridx = 3;
-		gbc.gridy = 1;
-		panel2.add(this.getLabelValiderClients(), gbc);
-		gbc.gridx = 4;
-		gbc.gridy = 0;
-		panel2.add(this.getButtonAnnulerClients(), gbc);
-		gbc.gridx = 4;
-		gbc.gridy = 1;
-		panel2.add(this.getLabelAnnulerClients(), gbc);
 		
-		gbc.gridwidth = 2;
+		gbc.gridwidth = 1;
 		gbc.gridx = 0;
-		gbc.gridy = 1;
-		panel.add(this.getLabelCodeClient(), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 1;
-		panel.add(this.getFieldCodeClient(), gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 2;
-		panel.add(this.getLabelNomClient(), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 2;
-		panel.add(this.getFieldNomClient(), gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 3;
-		panel.add(this.getLabelPrenomClient(), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 3;
-		panel.add(this.getFieldPrenomClient(), gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 4;
-		panel.add(this.getLabelAdresseClient(), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 4;
-		panel.add(this.getFieldAdresse1Client(), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 5;
-		panel.add(this.getFieldAdresse2Client(), gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 6;
-		panel.add(this.getLabelCPClient(), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 6;
-		panel.add(this.getFieldCPClient(), gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 7;
-		panel.add(this.getLabelVilleClient(), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 7;
-		panel.add(this.getFieldVilleClient(), gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 8;
-		panel.add(this.getLabelNumTelClient(), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 8;
-		panel.add(this.getFieldNumTelClient(), gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 9;
-		panel.add(this.getLabelAssuranceClient(), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 9;
-		panel.add(this.getFieldAssuranceClient(), gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 10;
-		panel.add(this.getLabelEmailClient(), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 10;
-		panel.add(this.getFieldEmailClient(), gbc);
-		gbc.gridx = 0;
-		gbc.gridy = 11;
-		panel.add(this.getLabelRemarqueClient(), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 11;
-		panel.add(this.getFieldRemarqueClient(), gbc);
-		gbc.gridx = 2;
 		gbc.gridy = 0;
-		ClientsTable tableClients = new ClientsTable();
-		tableClients.setFillsViewportHeight(true);
-		tableClients.setPreferredScrollableViewportSize(new Dimension(300, 300));
-		panel.add(tableClients, gbc);
-		
-		JScrollPane scroll = new JScrollPane(panel);
-		setContentPane(scroll);
+		panel.add(this.getPanel2(), gbc);
+//		gbc.gridx = 0;
+//		gbc.gridy = 1;
+//		panel.add(this.getPanel3(), gbc);
+//		gbc.gridx = 1;
+//		gbc.gridy = 1;
+//		panel.add(this.getPanel4(), gbc);
+
+		setContentPane(panel);
 	}
 	
+	//Panel
+	public JPanel getPanel2(){
+		
+			if (this.panel2 == null) {
+				
+				this.panel2 = new JPanel();
+				this.panel2.setLayout(new GridBagLayout());
+				GridBagConstraints gbc = new GridBagConstraints();
+				gbc.insets = new Insets(5, 5, 5, 5);
+				
+				gbc.gridwidth = 1;
+				gbc.gridx = 0;
+				gbc.gridy = 0;
+				this.panel2.add(this.getButtonRechercherClients());
+				gbc.gridx = 0;
+				gbc.gridy = 1;
+				this.panel2.add(this.getLabelRechercherClients());
+				gbc.gridx = 1;
+				gbc.gridy = 0;
+				this.panel2.add(this.getButtonAjouterClients());
+				gbc.gridx = 1;
+				gbc.gridy = 1;
+				this.panel2.add(this.getLabelAjouterClients());
+				gbc.gridx = 2;
+				gbc.gridy = 0;
+				this.panel2.add(this.getButtonSupprimerClients());
+				gbc.gridx = 2;
+				gbc.gridy = 1;
+				this.panel2.add(this.getLabelSupprimerClients());
+				gbc.gridx = 3;
+				gbc.gridy = 0;
+				this.panel2.add(this.getButtonValiderClients());
+				gbc.gridx = 3;
+				gbc.gridy = 1;
+				this.panel2.add(this.getLabelValiderClients());
+				gbc.gridx = 4;
+				gbc.gridy = 0;
+				this.panel2.add(this.getButtonAnnulerClients());
+				gbc.gridx = 4;
+				gbc.gridy = 1;
+				this.panel2.add(this.getLabelAnnulerClients());
+			}
+			return this.panel2;
+		}
+	
+	public JPanel getPanel3(){
+		if (this.panel3 == null) {
+			
+			this.panel3 = new JPanel();
+			this.panel3.setLayout(new GridBagLayout());
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5, 5, 5, 5);
+			
+			gbc.gridwidth = 1;
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			this.panel3.add(this.getLabelCodeClient());
+			gbc.gridx = 1;
+			gbc.gridy = 0;
+			this.panel3.add(this.getFieldCodeClient());
+			gbc.gridx = 0;
+			gbc.gridy = 1;
+			this.panel3.add(this.getLabelNomClient());
+			gbc.gridx = 1;
+			gbc.gridy = 1;
+			this.panel3.add(this.getFieldNomClient());
+			gbc.gridx = 0;
+			gbc.gridy = 2;
+			this.panel3.add(this.getLabelPrenomClient());
+			gbc.gridx = 1;
+			gbc.gridy = 2;
+			this.panel3.add(this.getFieldPrenomClient());
+			gbc.gridx = 0;
+			gbc.gridy = 3;
+			this.panel3.add(this.getLabelAdresseClient());
+			gbc.gridx = 1;
+			gbc.gridy = 3;
+			this.panel3.add(this.getFieldAdresse1Client());
+			gbc.gridx = 1;
+			gbc.gridy = 4;
+			this.panel3.add(this.getFieldAdresse2Client());
+			gbc.gridx = 0;
+			gbc.gridy = 5;
+			this.panel3.add(this.getLabelCPClient());
+			gbc.gridx = 1;
+			gbc.gridy = 5;
+			this.panel3.add(this.getFieldCPClient());
+			gbc.gridx = 0;
+			gbc.gridy = 6;
+			this.panel3.add(this.getLabelVilleClient());
+			gbc.gridx = 1;
+			gbc.gridy = 6;
+			this.panel3.add(this.getFieldVilleClient());
+			gbc.gridx = 0;
+			gbc.gridy = 7;
+			this.panel3.add(this.getLabelNumTelClient());
+			gbc.gridx = 1;
+			gbc.gridy = 7;
+			this.panel3.add(this.getFieldNumTelClient());
+			gbc.gridx = 0;
+			gbc.gridy = 8;
+			this.panel3.add(this.getLabelAssuranceClient());
+			gbc.gridx = 1;
+			gbc.gridy = 8;
+			this.panel3.add(this.getFieldAssuranceClient());
+			gbc.gridx = 0;
+			gbc.gridy = 9;
+			this.panel3.add(this.getLabelEmailClient());
+			gbc.gridx = 1;
+			gbc.gridy = 9;
+			this.panel3.add(this.getFieldEmailClient());
+			gbc.gridx = 0;
+			gbc.gridy = 10;
+			this.panel3.add(this.getLabelRemarqueClient());
+			gbc.gridx = 1;
+			gbc.gridy = 10;
+			this.panel3.add(this.getFieldRemarqueClient());
+		}
+		return this.panel3;
+	}
+	
+	public JPanel getPanel4() throws BLLException, DALException{
+		if (this.panel4 == null) {
+			
+			this.panel4 = new JPanel();
+			panel4.setLayout(new GridBagLayout());
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5, 5, 5, 5);
+			
+			ClientsTable tableClients = new ClientsTable();
+			tableClients.setFillsViewportHeight(true);
+			tableClients.setPreferredScrollableViewportSize(new Dimension(400, 400));
+			panel4.add(tableClients, gbc);
+		}
+		return this.panel4;
+	}
+
 	//Button
 	public JButton getButtonRechercherClients() {
 		if (this.buttonRechercherClients == null) {

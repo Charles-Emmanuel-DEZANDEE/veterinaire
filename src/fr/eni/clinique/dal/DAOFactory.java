@@ -16,13 +16,13 @@ public class DAOFactory {
 	}
 	
 	public static DaoClients getClientsDAO() throws DALException, BLLException {
-		DaoClients aDao = new ClientsDAOJdbcImpl();
-		return aDao;
+		DaoClients DaoClient = new ClientsDAOJdbcImpl();
+		return DaoClient;
 	}
 	
 	public static DaoRaces getRacesDAO() throws DALException, BLLException {
-        DaoRaces aDao = new RacesDAOJdbcImpl();
-		return aDao;
+        DaoRaces DaoRace = new RacesDAOJdbcImpl();
+		return DaoRace;
 	}
 
 }

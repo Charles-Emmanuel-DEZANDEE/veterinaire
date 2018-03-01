@@ -2,21 +2,22 @@ package fr.eni.clinique.bll;
 
 import fr.eni.clinique.bo.Races;
 import fr.eni.clinique.bo.Clients;
-import fr.eni.clinique.dal.RacesDAOJdbcImpl;
-import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.dal.DAOFactory;
-import fr.eni.clinique.dal.Dao;
+import fr.eni.clinique.dal.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
 public class RacesManager {
-	private static Dao<Races> daoRaces;
+	private static DaoRaces daoRaces;
 	private static RacesManager instance;
 
-	public RacesManager() throws DALException, BLLException {
-		daoRaces = DAOFactory.getRacesDAO();
+	public RacesManager() throws BLLException {
+		try {
+			daoRaces = DAOFactory.getRacesDAO();
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static RacesManager getInstance() throws BLLException, DALException{
@@ -28,21 +29,21 @@ public class RacesManager {
 	
 
 //todo
-	public List<Races> getListeRacesByEspece(String espece) throws BLLException{
-		List<Races> r1 = null;
-		try {
-			r1 = ((RacesDAOJdbcImpl)daoRaces).selectByEspece(espece);
-		} catch (DALException e) {
-			e.printStackTrace();
-			throw new BLLException("Erreur r�cup�ration de la race par Nom", e);
-		}
-		return r1;
-	}
+//	public List<Races> getListeRacesByEspece(String espece) throws BLLException{
+//		List<Races> r1 = null;
+//		try {
+//			r1 = ((RacesDAOJdbcImpl)daoRaces).selectByEspece(espece);
+//		} catch (DALException e) {
+//			e.printStackTrace();
+//			throw new BLLException("Erreur r�cup�ration de la race par Nom", e);
+//		}
+//		return r1;
+//	}
 	
-	public List<Races> getListeRaces() throws BLLException{
-		List<Races> races = null;
+	public List<String> getListeRaces(String espece) throws BLLException{
+		List<String> races = null;
 		try {
-			races = daoRaces.selectAll();
+			races = daoRaces.getListRaceByEspece(espece);
 		} catch (DALException e) {
 			e.printStackTrace();
 			throw new BLLException("Erreur r�cup�ration de la liste des races", e);
@@ -51,11 +52,11 @@ public class RacesManager {
 	}
 
 	public List<String> getListeEspece() throws BLLException {
-		List<Races> races = getListeRaces();
-		ListIterator<Races> it = races.listIterator();
 		List<String> especes = null;
-		while(it.hasNext()){
-			especes.add( it.next().getEspece());
+		try {
+			especes = daoRaces.getListEspece();
+		} catch (DALException e) {
+			e.printStackTrace();
 		}
 		return especes;
 	}

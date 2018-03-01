@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface DaoRaces extends Dao<Races>{
 
-	public List<Races> selectByEspece(String espece)throws DALException;
+	public List<String> getListRaceByEspece(String espece)throws DALException;
+	public List<String> getListEspece() throws DALException;
 	public Races selectByPK(String race, String espece)throws DALException;
 }

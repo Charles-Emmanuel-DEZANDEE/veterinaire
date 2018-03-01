@@ -31,6 +31,7 @@ public class LogInController {
 
         //on fait find by nom
         Personnels user = PersonnelsManager.getInstance().getPersonnelByNom(nom);
+        Personnels test = user;
 
         if (user != null) {
 
@@ -59,6 +60,9 @@ public class LogInController {
                     default:
                         System.out.println("Pas de role existant");
                 }
+                //on ferme la fenetre de connexion
+                fenetreLogIn.exit();
+
             }
             //sinon on affiche l'erreur de pass
 
@@ -72,8 +76,6 @@ public class LogInController {
             fenetreLogIn.showError(1);
             System.out.println("Probleme de user");
         }
-        //on ferme la fenetre de connexion
-        fenetreLogIn.exit();
 
     }
 

@@ -48,11 +48,11 @@ public class AppliTestDAL {
 			clientsDAO.insert(c3);
 			System.out.println("Client ajout� : " + c3.toString());
 
-			Races r1 = new Races("chien", "labrador");
-			Races r2 = new Races("chien", "tekel");
-			Races r3 = new Races("chien", "caniche");
-			Races r4 = new Races("chat", "persan");
-			Races r5 = new Races("chat", "siamois");
+			Races r1 = new Races("labrador", "chien");
+			Races r2 = new Races("tekel", "chien");
+			Races r3 = new Races("caniche", "chien");
+			Races r4 = new Races("persan", "chat");
+			Races r5 = new Races("siamois", "chat");
 
 			racesDAO.insert(r1);
 			System.out.println("races ajout� : " + r1.toString());

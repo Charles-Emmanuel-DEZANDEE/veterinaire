@@ -8,7 +8,7 @@ import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.*;
 
 public class AnimauxManager {
-	private static Dao<Animaux> daoAnimaux;
+	private static DaoAnimaux daoAnimaux;
 	private static AnimauxManager instance;
 	
 	public AnimauxManager() throws DALException, BLLException {
