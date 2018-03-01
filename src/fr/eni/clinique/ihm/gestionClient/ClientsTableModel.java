@@ -1,24 +1,26 @@
 package fr.eni.clinique.ihm.gestionClient;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import fr.eni.clinique.bll.BLLException;
-import fr.eni.clinique.bll.AnimauxManager;
 import fr.eni.clinique.bo.Animaux;
-import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
 
 public class ClientsTableModel extends AbstractTableModel{
 	
 	private List<Animaux> listeAnimaux;
-	
+    private final String[] columnName = {"Numéro", "Nom", "Sexe", "Couleur", "Race", "Espece", "Tatouage"};
+	    
+		
 	public ClientsTableModel() throws BLLException, DALException{
-		//this.listeAnimaux = AnimauxManager.getInstance().getAnimalByClient();
+		this.listeAnimaux = new ArrayList<>();
+		//this.listeAnimaux = AnimauxManager.getInstance().getListeAnimaux();
 	}
 	
 	@Override
 	public int getColumnCount() {
-		return 7;
+		return columnName.length;
 	}
 
 	@Override
@@ -52,4 +54,7 @@ public class ClientsTableModel extends AbstractTableModel{
 		return null;
 	}
 	
+	public String getColumnName(int col){
+		 return columnName[col];
+	}
 }
