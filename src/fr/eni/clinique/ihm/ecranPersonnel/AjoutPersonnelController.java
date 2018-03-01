@@ -12,14 +12,19 @@ public class AjoutPersonnelController {
     private static AjoutPersonnelController instance;
 
 
-    private AjoutPersonnelController(JFrame parent) throws DALException, BLLException {
-    	fenetreAjoutPersonnel = new FenetreAjoutPersonnel(parent);
+    private AjoutPersonnelController(JFrame parent, PersonnelsTable tablePersonnels) throws DALException, BLLException {
+    	fenetreAjoutPersonnel = new FenetreAjoutPersonnel(parent, tablePersonnels);
     }
 
-    public static synchronized AjoutPersonnelController getInstance(JFrame parent) throws DALException, BLLException{
+    public static synchronized AjoutPersonnelController getInstance(JFrame parent, PersonnelsTable tablePersonnels) throws DALException, BLLException{
         if (instance == null){
-            instance = new AjoutPersonnelController(parent);
+            instance = new AjoutPersonnelController(parent, tablePersonnels);
+        }else{
+        	instance.fenetreAjoutPersonnel.revalidate();
+            instance.fenetreAjoutPersonnel.repaint();
+            instance.fenetreAjoutPersonnel.setVisible(true);
         }
+        
         return instance;
     }
 
@@ -31,9 +36,5 @@ public class AjoutPersonnelController {
 		
 	}
     
-    public void ajouterPersonnel(Personnels newPersonnel) throws BLLException, DALException{
-    	PersonnelsManager.getInstance().addPersonnel(newPersonnel);
-    	//fenetreAjoutPersonnel.exit();
-    }
 
 }

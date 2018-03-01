@@ -28,21 +28,23 @@ public class FenetreAjoutPersonnel extends JDialog {
 	private JTextField fieldRole;
 	private JTextField fieldMotPasse;
 	private JButton buttonValider;	
+	private PersonnelsTable tablePersonnels;
 	private static FenetreAjoutPersonnel instance;
 
-	public FenetreAjoutPersonnel(JFrame parent) throws BLLException, DALException {
+	public FenetreAjoutPersonnel(JFrame parent, PersonnelsTable tablePersonnels) throws BLLException, DALException {
 		super(parent, "Ajouter Personnel", true);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(450, 300);
 		setResizable(false);
+		this.tablePersonnels = tablePersonnels;
 		initAjoutPersonnel();
 		setVisible(true);
 	}
 	
-	public static synchronized FenetreAjoutPersonnel getInstance(JFrame parent) throws DALException, BLLException{
+	public static synchronized FenetreAjoutPersonnel getInstance(JFrame parent, PersonnelsTable tablePersonnels) throws DALException, BLLException{
         if (instance == null){
-            instance = new FenetreAjoutPersonnel( parent);
+            instance = new FenetreAjoutPersonnel( parent, tablePersonnels);
         }
         return instance;
     }
@@ -149,12 +151,19 @@ public class FenetreAjoutPersonnel extends JDialog {
 								fieldMotPasse.getText(),
 								fieldRole.getText(),
 								false);
+						
 						GererPersonnelController.getInstance().ajouterPersonnel(newPersonnels);
+						
+						// mise a jour de la liste du personnels dans le tablePersonnels
+						FenetreAjoutPersonnel.this.tablePersonnels.getPersonnelsModel().getListePersonnel().add(newPersonnels);
 						FenetreAjoutPersonnel.this.setVisible(false);
+						
+						//vider les champs
+						fieldNom.setText("");
+						fieldMotPasse.setText("");
+						fieldRole.setText("");
 					} catch (BLLException e1) {
-						e1.printStackTrace();
-					} catch (DALException e1) {
-						e1.printStackTrace();
+						e1.printStackTrace();					
 					}
 
 

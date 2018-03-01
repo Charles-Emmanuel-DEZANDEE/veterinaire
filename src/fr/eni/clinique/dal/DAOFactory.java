@@ -9,9 +9,9 @@ import fr.eni.clinique.bo.Races;
 public class DAOFactory {
 
 	
-	public static Dao<Personnels> getPersonnelsDAO() throws DALException, BLLException {
-		Dao<Personnels> sDao = new PersonnelsDAOJdbcImpl();
-		return sDao;
+	public static DaoPersonnels getPersonnelsDAO() throws DALException, BLLException {
+		DaoPersonnels daoPersonnels = new PersonnelsDAOJdbcImpl();
+		return daoPersonnels;
 	}
 
 	public static Dao<Animaux> getAnimauxDAO() throws DALException, BLLException {

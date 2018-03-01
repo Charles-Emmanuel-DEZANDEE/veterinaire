@@ -20,7 +20,7 @@ public class AnimauxDAOJdbcImpl implements Dao{
     private Connection connect;
 
     public AnimauxDAOJdbcImpl() throws DALException, BLLException {
-        this.connect = ConnectionSingleton.getConnection().getConnect();
+        this.connect = ConnectionSingleton.getInstance().getConnect();
     }
 
     public void insert(Object a2) throws DALException {

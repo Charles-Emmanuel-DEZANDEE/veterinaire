@@ -9,15 +9,19 @@ import fr.eni.clinique.dal.DALException;
 
 public class GererPersonnelController {
     private MDIAppGestionPersonnel fenetreAdm;
-    private FenetreAjoutPersonnel fenetreAjoutPersonnel;
     private static GererPersonnelController instance;
 
 
-    private GererPersonnelController() throws DALException, BLLException {
-        fenetreAdm = new MDIAppGestionPersonnel();
+    private GererPersonnelController() throws  BLLException {
+        try {
+			fenetreAdm = new MDIAppGestionPersonnel();
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
-    public static synchronized GererPersonnelController getInstance() throws DALException, BLLException{
+    public static synchronized GererPersonnelController getInstance() throws  BLLException{
         if (instance == null){
             instance = new GererPersonnelController();
         }
@@ -26,10 +30,8 @@ public class GererPersonnelController {
 
     public void startApp() throws BLLException, DALException {
     	fenetreAdm.setVisible(true);
-	}
-    
-    public void nouveauPersonnels() throws BLLException, DALException {
-    	AjoutPersonnelController.getInstance(fenetreAdm);
+    	fenetreAdm.revalidate();
+    	fenetreAdm.repaint();
 	}
     
     public void reinitMotPasse(Personnels personnelAModif) throws BLLException, DALException{
@@ -42,7 +44,7 @@ public class GererPersonnelController {
     		PersonnelsManager.getInstance().archivePersonnel(personnelsASupp);
 	}
     
-    public void ajouterPersonnel(Personnels newPersonnel) throws BLLException, DALException{
+    public void ajouterPersonnel(Personnels newPersonnel) throws BLLException{
     	PersonnelsManager.getInstance().addPersonnel(newPersonnel);
     	//fenetreAjoutPersonnel.exit();
     }

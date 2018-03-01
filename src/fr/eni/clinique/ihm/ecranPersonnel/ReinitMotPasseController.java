@@ -22,6 +22,11 @@ public class ReinitMotPasseController {
         if (instance == null){
             instance = new ReinitMotPasseController( parent,  personnelsAModif);
         }
+        else{
+        	instance.fenetreReinitMotPasse.revalidate();
+            instance.fenetreReinitMotPasse.repaint();
+            instance.fenetreReinitMotPasse.setVisible(true);
+        }
         return instance;
     }
 

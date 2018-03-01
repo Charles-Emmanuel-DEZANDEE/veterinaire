@@ -98,6 +98,9 @@ public class FenetreReinitMotPassePersonnel extends JDialog {
 					try {
 						GererPersonnelController.getInstance().reinitMotPasse(FenetreReinitMotPassePersonnel.this.personnelsAModif);
 						FenetreReinitMotPassePersonnel.this.setVisible(false);
+						
+						//vider les champs
+						fieldMotPasse.setText("");
 					} catch (BLLException e1) {
 						e1.printStackTrace();
 					} catch (DALException e1) {
