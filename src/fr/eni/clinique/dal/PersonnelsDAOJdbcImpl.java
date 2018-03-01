@@ -77,11 +77,11 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
 	                		res.getString("MotPasse"),
 	                		res.getString("Role"),
 	                		res.getBoolean("Archive"));
-		        //on ferme les connections
 	             }
-                stmt.close();
-                connect.close();
-                return data;
+	        	//on ferme les connections
+		        stmt.close();
+		        connect.close();
+	         	return data;
 	        }else{
 	        	//on ferme les connections
 		        stmt.close();
@@ -120,7 +120,6 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
                 //on ferme les connections
                 stmt.close();
                 connect.close();
-
                 return data;
             }else{
             	//on ferme les connections
@@ -157,11 +156,9 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
 
             // on update
             stmt.executeUpdate();
-
             //on ferme les connections
             stmt.close();
             connect.close();
-
 
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
@@ -181,7 +178,6 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
             //on ferme les connections
             stmt.close();
             connect.close();
-
 
         } catch (SQLException e) {
         throw new DALException(e.getMessage());
@@ -206,11 +202,10 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
 	                		res.getString("MotPasse"),
 	                		res.getString("Role"),
 	                		res.getBoolean("Archive"));
-
 	             }
-                //on ferme les connections
-                stmt.close();
-                connect.close();
+	        	//on ferme les connections
+		        stmt.close();
+		        connect.close();
 	         	return data;
 	        }else{
 	        	//on ferme les connections

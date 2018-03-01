@@ -7,10 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -26,10 +28,11 @@ public class FenetreAjoutPersonnel extends JDialog {
 	private JLabel labelMotPasse;
 	private JTextField fieldNom;
 	private JTextField fieldRole;
-	private JTextField fieldMotPasse;
+	private JPasswordField fieldMotPasse;
 	private JButton buttonValider;	
+	private JButton buttonAnnuler;	
+	private JComboBox<String> cboRoles;
 	private PersonnelsTable tablePersonnels;
-	private static FenetreAjoutPersonnel instance;
 
 	public FenetreAjoutPersonnel(JFrame parent, PersonnelsTable tablePersonnels) throws BLLException, DALException {
 		super(parent, "Ajouter Personnel", true);
@@ -39,15 +42,8 @@ public class FenetreAjoutPersonnel extends JDialog {
 		setResizable(false);
 		this.tablePersonnels = tablePersonnels;
 		initAjoutPersonnel();
-		setVisible(true);
 	}
 	
-	public static synchronized FenetreAjoutPersonnel getInstance(JFrame parent, PersonnelsTable tablePersonnels) throws DALException, BLLException{
-        if (instance == null){
-            instance = new FenetreAjoutPersonnel( parent, tablePersonnels);
-        }
-        return instance;
-    }
 	
 	public void initAjoutPersonnel() throws BLLException, DALException {
 		JPanel panel = new JPanel();
@@ -72,7 +68,7 @@ public class FenetreAjoutPersonnel extends JDialog {
 		panel.add(this.getLabelRole(), gbc);
 		gbc.gridx = 1;
 		gbc.gridy = 1;
-		panel.add(this.getFieldRole(), gbc);
+		panel.add(this.getCboRoles(), gbc);
 		
 		// Ligne 3
 		//gbc.gridwidth = 0;
@@ -84,13 +80,24 @@ public class FenetreAjoutPersonnel extends JDialog {
 		panel.add(this.getFieldMotPasse(), gbc);
 
 		// Ligne 3
-		gbc.gridwidth = 3;
 		gbc.gridx = 0;
 		gbc.gridy = 3;	
+		panel.add(this.getButtonAnnuler(), gbc);
+		gbc.gridx = 1;
+		gbc.gridy = 3;	
+		gbc.anchor = GridBagConstraints.EAST;
 		panel.add(this.getButtonValider(), gbc);
 		setContentPane(panel);
 	}
 
+	public JComboBox<String> getCboRoles() {
+		if (cboRoles == null) {
+			String[] roles = { "Veterinaire", "Secrétaire", "Admin"};
+			cboRoles = new JComboBox<String>(roles);
+		}
+		return cboRoles;
+	}
+	
 	public JLabel getLabelNom() {
 		if (this.labelNom == null) {
 			this.labelNom = new JLabel("Nom");
@@ -130,9 +137,9 @@ public class FenetreAjoutPersonnel extends JDialog {
 		return this.fieldRole;
 	}
 
-	public JTextField getFieldMotPasse() {
+	public JPasswordField getFieldMotPasse() {
 		if (this.fieldMotPasse == null) {
-			this.fieldMotPasse = new JTextField(20);
+			this.fieldMotPasse = new JPasswordField(20);
 		}
 		return this.fieldMotPasse;
 	}
@@ -147,21 +154,18 @@ public class FenetreAjoutPersonnel extends JDialog {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
+						String roleSelectionne = GererPersonnelController.getInstance().roleAEnregistrer(cboRoles.getSelectedItem().toString());
+						
 						Personnels newPersonnels = new Personnels(fieldNom.getText(), 
 								fieldMotPasse.getText(),
-								fieldRole.getText(),
+								roleSelectionne,
 								false);
 						
 						GererPersonnelController.getInstance().ajouterPersonnel(newPersonnels);
 						
 						// mise a jour de la liste du personnels dans le tablePersonnels
 						FenetreAjoutPersonnel.this.tablePersonnels.getPersonnelsModel().getListePersonnel().add(newPersonnels);
-						FenetreAjoutPersonnel.this.setVisible(false);
-						
-						//vider les champs
-						fieldNom.setText("");
-						fieldMotPasse.setText("");
-						fieldRole.setText("");
+						FenetreAjoutPersonnel.this.dispose();
 					} catch (BLLException e1) {
 						e1.printStackTrace();					
 					}
@@ -172,6 +176,22 @@ public class FenetreAjoutPersonnel extends JDialog {
 
 		}
 		return this.buttonValider;
+	}
+	
+	public JButton getButtonAnnuler(){
+		if (this.buttonAnnuler == null) {
+			this.buttonAnnuler = new JButton("Annuler");
+			
+			this.buttonAnnuler.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					FenetreAjoutPersonnel.this.dispose();
+				}
+			});
+
+		}
+		return this.buttonAnnuler;
 	}
 	
 	public void exit(){

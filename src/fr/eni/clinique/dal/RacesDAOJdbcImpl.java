@@ -14,7 +14,7 @@ public class RacesDAOJdbcImpl implements DaoRaces {
     private Connection connect;
 
 //    public RacesDAOJdbcImpl() throws DALException, BLLException {
-//        this.connect = ConnectionSingleton.getInstance().getConnect();
+//        connect = ConnectionSingleton.getInstance().getConnect();
 //    }
 
     public void insert(Races a1) throws DALException {
@@ -29,7 +29,7 @@ public class RacesDAOJdbcImpl implements DaoRaces {
                     "?," +
                     "?" +
                     ")";
-            PreparedStatement stmt = this.connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, a1.getRace());
             stmt.setString(2, a1.getEspece());
 
@@ -46,7 +46,7 @@ public class RacesDAOJdbcImpl implements DaoRaces {
             Connection connect = ConnectionSingleton.getConnect();
 
             String sql = "SELECT * FROM Races WHERE Race = ? and Espece = ?";
-            PreparedStatement stmt = this.connect.prepareStatement(sql);
+            PreparedStatement stmt = connect.prepareStatement(sql);
 
             stmt.setString(1, race);//"race,
             stmt.setString(2, espece);//"espece,
@@ -72,23 +72,48 @@ public class RacesDAOJdbcImpl implements DaoRaces {
         }
     }
 
-    public List<Races> selectByEspece(String espece) throws DALException {
+    public List<String> getListRaceByEspece(String espece) throws DALException {
         try {
             Connection connect = ConnectionSingleton.getConnect();
 
-            String sql = "SELECT * FROM Races WHERE Espece = ?";
-            PreparedStatement stmt = this.connect.prepareStatement(sql);
+            String sql = "SELECT Race FROM Races WHERE Espece = ?";
+            PreparedStatement stmt = connect.prepareStatement(sql);
             stmt.setString(1, espece);//"race,
 
             ResultSet res = stmt.executeQuery();
-            List<Races> data = new ArrayList<>();
+            List<String> data = new ArrayList<>();
             if (res != null) {
                 int i = 0;
                 while (res.next()) {
-                    data.add(new Races(
-                                    res.getString("Race"),
-                                    res.getString("Espece")
-                            )
+                    data.add(res.getString("Race")
+                    );
+                    i++;
+                }
+                stmt.close();
+                connect.close();
+                return data;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new DALException(e.getMessage());
+        }
+    }
+
+    public List<String> getListEspece() throws DALException {
+        try {
+            Connection connect = ConnectionSingleton.getConnect();
+
+            String sql = "SELECT DISTINCT Espece FROM Races";
+            PreparedStatement stmt = connect.prepareStatement(sql);
+//            stmt.setString(1, espece);//"race,
+
+            ResultSet res = stmt.executeQuery();
+            List<String> data = new ArrayList<>();
+            if (res != null) {
+                int i = 0;
+                while (res.next()) {
+                    data.add(res.getString("Espece")
                     );
                     i++;
                 }
@@ -114,15 +139,15 @@ public class RacesDAOJdbcImpl implements DaoRaces {
             Connection connect = ConnectionSingleton.getConnect();
 
             String sql = "SELECT * FROM Races";
-            PreparedStatement stmt = this.connect.prepareStatement(sql);
+            PreparedStatement stmt = connect.prepareStatement(sql);
             ResultSet res = stmt.executeQuery();
             List<Races> data = new ArrayList<>();
             if (res != null) {
                 int i = 0;
                 while (res.next()) {
                     data.add(new Races(
-                            res.getString("Race"),
-                            res.getString("Espece")
+                                    res.getString("Race"),
+                                    res.getString("Espece")
                             )
                     );
                     i++;
@@ -139,7 +164,6 @@ public class RacesDAOJdbcImpl implements DaoRaces {
     }
 
 
-
     public void update(Races a2) throws DALException {
     }
 
@@ -148,7 +172,7 @@ public class RacesDAOJdbcImpl implements DaoRaces {
             Connection connect = ConnectionSingleton.getConnect();
 
             String sql = "DELETE FROM Races WHERE Race = ? and Espece = ?";
-            PreparedStatement stmt = this.connect.prepareStatement(sql);
+            PreparedStatement stmt = connect.prepareStatement(sql);
             stmt.setString(1, race);
             stmt.setString(2, espece);
             stmt.executeUpdate();

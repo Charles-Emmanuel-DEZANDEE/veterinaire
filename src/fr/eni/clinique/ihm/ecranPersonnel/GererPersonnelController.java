@@ -36,7 +36,6 @@ public class GererPersonnelController {
     
     public void reinitMotPasse(Personnels personnelAModif) throws BLLException, DALException{
     	PersonnelsManager.getInstance().updatePersonnels(personnelAModif);
-    	//fenetreAjoutPersonnel.exit();
     }
 
     
@@ -46,8 +45,23 @@ public class GererPersonnelController {
     
     public void ajouterPersonnel(Personnels newPersonnel) throws BLLException{
     	PersonnelsManager.getInstance().addPersonnel(newPersonnel);
-    	//fenetreAjoutPersonnel.exit();
     }
+    
+    
+    public String roleAEnregistrer(String roleSelectionne){
+    	String roleAenregistrer = "";
+    	if (roleSelectionne.equals("Veterinaire")){
+    		roleAenregistrer= "vet";
+    	}
+    	if (roleSelectionne.equals("Secrétaire")){
+    		roleAenregistrer= "sec";
+    	}
+    	if (roleSelectionne.equals("Admin")){
+    		roleAenregistrer= "adm";
+    	}
+    	return roleAenregistrer;
+    }
+    
 
     
 }

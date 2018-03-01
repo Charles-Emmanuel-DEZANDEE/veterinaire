@@ -1,15 +1,12 @@
 package fr.eni.clinique.bll;
 
 import fr.eni.clinique.bo.Clients;
-import fr.eni.clinique.dal.ClientsDAOJdbcImpl;
-import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.dal.DAOFactory;
-import fr.eni.clinique.dal.Dao;
+import fr.eni.clinique.dal.*;
 
 import java.util.List;
 
 public class ClientsManager {
-	private static Dao<Clients> daoClients;
+	private static DaoClients daoClients;
 	private static ClientsManager instance;
 
 	public ClientsManager() throws DALException, BLLException {
