@@ -8,11 +8,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//import java.sql.Connection;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//import java.sql.Statement;
 
 public class RacesDAOJdbcImpl implements Dao {
 
@@ -71,26 +66,26 @@ public class RacesDAOJdbcImpl implements Dao {
             throw new DALException(e.getMessage());
         }
     }
-    //todo select by espece
 
-    public Races selectByEspece(String espece) throws DALException {
+    public List<Races> selectByEspece(String espece) throws DALException {
         try {
-            String sql = "SELECT * FROM Races WHERE Race = ? and Espece = ?";
+            String sql = "SELECT * FROM Races WHERE Espece = ?";
             PreparedStatement stmt = this.connect.prepareStatement(sql);
-
             stmt.setString(1, espece);//"race,
 
             ResultSet res = stmt.executeQuery();
-
-            Races data = null;
-
+            List<Races> data = new ArrayList<>();
             if (res != null) {
-                if (res.next()) {
-                    data = new Races(res.getString("Race"),
-                            res.getString("Espece")
+                int i = 0;
+                while (res.next()) {
+                    data.add(new Races(
+                                    res.getString("Race"),
+                                    res.getString("Espece")
+                            )
                     );
-                    stmt.close();
+                    i++;
                 }
+                stmt.close();
                 return data;
             } else {
                 return null;

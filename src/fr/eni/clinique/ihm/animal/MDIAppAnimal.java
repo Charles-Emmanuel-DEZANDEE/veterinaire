@@ -1,6 +1,7 @@
 package fr.eni.clinique.ihm.animal;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.RacesManager;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
 
@@ -331,19 +332,21 @@ public class MDIAppAnimal extends JFrame {
         return cboGenreAnimal;
     }
 
-    public JComboBox<String> getCboRace() {
+    public JComboBox<String> getCboRace() throws BLLException, DALException {
         if (cboRace == null) {
             String[] places = { "Labrador", "Siamois", "étalon", "jerry","holly" };
-            cboRace = new JComboBox<String>(places);
+            cboRace = new JComboBox(RacesManager.getInstance().getListeRaces().toArray());
         }
         return cboRace;
     }
 
-    public JComboBox<String> getCboEspece() {
+    public JComboBox<String> getCboEspece() throws BLLException, DALException {
         if (cboEspece == null) {
             String[] places = { "Chat", "Chiens", "sourris", "cheval", "vache" };
             cboEspece = new JComboBox<String>(places);
         }
         return cboEspece;
     }
+
+
 }
