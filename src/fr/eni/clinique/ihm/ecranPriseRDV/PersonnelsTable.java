@@ -1,4 +1,4 @@
-package fr.eni.clinique.ihm.ecranPersonnel;
+package fr.eni.clinique.ihm.ecranPriseRDV;
 
 import javax.swing.JTable;
 

@@ -135,15 +135,15 @@ public class PersonnelsManager {
 			throw new BLLException("personnel null");
 		}
 		//Les attributs du personnel sont obligatoires
-		if(personnel.getNom() == null){
+		if(personnel.getNom().isEmpty() || personnel.getNom()==null){
 			sb.append("Le nom est obligatoire \n");
 			valide = false;
 		}
-		if(personnel.getMotPasse() == null){
+		if(personnel.getMotPasse() == null  || personnel.getMotPasse().isEmpty()){
 			sb.append("Le mot de passe est obligatoire \n");
 			valide = false;
 		}
-		if(personnel.getRole() == null){
+		if(personnel.getRole() == null || personnel.getRole().isEmpty()){
 			sb.append("Le role est obligatoire \n");
 			valide = false;
 		}
