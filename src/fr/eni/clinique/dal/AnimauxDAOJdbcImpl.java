@@ -72,7 +72,7 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
     public Animaux selectById(int id) throws DALException {
 
     	try (Connection connect = ConnectionSingleton.getConnect()){
-	        String sql = "SELECT * FROM Personnels WHERE CodePers = ?";
+	        String sql = "SELECT * FROM Animaux WHERE CodeAnimal = ?";
 	        PreparedStatement stmt = connect.prepareStatement(sql);
 	
 	        stmt.setInt(1,id);//"reference,
@@ -109,7 +109,7 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 
     public List<Animaux> selectAll() throws DALException {
     	try (Connection connect = ConnectionSingleton.getConnect()){
-            String sql = "SELECT * FROM Animaux";
+            String sql = "SELECT * FROM Animaux WHERE Archive = 'false'";
             PreparedStatement stmt = connect.prepareStatement(sql);
             ResultSet res = stmt.executeQuery();
             List<Animaux> data = new ArrayList<>();
@@ -185,7 +185,7 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
                     "CodeClient =?," +
                     "Tatouage =?," +
                     "Antecedents =?," +
-                    "Archive =?" +
+                    "Archive =? " +
                     "WHERE CodeAnimal =?";
             PreparedStatement stmt = connect.prepareStatement(sql);
             stmt.setString(1,a1.getNomAnimal());
@@ -198,6 +198,7 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 			stmt.setString(8,a1.getAntecedents());
 			stmt.setBoolean(9, a1.isArchive());
 			stmt.setInt(10,a1.getCodeAnimal());
+
 			stmt.executeUpdate();
          
 			//on ferme les connections

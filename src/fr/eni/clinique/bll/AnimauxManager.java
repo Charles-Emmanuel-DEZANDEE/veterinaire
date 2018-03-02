@@ -11,11 +11,15 @@ public class AnimauxManager {
 	private static DaoAnimaux daoAnimaux;
 	private static AnimauxManager instance;
 	
-	public AnimauxManager() throws DALException, BLLException {
-		daoAnimaux = DAOFactory.getAnimauxDAO();
+	public AnimauxManager() throws BLLException {
+		try {
+			daoAnimaux = DAOFactory.getAnimauxDAO();
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public static AnimauxManager getInstance() throws BLLException, DALException{
+	public static AnimauxManager getInstance() throws BLLException{
 		if (AnimauxManager.instance == null){
 			AnimauxManager.instance = new AnimauxManager();
 		}
@@ -80,13 +84,14 @@ public class AnimauxManager {
 			this.validerAnimal(animal);
 			daoAnimaux.update(animal);
 		} catch (DALException e) {
-			throw new BLLException("Echec modification de l'animal" + animal, e);
+			throw new BLLException("Echec modification de l'animal" , e);
 		}
 	}
 	
-	public void removeAnimal(int CodeAnimal) throws BLLException{
+	public void removeAnimal(Animaux animal) throws BLLException{
 		try {
-			((AnimauxDAOJdbcImpl)daoAnimaux).delete(CodeAnimal);
+			animal.setArchive(true);
+			daoAnimaux.update(animal);
 		} catch (DALException e) {
 			throw new BLLException("Echec de la suppression de l'animal", e);
 		}
@@ -115,15 +120,15 @@ public class AnimauxManager {
 			sb.append("Le code client est obligatoire \n");
 			valider = false;
 		}
-		if(animal.getNomAnimal() == null){
+		if(animal.getNomAnimal().equals("")){
 			sb.append("Le nom est obligatoire \n");
 			valider = false;
 		}
-		if(animal.getSexe() == null){
+		if(animal.getSexe().equals(null)){
 			sb.append("Le sexe est obligatoire \n");
 			valider = false;
 		}
-		if(animal.getCouleur() == null){
+		if(animal.getCouleur().equals("")){
 			sb.append("La couleur est obligatoire \n");
 			valider = false;
 		}

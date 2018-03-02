@@ -1,5 +1,6 @@
 package fr.eni.clinique.ihm.animal;
 
+import fr.eni.clinique.bll.AnimauxManager;
 import fr.eni.clinique.bll.BLLException;
 
 import fr.eni.clinique.bo.Animaux;
@@ -7,16 +8,15 @@ import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Races;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOFactory;
-import fr.eni.clinique.dal.DaoRaces;
 
 
 public class AnimalController {
-    private MDIAppAnimal fenetreAnimal;
+    private FenetreAnimal fenetreAnimal;
     private static AnimalController instance;
 
 
     private AnimalController() throws DALException, BLLException {
-        fenetreAnimal = MDIAppAnimal.getInstance();
+        fenetreAnimal = FenetreAnimal.getInstance();
     }
 
     public static synchronized AnimalController getInstance() throws DALException, BLLException {
@@ -37,6 +37,7 @@ public class AnimalController {
 
     public void update(Clients client, Animaux animal) throws BLLException, DALException {
         fenetreAnimal.init(client,false);
+        int code = animal.getCodeAnimal();
         //on rempli les champs de l'animal
         fenetreAnimal.getCode().setText(String.valueOf(animal.getCodeAnimal()));
         fenetreAnimal.getFieldNom().setText(animal.getNomAnimal());
@@ -67,7 +68,8 @@ public class AnimalController {
             );
             Animaux test = animal;
             // on enregistre en base
-            DAOFactory.getAnimauxDAO().insert(animal);
+            AnimauxManager.getInstance().addAnimal(animal);
+//            DAOFactory.getAnimauxDAO().insert(animal);
         }
         else {
             Animaux animal = new Animaux(
@@ -83,11 +85,13 @@ public class AnimalController {
                     false
             );
             // on enregistre en base
-            DAOFactory.getAnimauxDAO().update(animal);
+            AnimauxManager.getInstance().updateAnimal(animal);
+
+//            DAOFactory.getAnimauxDAO().update(animal);
         }
 
         //on cache la fenetre
-        fenetreAnimal.cacher();
+//        fenetreAnimal.cacher();
 
     }
 
