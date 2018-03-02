@@ -30,9 +30,9 @@ public class FenetreAjoutPersonnel extends JDialog {
 	private JButton buttonValider;	
 	private JButton buttonAnnuler;	
 	private JComboBox<String> cboRoles;
-	private PersonnelsTable tablePersonnels;
+	private RDVTable tablePersonnels;
 
-	public FenetreAjoutPersonnel(JFrame parent, PersonnelsTable tablePersonnels) throws BLLException {
+	public FenetreAjoutPersonnel(JFrame parent, RDVTable tablePersonnels) throws BLLException {
 		super(parent, "Ajouter Personnel", true);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -152,14 +152,14 @@ public class FenetreAjoutPersonnel extends JDialog {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						String roleSelectionne = GererPersonnelController.getInstance().roleAEnregistrer(cboRoles.getSelectedItem().toString());
+						String roleSelectionne = PriseRDVController.getInstance().roleAEnregistrer(cboRoles.getSelectedItem().toString());
 						
 						Personnels newPersonnels = new Personnels(fieldNom.getText(), 
 								fieldMotPasse.getText(),
 								roleSelectionne,
 								false);
 						
-						GererPersonnelController.getInstance().ajouterPersonnel(newPersonnels);
+						PriseRDVController.getInstance().ajouterPersonnel(newPersonnels);
 						
 						// mise a jour de la liste du personnels dans le tablePersonnels
 						FenetreAjoutPersonnel.this.tablePersonnels.getPersonnelsModel().getListePersonnel().add(newPersonnels);
