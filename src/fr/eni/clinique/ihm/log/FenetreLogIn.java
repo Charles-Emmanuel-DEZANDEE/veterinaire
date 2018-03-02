@@ -19,7 +19,7 @@ public class FenetreLogIn extends JFrame {
     private JLabel labelErrorUser;
     private JLabel labelErrorPass;
     private JTextField fieldLogNom;
-    private JTextField fieldLogPassword;
+    private JPasswordField fieldLogPassword;
     private JButton buttonLogValider;
     private JButton buttonRetour;
 
@@ -168,9 +168,9 @@ public class FenetreLogIn extends JFrame {
 		return this.fieldLogNom;
 	}
 
-	public JTextField getfieldLogPassword() {
+	public JPasswordField getfieldLogPassword() {
 		if (this.fieldLogPassword == null) {
-			this.fieldLogPassword = new JTextField(20);
+			this.fieldLogPassword = new JPasswordField(20);
 		}
 		return this.fieldLogPassword;
 	}
