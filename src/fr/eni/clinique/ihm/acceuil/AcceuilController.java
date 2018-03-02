@@ -1,13 +1,7 @@
 package fr.eni.clinique.ihm.acceuil;
 
 import fr.eni.clinique.bll.BLLException;
-import fr.eni.clinique.bll.PersonnelsManager;
-import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.ihm.MDIAppExample;
-import fr.eni.clinique.ihm.log.MDIAppLogIn;
-
-import javax.swing.*;
 
 public class AcceuilController {
     private MDIAppAcceuil fenetreAcceuil;

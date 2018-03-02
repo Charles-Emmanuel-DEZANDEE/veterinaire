@@ -7,16 +7,15 @@ import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Races;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOFactory;
-import fr.eni.clinique.dal.DaoRaces;
 
 
 public class AnimalController {
-    private MDIAppAnimal fenetreAnimal;
+    private FenetreAnimal fenetreAnimal;
     private static AnimalController instance;
 
 
     private AnimalController() throws DALException, BLLException {
-        fenetreAnimal = MDIAppAnimal.getInstance();
+        fenetreAnimal = FenetreAnimal.getInstance();
     }
 
     public static synchronized AnimalController getInstance() throws DALException, BLLException {

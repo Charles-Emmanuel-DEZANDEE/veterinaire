@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.ListIterator;
 
 
-public class MDIAppAnimal extends JFrame {
+public class FenetreAnimal extends JFrame {
 
     private static final long serialVersionUID = 1L;
-    private static MDIAppAnimal instance;
+    private static FenetreAnimal instance;
 
     private JLabel labelClient;
     private JLabel Client;
@@ -44,15 +44,15 @@ public class MDIAppAnimal extends JFrame {
     private JButton buttonRetour;
 
     //singleton
-    public static synchronized MDIAppAnimal getInstance() throws DALException, BLLException {
+    public static synchronized FenetreAnimal getInstance() throws DALException, BLLException {
         if (instance == null) {
-            instance = new MDIAppAnimal();
+            instance = new FenetreAnimal();
         }
         return instance;
     }
 
 
-    private MDIAppAnimal() {
+    private FenetreAnimal() {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);

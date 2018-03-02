@@ -9,10 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class MDIAppLogIn extends JFrame {
+public class FenetreLogIn extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-    private static MDIAppLogIn instance;
+    private static FenetreLogIn instance;
 
 	private JLabel labelLogNom;
 	private JLabel labelLogPassword;
@@ -24,16 +24,16 @@ public class MDIAppLogIn extends JFrame {
     private JButton buttonRetour;
 
 	//singleton
-    public static synchronized MDIAppLogIn getInstance() throws DALException, BLLException{
+    public static synchronized FenetreLogIn getInstance() throws DALException, BLLException{
         if (instance == null){
-            instance = new MDIAppLogIn();
+            instance = new FenetreLogIn();
         }
         return instance;
     }
 
 
 
-    private MDIAppLogIn() {
+    private FenetreLogIn() {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
