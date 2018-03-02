@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.ihm.ecranPersonnel.FenetreAjoutPersonnel;
@@ -64,6 +65,7 @@ public class FenetreAjoutClient extends JDialog {
 		
 		gbc.gridx = 0;
 		gbc.gridy = 0;
+		gbc.anchor = GridBagConstraints.EAST;
 		panel.add(this.getPanel2(), gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 1;
@@ -175,6 +177,15 @@ public class FenetreAjoutClient extends JDialog {
 	public JButton getButtonValiderAjoutClient(){
 		if (this.buttonValiderAjoutClient == null) {
 			this.buttonValiderAjoutClient = new JButton("Valider");
+			this.buttonValiderAjoutClient.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Clients newClient = new Clients(fieldNomClient.getText(), fieldPrenomClient.getText(), fieldAdresse1Client.getText(), fieldAdresse2Client.getText(), fieldCPClient.getText(), fieldVilleClient.getText(), fieldNumTelClient.getText(), fieldAssuranceClient.getText(), fieldEmailClient.getText(), fieldRemarqueClient.getText(), false);
+				
+					ClientController.getInstance().ajouterClient(newClient);
+				}
+			});
 		}
 		return this.buttonValiderAjoutClient;
 	}
