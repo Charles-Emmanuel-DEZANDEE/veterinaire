@@ -109,7 +109,7 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 
     public List<Animaux> selectAll() throws DALException {
     	try (Connection connect = ConnectionSingleton.getConnect()){
-            String sql = "SELECT * FROM Animaux";
+            String sql = "SELECT * FROM Animaux WHERE Archive = 'false'";
             PreparedStatement stmt = connect.prepareStatement(sql);
             ResultSet res = stmt.executeQuery();
             List<Animaux> data = new ArrayList<>();

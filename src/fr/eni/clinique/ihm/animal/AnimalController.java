@@ -1,5 +1,6 @@
 package fr.eni.clinique.ihm.animal;
 
+import fr.eni.clinique.bll.AnimauxManager;
 import fr.eni.clinique.bll.BLLException;
 
 import fr.eni.clinique.bo.Animaux;
@@ -67,7 +68,8 @@ public class AnimalController {
             );
             Animaux test = animal;
             // on enregistre en base
-            DAOFactory.getAnimauxDAO().insert(animal);
+            AnimauxManager.getInstance().addAnimal(animal);
+//            DAOFactory.getAnimauxDAO().insert(animal);
         }
         else {
             Animaux animal = new Animaux(
@@ -83,11 +85,13 @@ public class AnimalController {
                     false
             );
             // on enregistre en base
-            DAOFactory.getAnimauxDAO().update(animal);
+            AnimauxManager.getInstance().updateAnimal(animal);
+
+//            DAOFactory.getAnimauxDAO().update(animal);
         }
 
         //on cache la fenetre
-        fenetreAnimal.cacher();
+//        fenetreAnimal.cacher();
 
     }
 

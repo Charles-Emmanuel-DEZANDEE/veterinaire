@@ -4,6 +4,7 @@ import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.RacesManager;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.ihm.ecranPersonnel.FenetreAjoutPersonnel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -296,6 +297,8 @@ public class FenetreAnimal extends JFrame {
                     } catch (BLLException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
+                        JOptionPane.showMessageDialog(instance, e1);//"Vous devez saisir tous les champs pour éffecuter un ajout");
+
                     }
                 }
             });
