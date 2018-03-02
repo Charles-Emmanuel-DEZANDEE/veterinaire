@@ -54,16 +54,16 @@ public class AppliTestDAL {
 			Races r4 = new Races("persan", "chat");
 			Races r5 = new Races("siamois", "chat");
 
-//			racesDAO.insert(r1);
-//			System.out.println("races ajout� : " + r1.toString());
-//			racesDAO.insert(r2);
-//			System.out.println("races ajout� : " + r2.toString());
-//			racesDAO.insert(r3);
-//			System.out.println("races ajout� : " + r3.toString());
-//			racesDAO.insert(r4);
-//			System.out.println("races ajout� : " + r4.toString());
-//			racesDAO.insert(r5);
-//			System.out.println("races ajout� : " + r5.toString());
+			racesDAO.insert(r1);
+			System.out.println("races ajout� : " + r1.toString());
+			racesDAO.insert(r2);
+			System.out.println("races ajout� : " + r2.toString());
+			racesDAO.insert(r3);
+			System.out.println("races ajout� : " + r3.toString());
+			racesDAO.insert(r4);
+			System.out.println("races ajout� : " + r4.toString());
+			racesDAO.insert(r5);
+			System.out.println("races ajout� : " + r5.toString());
 
 			Animaux a1 = new Animaux("NomAnimal1", "M", "Noir", r1.getRace(), r1.getEspece(), c1.getCodeClient(), "Tatouage", "Antecedents", false);
 			Animaux a2 = new Animaux("NomAnimal2", "M", "Noir", r2.getRace(), r2.getEspece(), c2.getCodeClient(), "Tatouage", "Antecedents", false);

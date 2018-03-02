@@ -232,15 +232,15 @@ public class MDIAppClient extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-//					try {
-//						ClientController.getInstance().startApp();
-//					} catch (BLLException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					} catch (DALException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
+					try {
+						RechercheClientController.getInstance().afficherFenetreRechercheClient(MDIAppClient.this);
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
