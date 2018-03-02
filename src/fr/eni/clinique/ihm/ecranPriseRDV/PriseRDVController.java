@@ -4,23 +4,23 @@ import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.PersonnelsManager;
 import fr.eni.clinique.bo.Personnels;
 
-public class GererPersonnelController {
-    private MDIAppGestionPersonnel fenetreAdm;
-    private static GererPersonnelController instance;
+public class PriseRDVController {
+    private FenetrePrsieRDV fenetreAdm;
+    private static PriseRDVController instance;
 
 
-    private GererPersonnelController() throws  BLLException {
+    private PriseRDVController() throws  BLLException {
         try {
-			fenetreAdm = new MDIAppGestionPersonnel();
+			fenetreAdm = new FenetrePrsieRDV();
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
 
-    public static synchronized GererPersonnelController getInstance() throws  BLLException{
+    public static synchronized PriseRDVController getInstance() throws  BLLException{
         if (instance == null){
-            instance = new GererPersonnelController();
+            instance = new PriseRDVController();
         }
         return instance;
     }

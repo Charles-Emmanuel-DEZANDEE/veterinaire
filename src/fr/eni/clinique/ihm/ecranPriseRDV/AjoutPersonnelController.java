@@ -19,7 +19,7 @@ public class AjoutPersonnelController {
         return instance;
     }
     
-    public void afficherFenetreAjout(JFrame parent, PersonnelsTable tablePersonnels) throws BLLException{
+    public void afficherFenetreAjout(JFrame parent, RDVTable tablePersonnels) throws BLLException{
     	fenetreAjoutPersonnel = new FenetreAjoutPersonnel(parent, tablePersonnels);
     	fenetreAjoutPersonnel.setVisible(true);
     }
