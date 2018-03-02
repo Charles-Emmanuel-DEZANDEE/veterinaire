@@ -23,6 +23,8 @@ import javax.swing.JTextField;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.ihm.ecranPersonnel.AjoutPersonnelController;
+import fr.eni.clinique.ihm.ecranPersonnel.MDIAppGestionPersonnel;
 import fr.eni.clinique.ihm.ecranPersonnel.PersonnelsTable;
 
 public class MDIAppClient extends JFrame {
@@ -83,9 +85,9 @@ public class MDIAppClient extends JFrame {
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		panel.add(this.getPanel2(), gbc);
-//		gbc.gridx = 0;
-//		gbc.gridy = 1;
-//		panel.add(this.getPanel3(), gbc);
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		panel.add(this.getPanel3(), gbc);
 //		gbc.gridx = 1;
 //		gbc.gridy = 1;
 //		panel.add(this.getPanel4(), gbc);
@@ -106,34 +108,34 @@ public class MDIAppClient extends JFrame {
 				gbc.gridwidth = 1;
 				gbc.gridx = 0;
 				gbc.gridy = 0;
-				this.panel2.add(this.getButtonRechercherClients());
+				this.panel2.add(this.getButtonRechercherClients(), gbc);
 				gbc.gridx = 0;
 				gbc.gridy = 1;
-				 this.panel2.add(this.getLabelRechercherClients());
+				 this.panel2.add(this.getLabelRechercherClients(), gbc);
 				gbc.gridx = 1;
 				gbc.gridy = 0;
-				this.panel2.add(this.getButtonAjouterClients());
+				this.panel2.add(this.getButtonAjouterClients(), gbc);
 				gbc.gridx = 1;
 				gbc.gridy = 1;
-				this.panel2.add(this.getLabelAjouterClients());
+				this.panel2.add(this.getLabelAjouterClients(), gbc);
 				gbc.gridx = 2;
 				gbc.gridy = 0;
-				this.panel2.add(this.getButtonSupprimerClients());
+				this.panel2.add(this.getButtonSupprimerClients(), gbc);
 				gbc.gridx = 2;
 				gbc.gridy = 1;
-				this.panel2.add(this.getLabelSupprimerClients());
+				this.panel2.add(this.getLabelSupprimerClients(), gbc);
 				gbc.gridx = 3;
 				gbc.gridy = 0;
-				this.panel2.add(this.getButtonValiderClients());
+				this.panel2.add(this.getButtonValiderClients(), gbc);
 				gbc.gridx = 3;
 				gbc.gridy = 1;
-				this.panel2.add(this.getLabelValiderClients());
+				this.panel2.add(this.getLabelValiderClients(), gbc);
 				gbc.gridx = 4;
 				gbc.gridy = 0;
-				this.panel2.add(this.getButtonAnnulerClients());
+				this.panel2.add(this.getButtonAnnulerClients(), gbc);
 				gbc.gridx = 4;
 				gbc.gridy = 1;
-				this.panel2.add(this.getLabelAnnulerClients());
+				this.panel2.add(this.getLabelAnnulerClients(), gbc);
 			}
 			return this.panel2;
 		}
@@ -149,67 +151,67 @@ public class MDIAppClient extends JFrame {
 			gbc.gridwidth = 1;
 			gbc.gridx = 0;
 			gbc.gridy = 0;
-			this.panel3.add(this.getLabelCodeClient());
+			this.panel3.add(this.getLabelCodeClient(), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 0;
-			this.panel3.add(this.getFieldCodeClient());
+			this.panel3.add(this.getFieldCodeClient(), gbc);
 			gbc.gridx = 0;
 			gbc.gridy = 1;
-			this.panel3.add(this.getLabelNomClient());
+			this.panel3.add(this.getLabelNomClient(), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 1;
-			this.panel3.add(this.getFieldNomClient());
+			this.panel3.add(this.getFieldNomClient(), gbc);
 			gbc.gridx = 0;
 			gbc.gridy = 2;
-			this.panel3.add(this.getLabelPrenomClient());
+			this.panel3.add(this.getLabelPrenomClient(), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 2;
-			this.panel3.add(this.getFieldPrenomClient());
+			this.panel3.add(this.getFieldPrenomClient(), gbc);
 			gbc.gridx = 0;
 			gbc.gridy = 3;
-			this.panel3.add(this.getLabelAdresseClient());
+			this.panel3.add(this.getLabelAdresseClient(), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 3;
-			this.panel3.add(this.getFieldAdresse1Client());
+			this.panel3.add(this.getFieldAdresse1Client(), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 4;
-			this.panel3.add(this.getFieldAdresse2Client());
+			this.panel3.add(this.getFieldAdresse2Client(), gbc);
 			gbc.gridx = 0;
 			gbc.gridy = 5;
-			this.panel3.add(this.getLabelCPClient());
+			this.panel3.add(this.getLabelCPClient(), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 5;
-			this.panel3.add(this.getFieldCPClient());
+			this.panel3.add(this.getFieldCPClient(), gbc);
 			gbc.gridx = 0;
 			gbc.gridy = 6;
-			this.panel3.add(this.getLabelVilleClient());
+			this.panel3.add(this.getLabelVilleClient(), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 6;
-			this.panel3.add(this.getFieldVilleClient());
+			this.panel3.add(this.getFieldVilleClient(), gbc);
 			gbc.gridx = 0;
 			gbc.gridy = 7;
-			this.panel3.add(this.getLabelNumTelClient());
+			this.panel3.add(this.getLabelNumTelClient(), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 7;
-			this.panel3.add(this.getFieldNumTelClient());
+			this.panel3.add(this.getFieldNumTelClient(), gbc);
 			gbc.gridx = 0;
 			gbc.gridy = 8;
-			this.panel3.add(this.getLabelAssuranceClient());
+			this.panel3.add(this.getLabelAssuranceClient(), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 8;
-			this.panel3.add(this.getFieldAssuranceClient());
+			this.panel3.add(this.getFieldAssuranceClient(), gbc);
 			gbc.gridx = 0;
 			gbc.gridy = 9;
-			this.panel3.add(this.getLabelEmailClient());
+			this.panel3.add(this.getLabelEmailClient(), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 9;
-			this.panel3.add(this.getFieldEmailClient());
+			this.panel3.add(this.getFieldEmailClient(), gbc);
 			gbc.gridx = 0;
 			gbc.gridy = 10;
-			this.panel3.add(this.getLabelRemarqueClient());
+			this.panel3.add(this.getLabelRemarqueClient(), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 10;
-			this.panel3.add(this.getFieldRemarqueClient());
+			this.panel3.add(this.getFieldRemarqueClient(), gbc);
 		}
 		return this.panel3;
 	}
@@ -257,22 +259,24 @@ public class MDIAppClient extends JFrame {
 	public JButton getButtonAjouterClients() {
 		if (this.buttonAjouterClients == null) {
 			this.buttonAjouterClients = new JButton("Ajouter");
+			
+			
 			this.buttonAjouterClients.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-//					try {
-//						ClientController.getInstance().startApp();
-//					} catch (BLLException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					} catch (DALException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
+					try {
+						AjoutClientController.getInstance().afficherFenetreAjoutClient(MDIAppClient.this);
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
+			
 		}
 		return this.buttonAjouterClients;
 	}
