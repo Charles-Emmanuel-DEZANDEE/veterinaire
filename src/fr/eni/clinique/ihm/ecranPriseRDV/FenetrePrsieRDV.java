@@ -18,18 +18,18 @@ import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
 
 
-public class MDIAppGestionPersonnel extends JFrame  {
+public class FenetrePrsieRDV extends JFrame  {
 
 	private static final long serialVersionUID = 1L;
 	private JButton buttonAjouterPersonnel;
 	private JButton buttonSupprimerPersonnel;
 	private JButton buttonReinitialiserPersonnel;
-	private PersonnelsTable tablePersonnels;
+	private RDVTable tablePersonnels;
 
 
 
 
-	public MDIAppGestionPersonnel() throws BLLException{
+	public FenetrePrsieRDV() throws BLLException{
 
 	
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -73,10 +73,10 @@ public class MDIAppGestionPersonnel extends JFrame  {
 		setContentPane(scroll);	
 	}
 	
-	public PersonnelsTable getTablePersonnels() throws BLLException{
+	public RDVTable getTablePersonnels() throws BLLException{
 		if (this.tablePersonnels == null) {
 			try {
-				this.tablePersonnels = new PersonnelsTable();
+				this.tablePersonnels = new RDVTable();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -99,7 +99,7 @@ public class MDIAppGestionPersonnel extends JFrame  {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						//GererPersonnelController.getInstance().nouveauPersonnels();
-						AjoutPersonnelController.getInstance().afficherFenetreAjout(MDIAppGestionPersonnel.this, MDIAppGestionPersonnel.this.getTablePersonnels());
+						AjoutPersonnelController.getInstance().afficherFenetreAjout(FenetrePrsieRDV.this, FenetrePrsieRDV.this.getTablePersonnels());
 						
 						//mettre à jour la table
 						getTablePersonnels().getPersonnelsModel().fireTableDataChanged();
@@ -131,7 +131,7 @@ public class MDIAppGestionPersonnel extends JFrame  {
 							personnelsASupp = getTablePersonnels().getPersonnelsModel().getListePersonnel().get(ligneTableau[0]);
 							
 							//mise à jour en base
-							GererPersonnelController.getInstance().removePersonnel(personnelsASupp);
+							PriseRDVController.getInstance().removePersonnel(personnelsASupp);
 							
 							//mise à jour de la liste du personnels dans la JTable
 							getTablePersonnels().getPersonnelsModel().getListePersonnel().remove(ligneTableau[0]);
@@ -165,7 +165,7 @@ public class MDIAppGestionPersonnel extends JFrame  {
 						
 						if (ligneTableau.length == 1){
 							personnelsAModif = getTablePersonnels().getPersonnelsModel().getListePersonnel().get(ligneTableau[0]);
-							ReinitMotPasseController.getInstance().afficherFenetreReinit(MDIAppGestionPersonnel.this, personnelsAModif);
+							ReinitMotPasseController.getInstance().afficherFenetreReinit(FenetrePrsieRDV.this, personnelsAModif);
 							
 							//mettre à jour la table
 							getTablePersonnels().getPersonnelsModel().fireTableDataChanged();

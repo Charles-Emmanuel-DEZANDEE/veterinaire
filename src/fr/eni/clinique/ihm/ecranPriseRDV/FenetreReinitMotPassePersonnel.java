@@ -92,7 +92,7 @@ public class FenetreReinitMotPassePersonnel extends JDialog {
 					
 					FenetreReinitMotPassePersonnel.this.personnelsAModif.setMotPasse(fieldMotPasse.getText());
 					try {
-						GererPersonnelController.getInstance().reinitMotPasse(FenetreReinitMotPassePersonnel.this.personnelsAModif);
+						PriseRDVController.getInstance().reinitMotPasse(FenetreReinitMotPassePersonnel.this.personnelsAModif);
 						FenetreReinitMotPassePersonnel.this.dispose();
 						
 					} catch (BLLException e1) {

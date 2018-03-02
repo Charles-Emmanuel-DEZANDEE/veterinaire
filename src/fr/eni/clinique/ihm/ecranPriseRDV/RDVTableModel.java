@@ -9,11 +9,11 @@ import fr.eni.clinique.bll.PersonnelsManager;
 import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
 
-public class PersonnelsTableModel extends AbstractTableModel{
+public class RDVTableModel extends AbstractTableModel{
 	
 	private List<Personnels> listePersonnel;
 	
-	public PersonnelsTableModel() throws BLLException{
+	public RDVTableModel() throws BLLException{
 		this.listePersonnel = PersonnelsManager.getInstance().getListePersonnel();
 	}
 	
