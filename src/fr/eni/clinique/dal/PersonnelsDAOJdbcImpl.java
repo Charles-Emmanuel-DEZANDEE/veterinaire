@@ -15,12 +15,11 @@ import fr.eni.clinique.bo.Personnels;
 public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
 
 
-
     // fait par MAHMOUDI
     @Override
     public void insert(Personnels r1) throws DALException {
-        Connection connect = ConnectionSingleton.getConnect();
-        try {
+        // la connection se ferme en sortant du try
+        try (Connection connect = ConnectionSingleton.getConnect();){
             String sql = "INSERT INTO Personnels (" +
                     "Nom," +       // Nom
                     "MotPasse," +  //MotPasse 
@@ -52,15 +51,13 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
             }
             //on ferme les connections
             stmt.close();
-            connect.close();
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
     }
 
     public Personnels selectById(int id) throws DALException {
-    	Connection connect = ConnectionSingleton.getConnect();
-    	try{
+    	try(Connection connect = ConnectionSingleton.getConnect();){
 	        String sql = "SELECT * FROM Personnels WHERE CodePers = ?";
 	        PreparedStatement stmt = connect.prepareStatement(sql);
 	
@@ -85,7 +82,6 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
 	        }else{
 	        	//on ferme les connections
 		        stmt.close();
-		        connect.close();
 	        	return null;
 	        }
         } 
@@ -95,8 +91,7 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
     }
 
     public List<Personnels> selectAll() throws DALException {
-    	Connection connect = ConnectionSingleton.getConnect();
-    	try{
+    	try(Connection connect = ConnectionSingleton.getConnect();){
             String sql = "SELECT * FROM Personnels where Archive='false'";
             PreparedStatement stmt = connect.prepareStatement(sql);
 
@@ -119,12 +114,10 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
 
                 //on ferme les connections
                 stmt.close();
-                connect.close();
                 return data;
             }else{
             	//on ferme les connections
                 stmt.close();
-                connect.close();
             	return null;
             }
             
@@ -136,8 +129,7 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
     }
 
     public void update(Personnels r1) throws DALException {
-    	Connection connect = ConnectionSingleton.getConnect();
-        try {
+        try(Connection connect = ConnectionSingleton.getConnect();) {
             String sql = "UPDATE Personnels  SET " +
                     "Nom =?," +
                     "MotPasse =?," +
@@ -158,7 +150,6 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
             stmt.executeUpdate();
             //on ferme les connections
             stmt.close();
-            connect.close();
 
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
@@ -167,8 +158,7 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
     }
 
     public void delete(int CodePers) throws DALException {
-    	Connection connect = ConnectionSingleton.getConnect();
-    	try {
+    	try(Connection connect = ConnectionSingleton.getConnect();) {
         String sql = "DELETE FROM Personnels WHERE CodePers = ?";
         PreparedStatement stmt = connect.prepareStatement(sql);
 
@@ -177,7 +167,6 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
         stmt.executeUpdate();
             //on ferme les connections
             stmt.close();
-            connect.close();
 
         } catch (SQLException e) {
         throw new DALException(e.getMessage());
@@ -185,8 +174,7 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
 	}
     
     public Personnels selectByNom(String nom) throws DALException {
-    	Connection connect = ConnectionSingleton.getConnect();
-    	try{
+    	try(Connection connect = ConnectionSingleton.getConnect();){
 	        String sql = "SELECT * FROM Personnels WHERE Nom = ?";
 	        PreparedStatement stmt = connect.prepareStatement(sql);
 	
@@ -205,12 +193,10 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
 	             }
 	        	//on ferme les connections
 		        stmt.close();
-		        connect.close();
 	         	return data;
 	        }else{
 	        	//on ferme les connections
                 stmt.close();
-                connect.close();
 	        	return null;
 	        }
         } catch (SQLException e) {
