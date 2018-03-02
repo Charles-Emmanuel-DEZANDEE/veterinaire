@@ -30,7 +30,6 @@ public class ClientsManager {
 		}
 		return client;
 	}
-	
 
 	public List<Clients> getListeClients() throws BLLException{
 		List<Clients> clients = null;
@@ -42,16 +41,7 @@ public class ClientsManager {
 		}	
 		return clients;
 	}
-	
-	public void addClient(Clients client) throws BLLException {
-		try {
-			this.validerClient(client);
-			daoClients.insert(client);
-		} catch (DALException e) {
-			throw new BLLException("Echec ajout d'un client", e);
-		}
-	}
-	
+
 	public void updateClient(Clients client) throws BLLException{
 		try {
 			this.validerClient(client);
@@ -77,6 +67,15 @@ public class ClientsManager {
 			daoClients.update(client);
 		} catch (DALException e) {
 			throw new BLLException("Echec de l'archivage du client", e);
+		}
+	}
+	
+	public void addClient(Clients client) throws BLLException {
+		try {
+			this.validerClient(client);
+			daoClients.insert(client);
+		} catch (DALException e) {
+			throw new BLLException("Echec ajout d'un client", e);
 		}
 	}
 

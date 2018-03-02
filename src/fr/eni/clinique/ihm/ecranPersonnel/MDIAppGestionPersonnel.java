@@ -26,9 +26,6 @@ public class MDIAppGestionPersonnel extends JFrame  {
 	private JButton buttonReinitialiserPersonnel;
 	private PersonnelsTable tablePersonnels;
 
-
-
-
 	public MDIAppGestionPersonnel() throws BLLException{
 
 	

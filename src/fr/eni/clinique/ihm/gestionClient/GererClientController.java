@@ -6,12 +6,12 @@ import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
 
 public class GererClientController {
-    private MDIAppClient fenetreSec;
+    private MDIAppClient fenetreGestionClient;
     private static GererClientController instance;
 
 
     private GererClientController() throws DALException, BLLException {
-        fenetreSec = new MDIAppClient();
+        fenetreGestionClient = new MDIAppClient();
     }
 
     public static synchronized GererClientController getInstance() throws DALException, BLLException{
@@ -22,9 +22,9 @@ public class GererClientController {
     }
 
 	public void startApp() throws BLLException, DALException {
-		fenetreSec.init();
-		fenetreSec.revalidate();
-		fenetreSec.repaint();
+		fenetreGestionClient.init();
+		fenetreGestionClient.revalidate();
+		fenetreGestionClient.repaint();
 	}
 
 	public void ajouterClient(Clients client) throws BLLException, DALException {
