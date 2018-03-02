@@ -120,15 +120,15 @@ public class AnimauxManager {
 			sb.append("Le code client est obligatoire \n");
 			valider = false;
 		}
-		if(animal.getNomAnimal() == null){
+		if(animal.getNomAnimal().equals("")){
 			sb.append("Le nom est obligatoire \n");
 			valider = false;
 		}
-		if(animal.getSexe() == null){
+		if(animal.getSexe().equals(null)){
 			sb.append("Le sexe est obligatoire \n");
 			valider = false;
 		}
-		if(animal.getCouleur() == null){
+		if(animal.getCouleur().equals("")){
 			sb.append("La couleur est obligatoire \n");
 			valider = false;
 		}
