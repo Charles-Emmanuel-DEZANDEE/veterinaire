@@ -205,7 +205,7 @@ public class MDIAppAnimal extends JFrame {
         if (this.Code == null) {
             this.Code = new JTextField("");
             this.Code.setEditable(false);
-            this.Code.setFont(new Font("Arial", Font.PLAIN, 6));
+            this.Code.setFont(new Font("Serif", Font.PLAIN, 10));
         }
 
         return Code;
