@@ -8,7 +8,7 @@ public class Animaux {
 	private String Couleur;
 	private String Race;
 	private String Espece;
-	private long CodeClient;
+	private int CodeClient;
 	private String Tatouage;
 	private String Antecedents;
 	private boolean Archive;
@@ -18,7 +18,7 @@ public class Animaux {
 	}
 	
 	public Animaux(int CodeAnimal, String NomAnimal, String Sexe, String Couleur, String Race,
-			String Espece, long CodeClient, String Tatouage, String Antecedents, boolean Archive){
+			String Espece, int CodeClient, String Tatouage, String Antecedents, boolean Archive){
 		this.CodeAnimal = CodeAnimal;
 		this.NomAnimal = NomAnimal;
 		this.Sexe = Sexe;
@@ -32,7 +32,7 @@ public class Animaux {
 	}
 	
 	public Animaux(String NomAnimal, String Sexe, String Couleur, String Race,
-			String Espece, long CodeClient, String Tatouage, String Antecedents, boolean Archive){
+			String Espece, int CodeClient, String Tatouage, String Antecedents, boolean Archive){
 		this.NomAnimal = NomAnimal;
 		this.Sexe = Sexe;
 		this.Couleur = Couleur;
@@ -92,11 +92,11 @@ public class Animaux {
 		Espece = espece;
 	}
 
-	public long getCodeClient() {
+	public int getCodeClient() {
 		return CodeClient;
 	}
 
-	public void setCodeClient(long codeClient) {
+	public void setCodeClient(int codeClient) {
 		CodeClient = codeClient;
 	}
 

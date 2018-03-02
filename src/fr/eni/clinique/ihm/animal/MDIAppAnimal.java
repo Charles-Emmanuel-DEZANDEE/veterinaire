@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.ListIterator;
 
 
 public class MDIAppAnimal extends JFrame {
@@ -20,7 +22,7 @@ public class MDIAppAnimal extends JFrame {
     private JLabel Client;
 
     private JLabel labelCode;
-    private JLabel Code;
+    private JTextField Code;
 
     private JLabel labelNom;
     private JTextField fieldNom;
@@ -79,7 +81,7 @@ public class MDIAppAnimal extends JFrame {
         panel.add(this.getClient(client), gbc);
 
         // Ligne 2
-        if (nouveau) {
+        if (!nouveau) {
             gbc.gridwidth = 1;
             gbc.gridx = 0;
             gbc.gridy = 1;
@@ -155,7 +157,7 @@ public class MDIAppAnimal extends JFrame {
         gbc.gridwidth = 1;
         gbc.gridx = 3;
         gbc.gridy = 7;
-        panel.add(this.getButtonLogValider(client), gbc);
+        panel.add(this.getButtonLogValider(client, nouveau), gbc);
 
 
         setContentPane(panel);
@@ -199,10 +201,11 @@ public class MDIAppAnimal extends JFrame {
         return labelCode;
     }
 
-    public JLabel getCode() {
+    public JTextField getCode() {
         if (this.Code == null) {
-            this.Code = new JLabel("");
-            this.Code.setFont(new Font("Serif", Font.PLAIN, 20));
+            this.Code = new JTextField("");
+            this.Code.setEditable(false);
+            this.Code.setFont(new Font("Arial", Font.PLAIN, 6));
         }
 
         return Code;
@@ -277,22 +280,23 @@ public class MDIAppAnimal extends JFrame {
     }
 
 
-    public JButton getButtonLogValider(Clients client) {
+    public JButton getButtonLogValider(Clients client, Boolean nouveau) {
         if (this.buttonValider == null) {
             this.buttonValider = new JButton("Valider");
             this.buttonValider.addActionListener(new ActionListener() {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-//                    try {
-//                        System.out.println("valider");
-//                    } catch (DALException e1) {
-//                        // TODO Auto-generated catch block
-//                        e1.printStackTrace();
-//                    } catch (BLLException e1) {
-//                        // TODO Auto-generated catch block
-//                        e1.printStackTrace();
-//                    }
+                    try {
+                        System.out.println("valider");
+                        AnimalController.getInstance().enregistrer(client, nouveau);
+                    } catch (DALException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    } catch (BLLException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
                 }
             });
 
@@ -358,9 +362,17 @@ public class MDIAppAnimal extends JFrame {
                     System.out.println(espece);
 
                     try {
-                        cboRace= new JComboBox(RacesManager.getInstance().getListeRaces((String)cb.getSelectedItem()).toArray());
-                        cboRace.revalidate();
-                        cboRace.repaint();
+                        //on vide les items
+                        cboRace.removeAllItems();
+                        //on remplace les items
+                        List<String> newList = RacesManager.getInstance().getListeRaces((String)cb.getSelectedItem());
+                        ListIterator<String> it = newList.listIterator();
+                        while(it.hasNext()){
+                            String str = it.next();
+                            cboRace.addItem(str);
+                        }
+
+                        //on rafraichi la fenetre
                         instance.revalidate();
                         instance.repaint();
 

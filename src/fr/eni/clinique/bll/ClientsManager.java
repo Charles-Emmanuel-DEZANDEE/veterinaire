@@ -33,35 +33,35 @@ public class ClientsManager {
 	
 
 	public List<Clients> getListeClients() throws BLLException{
-		List<Clients> animaux = null;
+		List<Clients> clients = null;
 		try {
-			animaux = daoClients.selectAll();
+			clients = daoClients.selectAll();
 		} catch (DALException e) {
 			e.printStackTrace();
-			throw new BLLException("Erreur r�cup�ration de la liste des animaux", e);
+			throw new BLLException("Erreur r�cup�ration de la liste des clients", e);
 		}	
-		return animaux;
+		return clients;
 	}
 	
-	public void addAnimal(Clients client) throws BLLException {
+	public void addClient(Clients client) throws BLLException {
 		try {
-			this.validerAnimal(client);
+			this.validerClient(client);
 			daoClients.insert(client);
 		} catch (DALException e) {
 			throw new BLLException("Echec ajout d'un client", e);
 		}
 	}
 	
-	public void updateAnimal(Clients client) throws BLLException{
+	public void updateClient(Clients client) throws BLLException{
 		try {
-			this.validerAnimal(client);
+			this.validerClient(client);
 			daoClients.update(client);
 		} catch (DALException e) {
 			throw new BLLException("Echec modification de l'client" + client, e);
 		}
 	}
 	
-	public void removeAnimal(int CodeClient) throws BLLException{
+	public void removeClient(int CodeClient) throws BLLException{
 		try {
 			((ClientsDAOJdbcImpl)daoClients).delete(CodeClient);
 		} catch (DALException e) {
@@ -69,18 +69,18 @@ public class ClientsManager {
 		}
 	}
 	
-	public void archiverAnimal(int CodeClient) throws BLLException{
+	public void archiverClient(int CodeClient) throws BLLException{
 		Clients client = null;
 		try {
 			client = this.getClientById(CodeClient);
 			client.setArchive(true);
 			daoClients.update(client);
 		} catch (DALException e) {
-			throw new BLLException("Echec de l'archive de l'client", e);
+			throw new BLLException("Echec de l'archivage du client", e);
 		}
 	}
 
-	public void validerAnimal(Clients client) throws BLLException
+	public void validerClient(Clients client) throws BLLException
 	{
 		boolean valider = true;
 		StringBuffer sb = new StringBuffer();

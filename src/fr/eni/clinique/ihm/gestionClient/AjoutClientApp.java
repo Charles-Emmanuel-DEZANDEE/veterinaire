@@ -14,13 +14,13 @@ public class AjoutClientApp {
 		SwingUtilities.invokeLater(new Runnable(){
 			
 			public void run(){
-				try {
-					AjoutClientController.getInstance().startApp();
-				} catch (BLLException e) {
-					e.printStackTrace();
-				} catch (DALException e) {
-					e.printStackTrace();
-				}
+//				try {
+//					AjoutClientController.getInstance().startApp();
+//				} catch (BLLException e) {
+//					e.printStackTrace();
+//				} catch (DALException e) {
+//					e.printStackTrace();
+//				}
 			}
 		});
 	}
