@@ -181,9 +181,17 @@ public class FenetreAjoutClient extends JDialog {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					Clients newClient = new Clients(fieldNomClient.getText(), fieldPrenomClient.getText(), fieldAdresse1Client.getText(), fieldAdresse2Client.getText(), fieldCPClient.getText(), fieldVilleClient.getText(), fieldNumTelClient.getText(), fieldAssuranceClient.getText(), fieldEmailClient.getText(), fieldRemarqueClient.getText(), false);
+					Clients newClient = new Clients(Integer.valueOf(fieldCodeClient.getText()), fieldNomClient.getText(), fieldPrenomClient.getText(), fieldAdresse1Client.getText(), fieldAdresse2Client.getText(), fieldCPClient.getText(), fieldVilleClient.getText(), fieldNumTelClient.getText(), fieldAssuranceClient.getText(), fieldEmailClient.getText(), fieldRemarqueClient.getText(), false);
 				
-					ClientController.getInstance().ajouterClient(newClient);
+					try {
+						GererClientController.getInstance().ajouterClient(newClient);
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}

@@ -3,7 +3,7 @@ package fr.eni.clinique.ihm.gestionClient;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.ihm.gestionClient.ClientController;
+import fr.eni.clinique.ihm.gestionClient.GererClientController;
 
 import javax.swing.*;
 
@@ -15,7 +15,7 @@ public class ClientApp {
 			
 			public void run(){
 				try {
-					ClientController.getInstance().startApp();
+					GererClientController.getInstance().startApp();
 				} catch (BLLException e) {
 					e.printStackTrace();
 				} catch (DALException e) {
