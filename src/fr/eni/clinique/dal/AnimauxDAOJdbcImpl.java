@@ -19,8 +19,8 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 
    
     public void insert(Animaux a1) throws DALException {
-    	Connection connect = ConnectionSingleton.getConnect();
-        try {
+
+        try (Connection connect = ConnectionSingleton.getConnect()) {
             String sql = "INSERT INTO Animaux(" +
 		                    "NomAnimal," +
 		                    "Sexe," +
@@ -49,7 +49,7 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 	        stmt.setString(3,a1.getCouleur());
 	        stmt.setString(4,a1.getRace());
 	        stmt.setString(5,a1.getEspece());
-	        stmt.setLong(6,a1.getCodeClient());
+	        stmt.setInt(6, a1.getCodeClient());
 	        stmt.setString(7,a1.getTatouage());
 	        stmt.setString(8,a1.getAntecedents());
 	        stmt.setBoolean(9, a1.isArchive());
@@ -60,19 +60,18 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 	            if (rs.next()){
 	            	a1.setCodeAnimal(rs.getInt(1));
 	            }
-	            stmt.close();
+//	            stmt.close();
 	        }
 	      //on ferme les connections
             stmt.close();
-            connect.close();
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
     }
 
     public Animaux selectById(int id) throws DALException {
-    	Connection connect = ConnectionSingleton.getConnect();
-    	try{
+
+    	try (Connection connect = ConnectionSingleton.getConnect()){
 	        String sql = "SELECT * FROM Personnels WHERE CodePers = ?";
 	        PreparedStatement stmt = connect.prepareStatement(sql);
 	
@@ -90,19 +89,17 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 			                		   res.getString("Couleur"),
 			                		   res.getString("Race"),
 			                		   res.getString("Espece"),
-			                		   res.getLong("CodeClient"),
+			                		   res.getInt("CodeClient"),
 			                		   res.getString("Tatouage"),
 			                		   res.getString("Antecedents"),
 			                		   res.getBoolean("Archive"));
 		        stmt.close();
 	            }
 	        	//on ferme les connections
-                connect.close();
 	         	return data;
 	        }else{
 	        	//on ferme les connections
                 stmt.close();
-                connect.close();
 	        	return null;
 	        }
         } catch (SQLException e) {
@@ -111,8 +108,7 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
     }
 
     public List<Animaux> selectAll() throws DALException {
-    	Connection connect = ConnectionSingleton.getConnect();
-    	try{
+    	try (Connection connect = ConnectionSingleton.getConnect()){
             String sql = "SELECT * FROM Animaux";
             PreparedStatement stmt = connect.prepareStatement(sql);
             ResultSet res = stmt.executeQuery();
@@ -126,7 +122,7 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 					                		 res.getString("Couleur"),
 					                		 res.getString("Race"),
 					                		 res.getString("Espece"),
-					                		 res.getLong("CodeClient"),
+					                		 res.getInt("CodeClient"),
 					                		 res.getString("Tatouage"),
 					                		 res.getString("Antecedents"),
 					                		 res.getBoolean("Archive")));
@@ -139,7 +135,6 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
             }else{
             	//on ferme les connections
                 stmt.close();
-                connect.close();
             	return null;
             }
         } catch (SQLException e) {
@@ -148,8 +143,8 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
     }
 
 	public List<Animaux> selectAminauxByClient(Clients client)throws DALException{
-		Connection connect = ConnectionSingleton.getConnect();
-		try{
+
+		try(Connection connect = ConnectionSingleton.getConnect()){
 			String sql = "SELECT * FROM Animaux WHERE client = ? and Archive = FALSE ";
 			PreparedStatement stmt = connect.prepareStatement(sql);
 
@@ -164,14 +159,13 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 						res.getString("Couleur"),
 						res.getString("Race"),
 						res.getString("Espece"),
-						res.getLong("CodeClient"),
+						res.getInt("CodeClient"),
 						res.getString("Tatouage"),
 						res.getString("Antecedents"),
 						res.getBoolean("Archive")));
 			}
 			//on ferme les connections
 			stmt.close();
-            connect.close();
 			return data;
 
 		} catch (SQLException e) {
@@ -181,8 +175,7 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 
 
 	public void update(Animaux a1) throws DALException {
-    	Connection connect = ConnectionSingleton.getConnect();
-    	try {
+    	try (Connection connect = ConnectionSingleton.getConnect()) {
             String sql = "UPDATE Animaux  SET " +
                     "NomAnimal =?," +
                     "Sexe =?," +
@@ -200,7 +193,7 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 			stmt.setString(3,a1.getCouleur());
 			stmt.setString(4,a1.getRace());
 			stmt.setString(5,a1.getEspece());
-			stmt.setLong(6,a1.getCodeClient());
+			stmt.setInt(6,a1.getCodeClient());
 			stmt.setString(7,a1.getTatouage());
 			stmt.setString(8,a1.getAntecedents());
 			stmt.setBoolean(9, a1.isArchive());
@@ -209,15 +202,14 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
          
 			//on ferme les connections
             stmt.close();
-            connect.close();
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
     }
 
     public void delete(int CodeAnimal) throws DALException {
-    	Connection connect = ConnectionSingleton.getConnect();
-    	try {
+
+    	try (Connection connect = ConnectionSingleton.getConnect()){
 	        String sql = "DELETE FROM Animaux WHERE CodeAnimal = ?";
 	        PreparedStatement stmt = connect.prepareStatement(sql);
 	        stmt.setInt(1,CodeAnimal);
@@ -225,15 +217,14 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 	        
 	        //on ferme les connections
             stmt.close();
-            connect.close();
         } catch (SQLException e) {
         	throw new DALException(e.getMessage());
 	    }
 	}
     
     public Animaux selectByNom(String NomAnimal) throws DALException {
-    	Connection connect = ConnectionSingleton.getConnect();
-    	try{
+
+    	try(Connection connect = ConnectionSingleton.getConnect()){
 	        String sql = "SELECT * FROM Animaux WHERE NomAnimal = ?";
 	        PreparedStatement stmt = connect.prepareStatement(sql);
 	        stmt.setString(1,NomAnimal);
@@ -247,19 +238,17 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 	                		 res.getString("Couleur"),
 	                		 res.getString("Race"),
 	                		 res.getString("Espece"),
-	                		 res.getLong("CodeClient"),
+	                		 res.getInt("CodeClient"),
 	                		 res.getString("Tatouage"),
 	                		 res.getString("Antecedents"),
 	                		 res.getBoolean("Archive"));
 		        stmt.close();
 	             }
 	        	//on ferme les connections
-                connect.close();
 	         	return data;
 	        }else{
 	        	//on ferme les connections
                 stmt.close();
-                connect.close();
 	        	return null;
 	        }
         } catch (SQLException e) {

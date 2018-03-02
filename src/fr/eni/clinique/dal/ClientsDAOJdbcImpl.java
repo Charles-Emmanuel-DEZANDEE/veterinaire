@@ -14,9 +14,9 @@ public class ClientsDAOJdbcImpl implements DaoClients {
 
 
     public void insert(Clients c1) throws DALException {
-        Connection connect = ConnectionSingleton.getConnect();
 
-        try {
+        try (        Connection connect = ConnectionSingleton.getConnect()
+        ){
             String sql = "INSERT INTO Clients(" +
                     "NomClient," +
                     "PrenomClient," +
@@ -63,7 +63,6 @@ public class ClientsDAOJdbcImpl implements DaoClients {
                     c1.setCodeClient(rs.getInt(1));
                 }
                 stmt.close();
-                connect.close();
             }
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
@@ -71,8 +70,8 @@ public class ClientsDAOJdbcImpl implements DaoClients {
     }
 
     public Clients selectById(int id) throws DALException {
-        try {
-            Connection connect = ConnectionSingleton.getConnect();
+        try (            Connection connect = ConnectionSingleton.getConnect()
+        ){
 
             String sql = "SELECT * FROM Clients WHERE CodeClient = ?";
             PreparedStatement stmt = connect.prepareStatement(sql);
@@ -101,7 +100,6 @@ public class ClientsDAOJdbcImpl implements DaoClients {
                             res.getBoolean("Archive")
                     );
                     stmt.close();
-                    connect.close();
                 }
                 return data;
             } else {
@@ -113,8 +111,8 @@ public class ClientsDAOJdbcImpl implements DaoClients {
     }
 
     public List<Clients> selectAll() throws DALException {
-        try {
-            Connection connect = ConnectionSingleton.getConnect();
+        try (            Connection connect = ConnectionSingleton.getConnect()
+        ){
 
             String sql = "SELECT * FROM Clients";
             PreparedStatement stmt = connect.prepareStatement(sql);
@@ -142,7 +140,6 @@ public class ClientsDAOJdbcImpl implements DaoClients {
                     i++;
                 }
                 stmt.close();
-                connect.close();
                 return data;
             } else {
                 return null;
@@ -153,9 +150,9 @@ public class ClientsDAOJdbcImpl implements DaoClients {
     }
 
     public void update(Clients a1) throws DALException {
-        Connection connect = ConnectionSingleton.getConnect();
 
-        try {
+        try (        Connection connect = ConnectionSingleton.getConnect()
+        ){
 
             String sql = "UPDATE Clients  SET " +
                     "NomClient =?," +
@@ -186,29 +183,23 @@ public class ClientsDAOJdbcImpl implements DaoClients {
 
             stmt.executeUpdate();
             stmt.close();
-            connect.close();
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
     }
 
     public void delete(int CodeClient) throws DALException {
-        try {
-            Connection connect = ConnectionSingleton.getConnect();
+        try (            Connection connect = ConnectionSingleton.getConnect()
+        ){
 
             String sql = "DELETE FROM Clients WHERE CodeClient = ?";
             PreparedStatement stmt = connect.prepareStatement(sql);
             stmt.setInt(1, CodeClient);
             stmt.executeUpdate();
             stmt.close();
-            connect.close();
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
     }
 
-
-    public void finalize() throws SQLException {
-        connect.close();
-    }
 }
