@@ -15,10 +15,9 @@ import javax.swing.ListSelectionModel;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Personnels;
-import fr.eni.clinique.dal.DALException;
 
 
-public class MDIAppGestionPersonnel extends JFrame  {
+public class FenetreGestionPersonnel extends JFrame  {
 
 	private static final long serialVersionUID = 1L;
 	private JButton buttonAjouterPersonnel;
@@ -29,7 +28,7 @@ public class MDIAppGestionPersonnel extends JFrame  {
 
 
 
-	public MDIAppGestionPersonnel() throws BLLException{
+	public FenetreGestionPersonnel() throws BLLException{
 
 	
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -99,7 +98,7 @@ public class MDIAppGestionPersonnel extends JFrame  {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						//GererPersonnelController.getInstance().nouveauPersonnels();
-						AjoutPersonnelController.getInstance().afficherFenetreAjout(MDIAppGestionPersonnel.this, MDIAppGestionPersonnel.this.getTablePersonnels());
+						AjoutPersonnelController.getInstance().afficherFenetreAjout(FenetreGestionPersonnel.this, FenetreGestionPersonnel.this.getTablePersonnels());
 						
 						//mettre à jour la table
 						getTablePersonnels().getPersonnelsModel().fireTableDataChanged();
@@ -165,7 +164,7 @@ public class MDIAppGestionPersonnel extends JFrame  {
 						
 						if (ligneTableau.length == 1){
 							personnelsAModif = getTablePersonnels().getPersonnelsModel().getListePersonnel().get(ligneTableau[0]);
-							ReinitMotPasseController.getInstance().afficherFenetreReinit(MDIAppGestionPersonnel.this, personnelsAModif);
+							ReinitMotPasseController.getInstance().afficherFenetreReinit(FenetreGestionPersonnel.this, personnelsAModif);
 							
 							//mettre à jour la table
 							getTablePersonnels().getPersonnelsModel().fireTableDataChanged();
