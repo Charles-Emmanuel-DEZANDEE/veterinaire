@@ -28,18 +28,7 @@ public class RacesManager {
 	}
 	
 
-//todo
-//	public List<Races> getListeRacesByEspece(String espece) throws BLLException{
-//		List<Races> r1 = null;
-//		try {
-//			r1 = ((RacesDAOJdbcImpl)daoRaces).selectByEspece(espece);
-//		} catch (DALException e) {
-//			e.printStackTrace();
-//			throw new BLLException("Erreur r�cup�ration de la race par Nom", e);
-//		}
-//		return r1;
-//	}
-	
+
 	public List<String> getListeRaces(String espece) throws BLLException{
 		List<String> races = null;
 		try {

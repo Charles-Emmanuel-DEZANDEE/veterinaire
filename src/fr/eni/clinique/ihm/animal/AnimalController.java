@@ -4,16 +4,19 @@ import fr.eni.clinique.bll.BLLException;
 
 import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
+import fr.eni.clinique.bo.Races;
 import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.dal.DAOFactory;
+import fr.eni.clinique.dal.DaoRaces;
 
 
 public class AnimalController {
-    private MDIAppAnimal fenetreLogIn;
+    private MDIAppAnimal fenetreAnimal;
     private static AnimalController instance;
 
 
     private AnimalController() throws DALException, BLLException {
-        fenetreLogIn = MDIAppAnimal.getInstance();
+        fenetreAnimal = MDIAppAnimal.getInstance();
     }
 
     public static synchronized AnimalController getInstance() throws DALException, BLLException {
@@ -24,40 +27,105 @@ public class AnimalController {
     }
 
     public void nouveau(Clients client) throws BLLException, DALException {
-        fenetreLogIn.init(client,true);
+        fenetreAnimal.init(client,true);
         //on vide les champs texte de l'animal
-        fenetreLogIn.getFieldCouleur().setText("");
-        fenetreLogIn.getFieldNom().setText("");
-        fenetreLogIn.getFieldTatouage().setText("");
+        fenetreAnimal.getFieldCouleur().setText("");
+        fenetreAnimal.getFieldNom().setText("");
+        fenetreAnimal.getFieldTatouage().setText("");
 
     }
 
     public void update(Clients client, Animaux animal) throws BLLException, DALException {
-        fenetreLogIn.init(client,false);
+        fenetreAnimal.init(client,false);
         //on rempli les champs de l'animal
-        fenetreLogIn.getCode().setText(String.valueOf(animal.getCodeAnimal()));
-        fenetreLogIn.getFieldNom().setText(animal.getNomAnimal());
-        fenetreLogIn.getFieldTatouage().setText(animal.getTatouage());
-        fenetreLogIn.getFieldCouleur().setText(animal.getCouleur());
-        fenetreLogIn.getCboGenreAnimal().setSelectedItem(animal.getSexe());
-        fenetreLogIn.getCboEspece().setSelectedItem(animal.getEspece());
-        fenetreLogIn.getCboRace().setSelectedItem(animal.getRace());
+        fenetreAnimal.getCode().setText(String.valueOf(animal.getCodeAnimal()));
+        fenetreAnimal.getFieldNom().setText(animal.getNomAnimal());
+        fenetreAnimal.getFieldTatouage().setText(animal.getTatouage());
+        fenetreAnimal.getFieldCouleur().setText(animal.getCouleur());
+        fenetreAnimal.getCboGenreAnimal().setSelectedItem(sexAAfficher(animal.getSexe()));
+        fenetreAnimal.getCboEspece().setSelectedItem(animal.getEspece());
+        fenetreAnimal.getCboRace().setSelectedItem(animal.getRace());
     }
 
-    public void enregistrer (Animaux animal, Clients client){
-        // on enregistre en base
+    public void enregistrer (Clients client, Boolean nouveau) throws BLLException, DALException {
+        //on récupére les infos de la race et l'animal
+        Races race = DAOFactory.getRacesDAO().selectByPK(fenetreAnimal.getCboEspece().getSelectedItem().toString(),fenetreAnimal.getCboRace().getSelectedItem().toString());
+
+        if (nouveau)
+        {
+            Integer codeclie = client.getCodeClient();
+            Animaux animal = new Animaux(
+                    fenetreAnimal.getFieldNom().getText(),
+                    sexAEnregistrer(fenetreAnimal.getCboGenreAnimal().getSelectedItem().toString()),
+                    fenetreAnimal.getFieldCouleur().getText(),
+                    fenetreAnimal.getCboRace().getSelectedItem().toString(),
+                    fenetreAnimal.getCboEspece().getSelectedItem().toString(),
+                    client.getCodeClient(),
+                    fenetreAnimal.getFieldTatouage().getText(),
+                    "",
+                    false
+            );
+            Animaux test = animal;
+            // on enregistre en base
+            DAOFactory.getAnimauxDAO().insert(animal);
+        }
+        else {
+            Animaux animal = new Animaux(
+                    Integer.parseInt(fenetreAnimal.getCode().getText()),
+                    fenetreAnimal.getFieldNom().getText(),
+                    sexAEnregistrer(fenetreAnimal.getCboGenreAnimal().getSelectedItem().toString()),
+                    fenetreAnimal.getFieldCouleur().getText(),
+                    fenetreAnimal.getCboRace().getSelectedItem().toString(),
+                    fenetreAnimal.getCboEspece().getSelectedItem().toString(),
+                    client.getCodeClient(),
+                    fenetreAnimal.getFieldTatouage().getText(),
+                    "",
+                    false
+            );
+            // on enregistre en base
+            DAOFactory.getAnimauxDAO().update(animal);
+        }
 
         //on cache la fenetre
-        fenetreLogIn.cacher();
+        fenetreAnimal.cacher();
 
     }
 
     public void annuler (){
         //on cache la fenetre
-        fenetreLogIn.cacher();
+        fenetreAnimal.cacher();
 
-        //todo on affiche la page  de liste de clients
+        //todo on retourne a la page du clients
 
     }
+
+    public String sexAEnregistrer(String sex){
+        String sexAenregistrer = "";
+        if (sex.equals("Femelle")){
+            sexAenregistrer= "F";
+        }
+        if (sex.equals("Male")){
+            sexAenregistrer= "M";
+        }
+        if (sex.equals("hermaphrodite")){
+            sexAenregistrer= "H";
+        }
+        return sexAenregistrer;
+    }
+
+    public String sexAAfficher(String sex){
+        String sexAAfficher = "";
+        if (sex.equals("F")){
+            sexAAfficher= "Femelle";
+        }
+        if (sex.equals("M")){
+            sexAAfficher= "Male";
+        }
+        if (sex.equals("H")){
+            sexAAfficher= "hermaphrodite";
+        }
+        return sexAAfficher;
+    }
+
 
 }

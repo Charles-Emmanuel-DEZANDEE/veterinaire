@@ -26,21 +26,31 @@ public class FenetreAjoutClient extends JDialog {
 	private JPanel panel2;
 	private JPanel panel3;
 	private JButton buttonValiderAjoutClient;
+	private JButton buttonAnnulerAjoutClient;
+	private JTextField fieldCodeClient;
+	private JTextField fieldNomClient;
+	private JTextField fieldPrenomClient;
+	private JTextField fieldAdresse1Client;
+	private JTextField fieldAdresse2Client;
+	private JTextField fieldCPClient;
+	private JTextField fieldVilleClient;
+	private JTextField fieldNumTelClient;
+	private JTextField fieldAssuranceClient;
+	private JTextField fieldEmailClient;
+	private JTextField fieldRemarqueClient;
 
-	public FenetreAjoutClient(JFrame parent, ClientsTable tableClients) throws BLLException, DALException {
+	public FenetreAjoutClient(JFrame parent) throws BLLException, DALException {
 		super(parent, "Ajouter Client", true);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setSize(450, 300);
+		setSize(500, 500);
 		setResizable(false);
-		this.tableClients = tableClients;
 		initAjoutClient();
-		setVisible(true);
 	}
 	
 	public static synchronized FenetreAjoutClient getInstance(JFrame parent, ClientsTable tableClients) throws DALException, BLLException{
         if (instance == null){
-            instance = new FenetreAjoutClient(parent, tableClients);
+            instance = new FenetreAjoutClient(parent);
         }
         return instance;
     }
@@ -52,7 +62,6 @@ public class FenetreAjoutClient extends JDialog {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(5, 5, 5, 5);
 		
-		gbc.gridwidth = 1;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		panel.add(this.getPanel2(), gbc);
@@ -70,10 +79,18 @@ public class FenetreAjoutClient extends JDialog {
 			GridBagConstraints gbc = new GridBagConstraints();
 			gbc.insets = new Insets(5, 5, 5, 5);
 			
-			gbc.gridwidth = 1;
 			gbc.gridx = 0;
 			gbc.gridy = 0;
 			panel2.add(this.getButtonValiderAjoutClient(), gbc);
+			gbc.gridx = 0;
+			gbc.gridy = 1;
+			panel2.add(new JLabel("Valider"), gbc);
+			gbc.gridx = 1;
+			gbc.gridy = 0;
+			panel2.add(this.getButtonAnnulerAjoutClient(), gbc);
+			gbc.gridx = 1;
+			gbc.gridy = 1;
+			panel2.add(new JLabel("Annuler"), gbc);
 			
 		}
 		return this.panel2;
@@ -83,6 +100,73 @@ public class FenetreAjoutClient extends JDialog {
 	public JPanel getPanel3(){
 		if (this.panel3 == null) {
 			this.panel3 = new JPanel();
+			panel3.setLayout(new GridBagLayout());
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5, 5, 5, 5);
+			
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			this.panel3.add(new JLabel("Code"), gbc);
+			gbc.gridx = 1;
+			gbc.gridy = 0;
+			this.panel3.add(this.getFieldCodeClient(), gbc);
+			gbc.gridx = 0;
+			gbc.gridy = 1;
+			this.panel3.add(new JLabel("Nom"), gbc);
+			gbc.gridx = 1;
+			gbc.gridy = 1;
+			this.panel3.add(this.getFieldNomClient(), gbc);
+			gbc.gridx = 0;
+			gbc.gridy = 2;
+			this.panel3.add(new JLabel("Prénom"), gbc);
+			gbc.gridx = 1;
+			gbc.gridy = 2;
+			this.panel3.add(this.getFieldPrenomClient(), gbc);
+			gbc.gridx = 0;
+			gbc.gridy = 3;
+			this.panel3.add(new JLabel("Adresse"), gbc);
+			gbc.gridx = 1;
+			gbc.gridy = 3;
+			this.panel3.add(this.getFieldAdresse1Client(), gbc);
+			gbc.gridx = 1;
+			gbc.gridy = 4;
+			this.panel3.add(this.getFieldAdresse2Client(), gbc);
+			gbc.gridx = 0;
+			gbc.gridy = 5;
+			this.panel3.add(new JLabel("Code Postal"), gbc);
+			gbc.gridx = 1;
+			gbc.gridy = 5;
+			this.panel3.add(this.getFieldCPClient(), gbc);
+			gbc.gridx = 0;
+			gbc.gridy = 6;
+			this.panel3.add(new JLabel("Ville"), gbc);
+			gbc.gridx = 1;
+			gbc.gridy = 6;
+			this.panel3.add(this.getFieldVilleClient(), gbc);
+			gbc.gridx = 0;
+			gbc.gridy = 7;
+			this.panel3.add(new JLabel("Numéro de téléphone"), gbc);
+			gbc.gridx = 1;
+			gbc.gridy = 7;
+			this.panel3.add(this.getFieldNumTelClient(), gbc);
+			gbc.gridx = 0;
+			gbc.gridy = 8;
+			this.panel3.add(new JLabel("Assurance"), gbc);
+			gbc.gridx = 1;
+			gbc.gridy = 8;
+			this.panel3.add(this.getFieldAssuranceClient(), gbc);
+			gbc.gridx = 0;
+			gbc.gridy = 9;
+			this.panel3.add(new JLabel("Email"), gbc);
+			gbc.gridx = 1;
+			gbc.gridy = 9;
+			this.panel3.add(this.getFieldEmailClient(), gbc);
+			gbc.gridx = 0;
+			gbc.gridy = 10;
+			this.panel3.add(new JLabel("Remarque"), gbc);
+			gbc.gridx = 1;
+			gbc.gridy = 10;
+			this.panel3.add(this.getFieldRemarqueClient(), gbc);
 		}
 		return this.panel3;
 		
@@ -95,11 +179,89 @@ public class FenetreAjoutClient extends JDialog {
 		return this.buttonValiderAjoutClient;
 	}
 	
-	public void exit(){
-		System.exit(0);
+	public JButton getButtonAnnulerAjoutClient(){
+		if (this.buttonAnnulerAjoutClient == null) {
+			this.buttonAnnulerAjoutClient = new JButton("Annuler");
+		}
+		return this.buttonAnnulerAjoutClient;
 	}
 	
-	
-	
-	
+	//TextField
+		public JTextField getFieldCodeClient() {
+			if (this.fieldCodeClient == null) {
+				this.fieldCodeClient = new JTextField(15);
+			}
+			return this.fieldCodeClient;
+		}
+		
+		public JTextField getFieldNomClient() {
+			if (this.fieldNomClient == null) {
+				this.fieldNomClient = new JTextField(15);
+			}
+			return this.fieldNomClient;
+		}
+		
+		public JTextField getFieldPrenomClient() {
+			if (this.fieldPrenomClient == null) {
+				this.fieldPrenomClient = new JTextField(15);
+			}
+			return this.fieldPrenomClient;
+		}
+		
+		public JTextField getFieldAdresse1Client() {
+			if (this.fieldAdresse1Client == null) {
+				this.fieldAdresse1Client = new JTextField(15);
+			}
+			return this.fieldAdresse1Client;
+		}
+		
+		public JTextField getFieldAdresse2Client() {
+			if (this.fieldAdresse2Client == null) {
+				this.fieldAdresse2Client = new JTextField(15);
+			}
+			return this.fieldAdresse2Client;
+		}
+		
+		public JTextField getFieldCPClient() {
+			if (this.fieldCPClient == null) {
+				this.fieldCPClient = new JTextField(15);
+			}
+			return this.fieldCPClient;
+		}
+		
+		public JTextField getFieldVilleClient() {
+			if (this.fieldVilleClient == null) {
+				this.fieldVilleClient = new JTextField(15);
+			}
+			return this.fieldVilleClient;
+		}
+		
+		public JTextField getFieldNumTelClient() {
+			if (this.fieldNumTelClient == null) {
+				this.fieldNumTelClient = new JTextField(15);
+			}
+			return this.fieldNumTelClient;
+		}
+		
+		public JTextField getFieldAssuranceClient() {
+			if (this.fieldAssuranceClient == null) {
+				this.fieldAssuranceClient = new JTextField(15);
+			}
+			return this.fieldAssuranceClient;
+		}
+		
+		public JTextField getFieldEmailClient() {
+			if (this.fieldEmailClient == null) {
+				this.fieldEmailClient = new JTextField(15);
+			}
+			return this.fieldEmailClient;
+		}
+		
+		
+		public JTextField getFieldRemarqueClient() {
+			if (this.fieldRemarqueClient == null) {
+				this.fieldRemarqueClient = new JTextField(15);
+			}
+			return this.fieldRemarqueClient;
+		}
 }
