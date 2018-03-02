@@ -7,12 +7,12 @@ import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.ihm.acceuil.AcceuilController;
 
 public class LogInController {
-    private MDIAppLogIn fenetreLogIn;
+    private FenetreLogIn fenetreLogIn;
     private static LogInController instance;
 
 
     private LogInController() throws DALException, BLLException {
-        fenetreLogIn = MDIAppLogIn.getInstance();
+        fenetreLogIn = FenetreLogIn.getInstance();
     }
 
     public static synchronized LogInController getInstance() throws DALException, BLLException {
@@ -79,7 +79,7 @@ public class LogInController {
 
     }
 
-    public MDIAppLogIn getFenetreLogIn() {
+    public FenetreLogIn getFenetreLogIn() {
         return fenetreLogIn;
     }
 }

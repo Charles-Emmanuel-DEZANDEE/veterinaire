@@ -1,8 +1,6 @@
 package fr.eni.clinique.ihm.gestionClient;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -11,21 +9,14 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import fr.eni.clinique.bll.BLLException;
-import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.ihm.ecranPersonnel.AjoutPersonnelController;
-import fr.eni.clinique.ihm.ecranPersonnel.MDIAppGestionPersonnel;
-import fr.eni.clinique.ihm.ecranPersonnel.PersonnelsTable;
 
 public class MDIAppClient extends JFrame {
 	
@@ -480,7 +471,7 @@ public class MDIAppClient extends JFrame {
 	
 	public JLabel getLabelPrenomClient() {
 		if (this.labelPrenomClient == null) {
-			this.labelPrenomClient = new JLabel("Prénom");
+			this.labelPrenomClient = new JLabel("Prï¿½nom");
 			this.labelPrenomClient.setFont(new Font("Serif", Font.PLAIN, 15));
 		}
 		return this.labelPrenomClient;
@@ -512,7 +503,7 @@ public class MDIAppClient extends JFrame {
 	
 	public JLabel getLabelNumTelClient() {
 		if (this.labelNumTelClient == null) {
-			this.labelNumTelClient = new JLabel("Numéro téléphone");
+			this.labelNumTelClient = new JLabel("Numï¿½ro tï¿½lï¿½phone");
 			this.labelNumTelClient.setFont(new Font("Serif", Font.PLAIN, 15));
 		}
 		return this.labelNumTelClient;

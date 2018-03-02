@@ -4,6 +4,7 @@ import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.RacesManager;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.ihm.ecranPersonnel.FenetreAjoutPersonnel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,10 +14,10 @@ import java.util.List;
 import java.util.ListIterator;
 
 
-public class MDIAppAnimal extends JFrame {
+public class FenetreAnimal extends JFrame {
 
     private static final long serialVersionUID = 1L;
-    private static MDIAppAnimal instance;
+    private static FenetreAnimal instance;
 
     private JLabel labelClient;
     private JLabel Client;
@@ -44,15 +45,15 @@ public class MDIAppAnimal extends JFrame {
     private JButton buttonRetour;
 
     //singleton
-    public static synchronized MDIAppAnimal getInstance() throws DALException, BLLException {
+    public static synchronized FenetreAnimal getInstance() throws BLLException {
         if (instance == null) {
-            instance = new MDIAppAnimal();
+            instance = new FenetreAnimal();
         }
         return instance;
     }
 
 
-    private MDIAppAnimal() {
+    private FenetreAnimal() throws BLLException {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -63,7 +64,7 @@ public class MDIAppAnimal extends JFrame {
 
     }
 
-    public void init(Clients client, Boolean nouveau) throws BLLException, DALException {
+    public void init(Clients client, Boolean nouveau) throws BLLException {
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -205,7 +206,7 @@ public class MDIAppAnimal extends JFrame {
         if (this.Code == null) {
             this.Code = new JTextField("");
             this.Code.setEditable(false);
-            this.Code.setFont(new Font("Arial", Font.PLAIN, 6));
+            this.Code.setFont(new Font("Serif", Font.PLAIN, 10));
         }
 
         return Code;
@@ -296,6 +297,9 @@ public class MDIAppAnimal extends JFrame {
                     } catch (BLLException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
+                        System.out.println("erreur champ");
+                        JOptionPane.showMessageDialog(instance, e1);//"Vous devez saisir tous les champs pour éffecuter un ajout");
+
                     }
                 }
             });
@@ -336,51 +340,59 @@ public class MDIAppAnimal extends JFrame {
         return this.cboGenreAnimal;
     }
 
-    public JComboBox<String> getCboRace() throws BLLException, DALException {
+    public JComboBox<String> getCboRace() throws BLLException {
         if (this.cboRace == null) {
 //            String[] places = { "Labrador", "Siamois", "étalon", "jerry","holly" };
-            this.cboRace = new JComboBox(RacesManager.getInstance().getListeRaces(cboEspece.getSelectedItem().toString()).toArray());
+            try {
+                this.cboRace = new JComboBox(RacesManager.getInstance().getListeRaces(cboEspece.getSelectedItem().toString()).toArray());
+            } catch (DALException e) {
+                e.printStackTrace();
+            }
 //            this.cboRace = new JComboBox<String>(places);
         }
         return this.cboRace;
     }
 
-    public JComboBox<String> getCboEspece() throws BLLException, DALException {
+    public JComboBox<String> getCboEspece() throws BLLException {
         if (this.cboEspece == null) {
             String[] places = { "Chat", "Chiens", "sourris", "cheval", "vache" };
 //            cboEspece = new JComboBox<String>(places);
 
-            this.cboEspece = new JComboBox(RacesManager.getInstance().getListeEspece().toArray());
+            try {
+                this.cboEspece = new JComboBox(RacesManager.getInstance().getListeEspece().toArray());
+            } catch (DALException e) {
+                e.printStackTrace();
+            }
             this.cboEspece.addActionListener(new ActionListener() {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-//                    try {
                         System.out.println("selection espece");
                     JComboBox cb = (JComboBox)e.getSource();
                     String espece = (String)cb.getSelectedItem();
                     System.out.println(espece);
 
-                    try {
                         //on vide les items
                         cboRace.removeAllItems();
                         //on remplace les items
-                        List<String> newList = RacesManager.getInstance().getListeRaces((String)cb.getSelectedItem());
-                        ListIterator<String> it = newList.listIterator();
-                        while(it.hasNext()){
-                            String str = it.next();
-                            cboRace.addItem(str);
-                        }
-
-                        //on rafraichi la fenetre
-                        instance.revalidate();
-                        instance.repaint();
-
+                    List<String> newList = null;
+                    try {
+                        newList = RacesManager.getInstance().getListeRaces((String)cb.getSelectedItem());
                     } catch (BLLException e1) {
                         e1.printStackTrace();
                     } catch (DALException e1) {
                         e1.printStackTrace();
                     }
+
+                    ListIterator<String> it = newList.listIterator();
+                        while(it.hasNext()) {
+                            String str = it.next();
+                            cboRace.addItem(str);
+                        }
+                        //on rafraichi la fenetre
+                        instance.revalidate();
+                        instance.repaint();
+
                 }
             });
         }

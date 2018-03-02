@@ -5,13 +5,13 @@ import fr.eni.clinique.bll.PersonnelsManager;
 import fr.eni.clinique.bo.Personnels;
 
 public class GererPersonnelController {
-    private MDIAppGestionPersonnel fenetreAdm;
+    private FenetreGestionPersonnel fenetreAdm;
     private static GererPersonnelController instance;
 
 
     private GererPersonnelController() throws  BLLException {
         try {
-			fenetreAdm = new MDIAppGestionPersonnel();
+			fenetreAdm = new FenetreGestionPersonnel();
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

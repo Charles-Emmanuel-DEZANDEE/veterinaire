@@ -22,8 +22,8 @@ public class AnimalApp {
 //							"mutuelle", "mail", "remarque", false);
 					Clients client = DAOFactory.getClientsDAO().selectById(1);
 					Animaux animal = DAOFactory.getAnimauxDAO().selectById(22);
-//					AnimalController.getInstance().nouveau(client);
-					AnimalController.getInstance().update(client, animal);
+					AnimalController.getInstance().nouveau(client);
+//					AnimalController.getInstance().update(client, animal);
 				} catch (BLLException e) {
 					e.printStackTrace();
 				} catch (DALException e) {

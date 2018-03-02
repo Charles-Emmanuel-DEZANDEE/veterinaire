@@ -2,9 +2,10 @@ package fr.eni.clinique.ihm.acceuil;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.ihm.InternalFrame1;
+import fr.eni.clinique.ihm.ecranPersonnel.GererPersonnelController;
+import fr.eni.clinique.ihm.ecranPriseRDV.PriseRDVController;
+import fr.eni.clinique.ihm.gestionClient.GererClientController;
 import fr.eni.clinique.ihm.log.LogInController;
-import fr.eni.clinique.ihm.log.MDIAppLogIn;
 
 import javax.swing.*;
 import java.awt.*;
@@ -146,15 +147,32 @@ public class MDIAppAcceuil extends JFrame implements ActionListener {
                 break;
             case "priseRDV":
                 System.out.println("priseRDV");
+                try {
+                    PriseRDVController.getInstance().startApp();
+                } catch (BLLException e1) {
+                    e1.printStackTrace();
+                }
                 break;
             case "gestionCli":
                 System.out.println("gestionCli");
+                try {
+                    GererClientController.getInstance().startApp();
+                } catch (BLLException e1) {
+                    e1.printStackTrace();
+                } catch (DALException e1) {
+                    e1.printStackTrace();
+                }
                 break;
             case "agenda":
                 System.out.println("agenda");
                 break;
             case "gestPerso":
                 System.out.println("gestPerso");
+                try {
+                    GererPersonnelController.getInstance().startApp();
+                } catch (BLLException e1) {
+                    e1.printStackTrace();
+                }
                 break;
 
             default:

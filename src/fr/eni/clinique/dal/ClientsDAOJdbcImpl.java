@@ -114,7 +114,7 @@ public class ClientsDAOJdbcImpl implements DaoClients {
         try (            Connection connect = ConnectionSingleton.getConnect()
         ){
 
-            String sql = "SELECT * FROM Clients";
+            String sql = "SELECT * FROM Clients WHERE Archive = 'false'";
             PreparedStatement stmt = connect.prepareStatement(sql);
             ResultSet res = stmt.executeQuery();
             List<Clients> data = new ArrayList<>();
@@ -201,5 +201,6 @@ public class ClientsDAOJdbcImpl implements DaoClients {
             throw new DALException(e.getMessage());
         }
     }
+
 
 }
