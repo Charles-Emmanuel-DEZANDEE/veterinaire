@@ -8,7 +8,7 @@ public class Animaux {
 	private String Couleur;
 	private String Race;
 	private String Espece;
-	private int CodeClient;
+	private long CodeClient;
 	private String Tatouage;
 	private String Antecedents;
 	private boolean Archive;
@@ -92,7 +92,7 @@ public class Animaux {
 		Espece = espece;
 	}
 
-	public int getCodeClient() {
+	public Long getCodeClient() {
 		return CodeClient;
 	}
 
