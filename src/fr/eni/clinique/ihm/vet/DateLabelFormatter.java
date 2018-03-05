@@ -7,17 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class DateLabelFormatter extends AbstractFormatter {
-    @Override
-    public Object stringToValue(String text) throws ParseException {
-        return null;
-    }
-
-    @Override
-    public String valueToString(Object value) throws ParseException {
-        return null;
-    }
-
-    public class DateLabelFormatter extends AbstractFormatter {
 
         private String datePattern = "yyyy-MM-dd";
         private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
@@ -37,5 +26,5 @@ public class DateLabelFormatter extends AbstractFormatter {
             return "";
         }
 
-    }
+
 }
