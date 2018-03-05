@@ -20,8 +20,8 @@ public class DossierMedicalApp {
 //					Clients client = new Clients("test", "prenom", "adr",
 //							"adr2", "12364", "ville", "1234567890",
 //							"mutuelle", "mail", "remarque", false);
-					Clients client = DAOFactory.getClientsDAO().selectById(1);
-					Animaux animal = DAOFactory.getAnimauxDAO().selectById(22);
+					Clients client = DAOFactory.getClientsDAO().selectById(1L);
+					Animaux animal = DAOFactory.getAnimauxDAO().selectById(22L);
 					DossierMedicalController.getInstance().init(animal);
 //					AnimalController.getInstance().update(client, animal);
 				} catch (BLLException e) {
