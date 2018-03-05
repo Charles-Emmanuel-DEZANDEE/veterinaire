@@ -69,13 +69,13 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
         }
     }
 
-    public Animaux selectById(int id) throws DALException {
+    public Animaux selectById(Long id) throws DALException {
 
     	try (Connection connect = ConnectionSingleton.getConnect()){
 	        String sql = "SELECT * FROM Animaux WHERE CodeAnimal = ?";
 	        PreparedStatement stmt = connect.prepareStatement(sql);
 	
-	        stmt.setInt(1,id);//"reference,
+	        stmt.setLong(1,id);//"reference,
 	
 	        ResultSet res = stmt.executeQuery();
 	
@@ -145,7 +145,7 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 	public List<Animaux> selectAminauxByClient(Clients client)throws DALException{
 
 		try(Connection connect = ConnectionSingleton.getConnect()){
-			String sql = "SELECT * FROM Animaux WHERE client = ? and Archive = FALSE ";
+			String sql = "SELECT * FROM Animaux WHERE CodeClient = ? and Archive = 'FALSE' ";
 			PreparedStatement stmt = connect.prepareStatement(sql);
 
 			stmt.setInt(1,client.getCodeClient());//"reference,

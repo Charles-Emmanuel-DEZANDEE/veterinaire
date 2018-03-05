@@ -31,7 +31,7 @@ public class PersonnelsManager {
 		return PersonnelsManager.instance;
 	}
 	
-	public Personnels getPersonnelById(int codePers) throws BLLException{
+	public Personnels getPersonnelById(Long codePers) throws BLLException{
 		Personnels personnel=null;
 		try {
 			personnel = daoPersonnels.selectById(codePers);
@@ -63,6 +63,18 @@ public class PersonnelsManager {
 		} catch (DALException e) {
 			e.printStackTrace();
 			throw new BLLException("Erreur r?cup?ration de la liste du pesonnel", e);
+		}
+		
+		return personnels;
+	}
+	
+	public List<Personnels> getListeVeterinaire() throws BLLException{
+		List<Personnels> personnels=null;
+		try {
+			personnels = daoPersonnels.selectListeVeterniaires();
+		} catch (DALException e) {
+			e.printStackTrace();
+			throw new BLLException("Erreur r?cup?ration de la liste des veterinaires", e);
 		}
 		
 		return personnels;

@@ -3,15 +3,16 @@ package fr.eni.clinique.ihm.ecranPriseRDV;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.PersonnelsManager;
 import fr.eni.clinique.bo.Personnels;
+import fr.eni.clinique.dal.DALException;
 
 public class PriseRDVController {
-    private FenetrePrsieRDV fenetreAdm;
+    private FenetrePrsieRDV fenetrePriseRDV;
     private static PriseRDVController instance;
 
 
     private PriseRDVController() throws  BLLException {
         try {
-			fenetreAdm = new FenetrePrsieRDV();
+			fenetrePriseRDV = new FenetrePrsieRDV();
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -26,9 +27,9 @@ public class PriseRDVController {
     }
 
     public void startApp() throws BLLException{
-    	fenetreAdm.setVisible(true);
-    	fenetreAdm.revalidate();
-    	fenetreAdm.repaint();
+    	fenetrePriseRDV.setVisible(true);
+    	fenetrePriseRDV.revalidate();
+    	fenetrePriseRDV.repaint();
 	}
     
     public void reinitMotPasse(Personnels personnelAModif) throws BLLException{

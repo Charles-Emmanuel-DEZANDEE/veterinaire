@@ -1,7 +1,6 @@
 package fr.eni.clinique.ihm.ecranPriseRDV;
 
 import fr.eni.clinique.bll.BLLException;
-import fr.eni.clinique.dal.DALException;
 
 import javax.swing.SwingUtilities;
 

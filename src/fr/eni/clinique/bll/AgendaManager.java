@@ -1,6 +1,6 @@
 package fr.eni.clinique.bll;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +66,7 @@ public class AgendaManager {
 		return data;
 	}
 	
-	public List<RDV> getRDVByVetEtDate(int codeVet, Date dateRDV) throws BLLException{
+	public List<RDV> getRDVByVetEtDate(Long codeVet, Date dateRDV) throws BLLException{
 		List<RDV> data = new ArrayList<>();
 		try {
 			data = daoAgendas.getRDVByVetEtDate(codeVet, dateRDV);

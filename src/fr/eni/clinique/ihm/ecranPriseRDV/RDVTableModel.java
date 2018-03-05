@@ -10,14 +10,15 @@ import fr.eni.clinique.bll.PersonnelsManager;
 import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dto.RDV;
-import java.sql.Date;
+
 import java.util.Calendar;
+import java.util.Date;
 
 public class RDVTableModel extends AbstractTableModel{
 	
 	private List<RDV> listeRDV;
 	
-	public RDVTableModel(int codeVet,Date dateRDV) throws BLLException{
+	public RDVTableModel(long codeVet,Date dateRDV) throws BLLException{
 		try {
 			this.listeRDV = AgendaManager.getInstance().getRDVByVetEtDate(codeVet, dateRDV);
 		} catch (BLLException e) {

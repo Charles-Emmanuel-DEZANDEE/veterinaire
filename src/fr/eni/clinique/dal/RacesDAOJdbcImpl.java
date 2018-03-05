@@ -118,7 +118,7 @@ public class RacesDAOJdbcImpl implements DaoRaces {
 
 
     @Override
-    public Races selectById(int id) throws DALException {
+    public Races selectById(Long id) throws DALException {
         return null;
     }
 
