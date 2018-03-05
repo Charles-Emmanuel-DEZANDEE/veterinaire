@@ -25,12 +25,8 @@ public class FenetreGestionPersonnel extends JFrame  {
 	private JButton buttonReinitialiserPersonnel;
 	private PersonnelsTable tablePersonnels;
 
-
-
-
 	public FenetreGestionPersonnel() throws BLLException{
 
-	
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(450, 350);

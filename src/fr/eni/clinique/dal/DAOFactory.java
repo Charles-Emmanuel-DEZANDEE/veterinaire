@@ -24,5 +24,10 @@ public class DAOFactory {
         DaoRaces DaoRace = new RacesDAOJdbcImpl();
 		return DaoRace;
 	}
+	
+	public static DaoAgenda getAgendasDAO() throws DALException, BLLException {
+        DaoAgenda daoAgenda =  new AgendaDAOJdbcImpl();
+		return daoAgenda;
+	}
 
 }

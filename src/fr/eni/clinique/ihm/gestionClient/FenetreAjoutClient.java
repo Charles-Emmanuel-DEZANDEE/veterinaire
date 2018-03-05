@@ -11,18 +11,14 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Clients;
-import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.ihm.ecranPersonnel.FenetreAjoutPersonnel;
 
 public class FenetreAjoutClient extends JDialog {
 
-	private ClientsTable tableClients;
 	private static FenetreAjoutClient instance;
 	private JPanel panel2;
 	private JPanel panel3;
@@ -49,7 +45,7 @@ public class FenetreAjoutClient extends JDialog {
 		initAjoutClient();
 	}
 	
-	public static synchronized FenetreAjoutClient getInstance(JFrame parent, ClientsTable tableClients) throws DALException, BLLException{
+	public static synchronized FenetreAjoutClient getInstance(JFrame parent) throws DALException, BLLException{
         if (instance == null){
             instance = new FenetreAjoutClient(parent);
         }
@@ -181,10 +177,16 @@ public class FenetreAjoutClient extends JDialog {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					Clients newClient = new Clients(Integer.valueOf(fieldCodeClient.getText()), fieldNomClient.getText(), fieldPrenomClient.getText(), fieldAdresse1Client.getText(), fieldAdresse2Client.getText(), fieldCPClient.getText(), fieldVilleClient.getText(), fieldNumTelClient.getText(), fieldAssuranceClient.getText(), fieldEmailClient.getText(), fieldRemarqueClient.getText(), false);
-				
+					Clients client = new Clients(Integer.valueOf(fieldCodeClient.getText()),
+							fieldNomClient.getText(), fieldPrenomClient.getText(),
+							fieldAdresse1Client.getText(), fieldAdresse2Client.getText(),
+							fieldCPClient.getText(), fieldVilleClient.getText(),
+							fieldNumTelClient.getText(), fieldAssuranceClient.getText(),
+							fieldEmailClient.getText(), fieldRemarqueClient.getText(), false);
 					try {
-						GererClientController.getInstance().ajouterClient(newClient);
+						GererClientController.getInstance().ajouterClient(client);
+						FenetreAjoutClient.this.dispose();
+						
 					} catch (DALException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
