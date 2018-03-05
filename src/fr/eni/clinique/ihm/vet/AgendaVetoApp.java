@@ -5,7 +5,7 @@ import fr.eni.clinique.ihm.ecranPersonnel.GererPersonnelController;
 
 import javax.swing.*;
 
-public class VetoApp {
+public class AgendaVetoApp {
 	
 	public static void main(String[] args) {
 		

@@ -33,7 +33,7 @@ public class FenetreVet extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JLabel labelVeto;
-	private JComboBox<Personnels> cboVeto;
+	private JComboBox<String> cboVeto;
 
 	private JLabel labelDate;
 	private JDatePickerImpl datePicker;
@@ -49,7 +49,8 @@ public class FenetreVet extends JFrame {
 		setLocationRelativeTo(null);
 		setSize(600, 600);
 		setResizable(true);
-		setTitle("gestion du personnel");
+		setTitle("Agenda");
+		setVisible(true);
 
 
 	}
@@ -96,9 +97,10 @@ public class FenetreVet extends JFrame {
 
 		//ligne 3
 
+		setContentPane(panel);
 
-		JScrollPane scroll = new JScrollPane(panel);
-		setContentPane(scroll);
+//		JScrollPane scroll = new JScrollPane(panel);
+//		setContentPane(scroll);
 
 	}
 
@@ -111,16 +113,16 @@ public class FenetreVet extends JFrame {
 		return labelVeto;
 	}
 
-	public JComboBox<Personnels> getCboVeto() throws BLLException {
+	public JComboBox<String> getCboVeto() throws BLLException {
 		if (this.cboVeto == null) {
-			String[] places = { "Chat", "Chiens", "sourris", "cheval", "vache" };
-//            cboEspece = new JComboBox<String>(places);
+			String[] places = { "M veto 1", "M veto 2", "M veto 3" };
+			cboVeto = new JComboBox<String>(places);
 
-			try {
-				this.cboVeto = new JComboBox(RacesManager.getInstance().getListeEspece().toArray());
-			} catch (DALException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				this.cboVeto = new JComboBox(RacesManager.getInstance().getListeEspece().toArray());
+//			} catch (DALException e) {
+//				e.printStackTrace();
+//			}
 //			this.cboVeto.addActionListener(new ActionListener() {
 //
 //				@Override
@@ -172,9 +174,9 @@ public class FenetreVet extends JFrame {
 //model.setDate(20,04,2014);
 // Need this...
 		Properties p = new Properties();
-		p.put("text.today", "Today");
-		p.put("text.month", "Month");
-		p.put("text.year", "Year");
+		p.put("text.today", "Aujourd'hui");
+		p.put("text.month", "Mois");
+		p.put("text.year", "Année");
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 // Don't know about the formatter, but there it is...
 		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
@@ -183,7 +185,7 @@ public class FenetreVet extends JFrame {
 
 	public JButton getButtonDossierMedical() {
 		if (this.buttonDossierMedical == null) {
-			this.buttonDossierMedical = new JButton("supp");
+			this.buttonDossierMedical = new JButton("Dossier medical");
 
 			this.buttonDossierMedical.addActionListener(new ActionListener() {
 
