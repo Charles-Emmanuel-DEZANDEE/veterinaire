@@ -168,7 +168,7 @@ public class FenetreAjoutPersonnel extends JDialog {
 						e1.printStackTrace();
 						JOptionPane.showMessageDialog(FenetreAjoutPersonnel.this, "Vous devez saisir tous les champs pour éffecuter un ajout");					
 					}
-
+ 
 
 				}
 			});
