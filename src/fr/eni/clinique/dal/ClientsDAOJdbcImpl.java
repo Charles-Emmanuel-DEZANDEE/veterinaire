@@ -4,6 +4,7 @@ import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
 
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,6 +106,37 @@ public class ClientsDAOJdbcImpl implements DaoClients {
             } else {
                 return null;
             }
+        } catch (SQLException e) {
+            throw new DALException(e.getMessage());
+        }
+    }
+    
+    public List<Clients> selectByNom(String NomClient) throws DALException {
+        try (Connection connect = ConnectionSingleton.getConnect()){
+
+            String sql = "SELECT * FROM Clients WHERE NomClient LIKE ? AND Archive = 'false' ORDER by CodeClient";
+            PreparedStatement stmt = connect.prepareStatement(sql);
+            stmt.setString(1, NomClient.trim());
+            ResultSet res = stmt.executeQuery();
+            List<Clients> data = new ArrayList<>();
+                while (res.next()) {
+                    data.add(new Clients(
+                            res.getInt("CodeClient"),
+                            res.getString("NomClient"),
+                            res.getString("PrenomClient"),
+                            res.getString("Adresse1"),
+                            res.getString("Adresse2"),
+                            res.getString("CodePostal"),
+                            res.getString("Ville"),
+                            res.getString("NumTel"),
+                            res.getString("Assurance"),
+                            res.getString("Email"),
+                            res.getString("Remarque"),
+                            res.getBoolean("Archive")
+                    ));
+                    stmt.close();
+                }
+                return data;
         } catch (SQLException e) {
             throw new DALException(e.getMessage());
         }
