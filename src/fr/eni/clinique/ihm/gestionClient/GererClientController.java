@@ -26,9 +26,33 @@ public class GererClientController {
 		fenetreGestionClient.revalidate();
 		fenetreGestionClient.repaint();
 	}
+	
+	public void actualiserFenetre() throws BLLException, DALException{
+		fenetreGestionClient.getFieldCodeClient().setText("");
+		fenetreGestionClient.getFieldNomClient().setText("");
+		fenetreGestionClient.getFieldPrenomClient().setText("");
+		fenetreGestionClient.getFieldAdresse1Client().setText("");
+		fenetreGestionClient.getFieldAdresse2Client().setText("");
+		fenetreGestionClient.getFieldCPClient().setText("");
+		fenetreGestionClient.getFieldVilleClient().setText("");
+		fenetreGestionClient.getFieldNumTelClient().setText("");
+		fenetreGestionClient.getFieldAssuranceClient().setText("");
+		fenetreGestionClient.getFieldEmailClient().setText("");
+		fenetreGestionClient.getFieldRemarqueClient().setText("");
+		fenetreGestionClient.init();
+		fenetreGestionClient.revalidate();
+		fenetreGestionClient.repaint();
+	}
 
 	public void ajouterClient(Clients client) throws BLLException, DALException {
 		ClientsManager.getInstance().addClient(client);
 	}
 	
+	public void modifierClient(Clients client) throws BLLException, DALException {
+		ClientsManager.getInstance().updateClient(client);
+	}
+	
+	public void supprimerClient(Clients client) throws BLLException, DALException {
+		ClientsManager.getInstance().removeClient(client);
+	}
 }

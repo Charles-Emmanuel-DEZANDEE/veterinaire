@@ -1,5 +1,6 @@
 package fr.eni.clinique.ihm.gestionClient;
 
+import java.awt.Component;
 import java.awt.Dimension;
 
 import java.awt.Font;
@@ -14,8 +15,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
 
 public class MDIAppClient extends JFrame {
@@ -37,6 +40,42 @@ public class MDIAppClient extends JFrame {
 	private JLabel labelRemarqueClient;
 	private JTextField fieldCodeClient;
 	private JTextField fieldNomClient;
+	public void setFieldCodeClient(JTextField fieldCodeClient) {
+		this.fieldCodeClient = fieldCodeClient;
+	}
+
+	public void setFieldNomClient(JTextField fieldNomClient) {
+		this.fieldNomClient = fieldNomClient;
+	}
+
+	public void setFieldPrenomClient(JTextField fieldPrenomClient) {
+		this.fieldPrenomClient = fieldPrenomClient;
+	}
+
+	public void setFieldCPClient(JTextField fieldCPClient) {
+		this.fieldCPClient = fieldCPClient;
+	}
+
+	public void setFieldVilleClient(JTextField fieldVilleClient) {
+		this.fieldVilleClient = fieldVilleClient;
+	}
+
+	public void setFieldNumTelClient(JTextField fieldNumTelClient) {
+		this.fieldNumTelClient = fieldNumTelClient;
+	}
+
+	public void setFieldAssuranceClient(JTextField fieldAssuranceClient) {
+		this.fieldAssuranceClient = fieldAssuranceClient;
+	}
+
+	public void setFieldEmailClient(JTextField fieldEmailClient) {
+		this.fieldEmailClient = fieldEmailClient;
+	}
+
+	public void setFieldRemarqueClient(JTextField fieldRemarqueClient) {
+		this.fieldRemarqueClient = fieldRemarqueClient;
+	}
+
 	private JTextField fieldPrenomClient;
 	private JTextField fieldAdresse1Client;
 	private JTextField fieldAdresse2Client;
@@ -54,12 +93,13 @@ public class MDIAppClient extends JFrame {
 	private JPanel panel2;
 	private JPanel panel3;
 	private JPanel panel4;
+	private AnimauxTable tableAnimaux;
 	
 	public MDIAppClient() {
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setSize(1000, 600);
+		setSize(1000, 500);
 		setResizable(false);
 		setTitle("Clients");
 		setVisible(true);
@@ -79,9 +119,9 @@ public class MDIAppClient extends JFrame {
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		panel.add(this.getPanel3(), gbc);
-//		gbc.gridx = 1;
-//		gbc.gridy = 1;
-//		panel.add(this.getPanel4(), gbc);
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		panel.add(this.getPanel4(), gbc);
 
 		setContentPane(panel);
 	}
@@ -215,12 +255,25 @@ public class MDIAppClient extends JFrame {
 			GridBagConstraints gbc = new GridBagConstraints();
 			gbc.insets = new Insets(5, 5, 5, 5);
 			
-			ClientsTable tableClients = new ClientsTable();
-			tableClients.setFillsViewportHeight(true);
-			tableClients.setPreferredScrollableViewportSize(new Dimension(400, 400));
-			panel4.add(tableClients, gbc);
+			gbc.gridwidth = 0;
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			panel4.add(getTableAnimaux(), gbc);
 		}
 		return this.panel4;
+	}
+
+	public AnimauxTable getTableAnimaux(){
+		if (this.tableAnimaux == null) {
+			try {
+				this.tableAnimaux = new AnimauxTable();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			this.tableAnimaux.setPreferredSize(new Dimension(450, 300));
+			this.tableAnimaux.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		}
+		return this.tableAnimaux;
 	}
 
 	//Button
@@ -279,16 +332,23 @@ public class MDIAppClient extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-//					try {
-//						ClientController.getInstance().startApp();
-//					} catch (BLLException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					} catch (DALException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
+					Clients client = new Clients(Integer.valueOf(fieldCodeClient.getText()),
+							fieldNomClient.getText(), fieldPrenomClient.getText(),
+							fieldAdresse1Client.getText(), fieldAdresse2Client.getText(),
+							fieldCPClient.getText(), fieldVilleClient.getText(),
+							fieldNumTelClient.getText(), fieldAssuranceClient.getText(),
+							fieldEmailClient.getText(), fieldRemarqueClient.getText(), false);
+					try {
+						GererClientController.getInstance().supprimerClient(client);
+						GererClientController.getInstance().actualiserFenetre();
+						
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
@@ -302,16 +362,23 @@ public class MDIAppClient extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-//					try {
-//						ClientController.getInstance().startApp();
-//					} catch (BLLException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					} catch (DALException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
+					Clients client = new Clients(Integer.valueOf(fieldCodeClient.getText()),
+							fieldNomClient.getText(), fieldPrenomClient.getText(),
+							fieldAdresse1Client.getText(), fieldAdresse2Client.getText(),
+							fieldCPClient.getText(), fieldVilleClient.getText(),
+							fieldNumTelClient.getText(), fieldAssuranceClient.getText(),
+							fieldEmailClient.getText(), fieldRemarqueClient.getText(), false);
+					try {
+						GererClientController.getInstance().modifierClient(client);
+						GererClientController.getInstance().actualiserFenetre();
+						
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
@@ -345,6 +412,7 @@ public class MDIAppClient extends JFrame {
 	public JTextField getFieldCodeClient() {
 		if (this.fieldCodeClient == null) {
 			this.fieldCodeClient = new JTextField(15);
+			this.fieldCodeClient.setEditable(false);
 		}
 		return this.fieldCodeClient;
 	}
@@ -471,7 +539,7 @@ public class MDIAppClient extends JFrame {
 	
 	public JLabel getLabelPrenomClient() {
 		if (this.labelPrenomClient == null) {
-			this.labelPrenomClient = new JLabel("Pr�nom");
+			this.labelPrenomClient = new JLabel("Prenom");
 			this.labelPrenomClient.setFont(new Font("Serif", Font.PLAIN, 15));
 		}
 		return this.labelPrenomClient;
@@ -503,7 +571,7 @@ public class MDIAppClient extends JFrame {
 	
 	public JLabel getLabelNumTelClient() {
 		if (this.labelNumTelClient == null) {
-			this.labelNumTelClient = new JLabel("Num�ro t�l�phone");
+			this.labelNumTelClient = new JLabel("Numero Telephone");
 			this.labelNumTelClient.setFont(new Font("Serif", Font.PLAIN, 15));
 		}
 		return this.labelNumTelClient;
