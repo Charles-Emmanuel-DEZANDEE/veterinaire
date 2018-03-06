@@ -17,7 +17,7 @@ public class RDVTable extends JTable{
 		setModel(model);
 	}
 
-	public RDVTableModel getPersonnelsModel() {
+	public RDVTableModel getRDVModel() {
 		return model;
 	}
 	

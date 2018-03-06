@@ -1,16 +1,15 @@
 package fr.eni.clinique.dal;
 
 
+import java.util.Date;
+import java.util.List;
+
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Agendas;
 import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.bo.Races;
-
-import java.sql.Date;
-import java.util.Calendar;
-import java.util.List;
 
 public class AppliTestDAL {
 
@@ -32,6 +31,8 @@ public class AppliTestDAL {
 		Clients c2 = new Clients("Client2", "PrenomClient", "Adresse1", "Adresse2", "CP", "Ville", "NumTel", "Assurance", "Email", "Remarque", false);
 		Clients c3 = new Clients("Client3", "PrenomClient", "Adresse1", "Adresse2", "CP", "Ville", "NumTel", "Assurance", "Email", "Remarque", false);
 	
+		
+		
 		try {
 
 //			System.out.println("Ajout de la liste du personnel... ");
@@ -57,16 +58,16 @@ public class AppliTestDAL {
 			Races r4 = new Races("persan", "chat");
 			Races r5 = new Races("siamois", "chat");
 
-			racesDAO.insert(r1);
-			System.out.println("races ajout� : " + r1.toString());
-			racesDAO.insert(r2);
-			System.out.println("races ajout� : " + r2.toString());
-			racesDAO.insert(r3);
-			System.out.println("races ajout� : " + r3.toString());
-			racesDAO.insert(r4);
-			System.out.println("races ajout� : " + r4.toString());
-			racesDAO.insert(r5);
-			System.out.println("races ajout� : " + r5.toString());
+//			racesDAO.insert(r1);
+//			System.out.println("races ajout� : " + r1.toString());
+//			racesDAO.insert(r2);
+//			System.out.println("races ajout� : " + r2.toString());
+//			racesDAO.insert(r3);
+//			System.out.println("races ajout� : " + r3.toString());
+//			racesDAO.insert(r4);
+//			System.out.println("races ajout� : " + r4.toString());
+//			racesDAO.insert(r5);
+//			System.out.println("races ajout� : " + r5.toString());
 
 			Animaux a1 = new Animaux("NomAnimal1", "M", "Noir", r1.getRace(), r1.getEspece(), c1.getCodeClient(), "Tatouage", "Antecedents", false);
 			Animaux a2 = new Animaux("NomAnimal2", "M", "Noir", r2.getRace(), r2.getEspece(), c2.getCodeClient(), "Tatouage", "Antecedents", false);
@@ -80,6 +81,14 @@ public class AppliTestDAL {
 			System.out.println("animal ajout� : " + a3.toString());
 
 
+			//Agendas ag1 = new Agendas(p1.getCodePers(), new Date(), a1.getCodeAnimal());
+			Agendas ag1 = new Agendas(83L, new Date(), a1.getCodeAnimal());
+			agendasDAO.insert(ag1);
+			System.out.println("********* ");
+			System.out.println("********* ");
+			System.out.println("Animal ajout� : " + ag1.toString());
+			System.out.println("********* ");
+			System.out.println("********* ");
 //			System.out.println("Ajout de la liste des animaux... ");
 //			animauxDAO.insert(a1);
 //			System.out.println("Animal ajout� : " + a1.toString());

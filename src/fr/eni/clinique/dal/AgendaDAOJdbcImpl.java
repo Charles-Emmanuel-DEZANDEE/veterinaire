@@ -34,7 +34,10 @@ public class AgendaDAOJdbcImpl implements DaoAgenda {
                     ")";
             PreparedStatement stmt = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setLong(1, a1.getCodeVeto());
-            stmt.setDate(2, a1.getDateRdv());
+            Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String dateString = formatter.format(a1.getDateRdv());
+            stmt.setString(2, dateString);//"date,
+            // stmt.setDate(2, a1.getDateRdv());
             stmt.setLong(3, a1.getCodeAnimal());
 
             int nbRows = stmt.executeUpdate();
@@ -128,7 +131,7 @@ public class AgendaDAOJdbcImpl implements DaoAgenda {
                     data.add(new Agendas(
                                     res.getLong("CodeVeto"),
                                     res.getDate("DateRdv"),
-                                    res.getLong("CodeAnimal")
+                                    res.getInt("CodeAnimal")
                             )
                     );
                     i++;
@@ -158,7 +161,10 @@ public class AgendaDAOJdbcImpl implements DaoAgenda {
             String sql = "DELETE FROM Races WHERE CodeVeto = ? and DateRdv = ? and CodeAnimal = ?";
             PreparedStatement stmt = connect.prepareStatement(sql);
             stmt.setLong(1, agenda.getCodeVeto());
-            stmt.setDate(2, agenda.getDateRdv());
+            //stmt.setDate(2, agenda.getDateRdv());
+            Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String dateString = formatter.format(agenda.getDateRdv());
+            stmt.setString(2, dateString);//"date,
             stmt.setLong(3, agenda.getCodeAnimal());
             stmt.executeUpdate();
             stmt.close();

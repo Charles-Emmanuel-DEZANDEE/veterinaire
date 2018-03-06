@@ -28,7 +28,7 @@ public class RDVTableModel extends AbstractTableModel{
 		}
 	}
 	
-	public List<RDV> getListePersonnel() {
+	public List<RDV> getListeRDV() {
 		return listeRDV;
 	}
 
