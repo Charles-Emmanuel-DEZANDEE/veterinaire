@@ -54,8 +54,8 @@ public class AgendaDAOJdbcImpl implements DaoAgenda {
 		    "agd.DateRdv, " +
 		    "cli.NomClient, " +
 		    "anx.NomAnimal, " +
-		    " anx.Race" +
-		    "from Agendas agd" +
+		    " anx.Race " +
+		    "from Agendas agd " +
 		    "join Animaux anx on (agd.CodeAnimal = anx.CodeAnimal) " +
 		    "join Clients cli on (cli.CodeClient = anx.CodeClient) " +
 		    "where agd.CodeVeto = ? " + // 1 codeVeto 
@@ -90,7 +90,7 @@ public class AgendaDAOJdbcImpl implements DaoAgenda {
                         (
                         	new RDV(
                         			res.getLong("CodeVeto"), 
-                        			res.getDate("DateRdv"), 
+                        			res.getTimestamp("DateRdv"), 
                         			res.getLong("CodeAnimal"), 
                         			res.getString("nomClient"), 
                         			res.getString("nomAnimal"), 

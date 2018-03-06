@@ -162,10 +162,6 @@ public class Clients {
 	}
 
 	public String toString(){
-		return this.CodeClient + ' ' + this.Client + ' ' + this.PrenomClient + ' ' + 
-				this.Adresse1 + ' ' + this.Adresse2 + ' ' + this.CodePostal + ' ' +
-				this.Ville + ' ' + this.NumTel + ' ' + this.Assurance + ' ' +
-				this.Assurance + ' ' + this.Email + ' ' + this.Remarque + ' ' +
-				this.Archive;
+		return this.Client + ' ' + this.PrenomClient;
 	}
 }

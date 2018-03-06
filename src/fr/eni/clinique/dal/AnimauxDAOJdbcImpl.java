@@ -49,7 +49,7 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 	        stmt.setString(3,a1.getCouleur());
 	        stmt.setString(4,a1.getRace());
 	        stmt.setString(5,a1.getEspece());
-	        stmt.setInt(6, a1.getCodeClient());
+	        stmt.setLong(6, a1.getCodeClient());
 	        stmt.setString(7,a1.getTatouage());
 	        stmt.setString(8,a1.getAntecedents());
 	        stmt.setBoolean(9, a1.isArchive());
@@ -144,8 +144,8 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 
 	public List<Animaux> selectAminauxByClient(Clients client)throws DALException{
 
+		String sql = "SELECT * FROM Animaux WHERE CodeClient = ? and Archive = 'FALSE' ";
 		try(Connection connect = ConnectionSingleton.getConnect()){
-			String sql = "SELECT * FROM Animaux WHERE CodeClient = ? and Archive = 'FALSE' ";
 			PreparedStatement stmt = connect.prepareStatement(sql);
 
 			stmt.setInt(1,client.getCodeClient());//"reference,
@@ -193,7 +193,7 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 			stmt.setString(3,a1.getCouleur());
 			stmt.setString(4,a1.getRace());
 			stmt.setString(5,a1.getEspece());
-			stmt.setInt(6,a1.getCodeClient());
+			stmt.setLong(6,a1.getCodeClient());
 			stmt.setString(7,a1.getTatouage());
 			stmt.setString(8,a1.getAntecedents());
 			stmt.setBoolean(9, a1.isArchive());

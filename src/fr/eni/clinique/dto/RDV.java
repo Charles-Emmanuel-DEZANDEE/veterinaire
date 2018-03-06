@@ -1,6 +1,6 @@
 package fr.eni.clinique.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class RDV {
 	
@@ -75,7 +75,10 @@ public class RDV {
 	}
 	
 	public String toString(){
-		return this.CodeVeto + ' ' + this.DateRdv.toString() + ' ' + this.CodeAnimal;
+		return this.DateRdv.toString()+ ' ' + 
+				this.nomClient + ' ' + 
+				this.nomAnimal+ ' ' + 
+				this.race;
 	}
 
 }
