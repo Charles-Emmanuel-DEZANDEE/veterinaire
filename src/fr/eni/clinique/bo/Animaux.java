@@ -125,9 +125,7 @@ public class Animaux {
 	}
 	
 	public String toString(){
-		return this.CodeAnimal + ' ' + this.NomAnimal + ' ' + this.Sexe + ' ' + 
-				this.Couleur + ' ' + this.Race + ' ' + this.Espece + ' ' + this.CodeClient + ' ' +
-				this.Tatouage + ' ' + this.Antecedents + ' ' + this.Archive;
+		return this.NomAnimal;
 	}
 
 }

@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,13 +19,20 @@ import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
 import fr.eni.clinique.bll.AnimauxManager;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.ClientsManager;
 import fr.eni.clinique.bll.PersonnelsManager;
+import fr.eni.clinique.bll.RacesManager;
 import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Personnels;
+import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.ihm.vet.DateLabelFormatter;
 
 
 public class FenetrePrsieRDV extends JFrame  {
@@ -38,18 +47,18 @@ public class FenetrePrsieRDV extends JFrame  {
 	private List<Personnels> listVeterinaires;
 	private JComboBox<String> CBoAnimaux;
 	private List<Animaux> listAnimaux;
-
-
-
+	private JDatePickerImpl datePicker;
+	private JComboBox<String> CBoHeures;
+	private JComboBox<String> CBoMinutes;
 
 	public FenetrePrsieRDV() throws BLLException{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setSize(450, 350);
+		setSize(600, 450);
 		setResizable(true);
 		setTitle("Prise de rendez-vous ");
 		initPriseRDV();
-		//pack();
+		pack();
 	}
 
 	public void initPriseRDV() throws BLLException{
@@ -74,12 +83,12 @@ public class FenetrePrsieRDV extends JFrame  {
 		panel.add(this.getQuandPanel(), gbc);
 
 		// Ligne 2
-		/*
+		
 		gbc.gridwidth = 3;
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		panel.add(getTableRDV(), gbc);
-		*/
+		
 		
 		//Ligne 3
 		gbc.gridx = 2;
@@ -88,6 +97,75 @@ public class FenetrePrsieRDV extends JFrame  {
 		
 		setContentPane(panel);	
 	}
+	
+	public JDatePickerImpl getDatePicker() {
+		UtilDateModel model = new UtilDateModel();
+		Properties p = new Properties();
+		p.put("text.today", "Aujourd'hui");
+		p.put("text.month", "Mois");
+		p.put("text.year", "Année");
+		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+		
+		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		return datePicker;
+	}	
+	
+	public JPanel getQuandPanel()throws BLLException{
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(5, 5, 5, 5);
+		panel.setBorder(new TitledBorder("Quand"));
+		
+		//Ligne 1
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		panel.add(new JLabel("Date"), gbc);
+		
+		//Ligne 2
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		panel.add(this.getDatePicker(), gbc);
+		
+		//Ligne 3
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		panel.add(this.getCobHeures(), gbc);
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		panel.add(new JLabel("H"), gbc);
+		gbc.gridx = 2;
+		gbc.gridy = 2;
+		panel.add(this.getCobMinutes(), gbc);
+						
+		return panel;
+	}
+	
+	public JComboBox<String> getCobHeures() throws BLLException {
+        if (this.CBoHeures == null) {
+        	try {
+        		String[] listHeures =  {"9", "10", "11", "12",
+        				"14", "15", "16", "17"};
+				this.CBoHeures = new JComboBox(listHeures);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        }
+        return this.CBoHeures;
+	}
+	
+	public JComboBox<String> getCobMinutes() throws BLLException {
+        if (this.CBoMinutes == null) {
+        	try {
+        		String[] listMinutes =  {"00", "15", "30", "45"};
+				this.CBoMinutes = new JComboBox(listMinutes);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        }
+        return this.CBoMinutes;
+	}
+	
 	
 	
 	public JPanel getPourPanel()throws BLLException{
@@ -138,7 +216,7 @@ public class FenetrePrsieRDV extends JFrame  {
 		//Ligne 3
 		gbc.gridx = 0;
 		gbc.gridy = 2;
-		//panel.add(this.getCobVetrinaires(), gbc);
+		panel.add(new JLabel(""), gbc);
 		return panel;
 	}
 	
@@ -148,13 +226,13 @@ public class FenetrePrsieRDV extends JFrame  {
         		this.listAnimaux =  AnimauxManager.getInstance().getAnimalByClient(client);
         		
         		
-				this.CBoAnimaux = new JComboBox(this.nomsAnimaux(listAnimaux).toArray());
+				this.CBoAnimaux = new JComboBox(listAnimaux.toArray());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
         }
         return this.CBoAnimaux;
- }
+	}
 	
 	
 	public JComboBox<String> getCobVetrinaires() throws BLLException {
@@ -163,7 +241,7 @@ public class FenetrePrsieRDV extends JFrame  {
         		this.listVeterinaires =  PersonnelsManager.getInstance().getListeVeterinaire();
         		
         		
-				this.CBoVeterinaires = new JComboBox(this.nomsVeterinaires(listVeterinaires).toArray());
+				this.CBoVeterinaires = new JComboBox(listVeterinaires.toArray());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -175,10 +253,43 @@ public class FenetrePrsieRDV extends JFrame  {
   public JComboBox<String> getCobClients() throws BLLException {
         if (this.listeClients == null) {
         	try {
-        		this.listClients =  ClientsManager.getInstance().getListeClients();
-        		
-        		
-				this.listeClients = new JComboBox(this.nomsClients(listClients).toArray());
+        		this.listClients =  ClientsManager.getInstance().getListeClients();      		
+				this.listeClients = new JComboBox(listClients.toArray());
+				
+				 this.listeClients.addActionListener(new ActionListener() {
+
+		                @Override
+		                public void actionPerformed(ActionEvent e) {
+		                        System.out.println("affichier les animaux d'un client");
+		                        JComboBox cb = (JComboBox)e.getSource();
+		                        Clients clientSelected = (Clients)cb.getSelectedItem();
+		                        List<Animaux> animauxDuClient = new ArrayList<>();
+		                        try {
+									animauxDuClient = AnimauxManager.getInstance().getAnimalByClient(clientSelected);
+								} catch (BLLException e2) {
+									// TODO Auto-generated catch block
+									e2.printStackTrace();
+								}
+		                        
+		                    System.out.println(clientSelected);
+
+		                    //on vide les items
+		                    CBoAnimaux.removeAllItems();
+		                    //on remplace les items
+		                    //List<String> newListAnimaux = FenetrePrsieRDV.this.nomsAnimaux(animauxDuClient);
+
+		                    ListIterator<Animaux> it = animauxDuClient.listIterator();
+		                        while(it.hasNext()) {
+		                            Animaux str = it.next();
+		                            CBoAnimaux.addItem(str.toString());
+		                        }
+		                        //on rafraichi la fenetre
+		                        FenetrePrsieRDV.this.revalidate();
+		                        FenetrePrsieRDV.this.repaint();
+
+		                }
+		            });
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -210,22 +321,6 @@ public class FenetrePrsieRDV extends JFrame  {
 		  return listenomsAnimaux;		  
 	  }
 	  
-	public JPanel getQuandPanel()throws BLLException{
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridBagLayout());
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.insets = new Insets(5, 5, 5, 5);
-		panel.setBorder(new TitledBorder("Quand"));
-		
-		//Ligne 1
-		gbc.gridwidth = 0;
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		panel.add(new JLabel("Quand"), gbc);
-						
-		return panel;
-	}
-	
 	public JPanel getValidSuppPanel()throws BLLException{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
@@ -250,8 +345,8 @@ public class FenetrePrsieRDV extends JFrame  {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			//this.tablePersonnels.setFillsViewportHeight(true);
-			this.tableRDV.setPreferredSize(new Dimension(400, 300));
+			this.tableRDV.setFillsViewportHeight(true);
+			this.tableRDV.setPreferredSize(new Dimension(600,500 ));
 			this.tableRDV.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		}
 		return this.tableRDV;

@@ -144,9 +144,8 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 
 	public List<Animaux> selectAminauxByClient(Clients CodeClient)throws DALException{
 
+		String sql = "SELECT * FROM Animaux WHERE CodeClient = ? and Archive = 'FALSE' ";
 		try(Connection connect = ConnectionSingleton.getConnect()){
-			
-			String sql = "SELECT * FROM Animaux WHERE CodeClient = ? and Archive = 'false' ";
 
 			PreparedStatement stmt = connect.prepareStatement(sql);
 

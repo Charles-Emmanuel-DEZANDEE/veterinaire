@@ -2,6 +2,7 @@ package fr.eni.clinique.dal;
 
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Agendas;
 import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Personnels;
@@ -20,6 +21,7 @@ public class AppliTestDAL {
 		Dao<Animaux> animauxDAO = DAOFactory.getAnimauxDAO();
 		Dao<Clients> clientsDAO = DAOFactory.getClientsDAO();
 		Dao<Races> racesDAO = DAOFactory.getRacesDAO();
+		Dao<Agendas> agendasDAO = DAOFactory.getAgendasDAO();
 
 		
 		//Instanciation du jeu d'essai
@@ -39,6 +41,7 @@ public class AppliTestDAL {
 //			System.out.println("Personnel ajout� : " + p2.toString());
 //			personnelsDAO.insert(p3);
 //			System.out.println("Personnel ajout� : " + p3.toString());
+			
 			
 			System.out.println("Ajout de la liste des clients... ");
 			clientsDAO.insert(c1);

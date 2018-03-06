@@ -17,6 +17,7 @@ import java.util.Date;
 public class RDVTableModel extends AbstractTableModel{
 	
 	private List<RDV> listeRDV;
+	private String[] enteteRDV = {"a", "z", "e", "e"};
 	
 	public RDVTableModel(long codeVet,Date dateRDV) throws BLLException{
 		try {
@@ -34,7 +35,7 @@ public class RDVTableModel extends AbstractTableModel{
 	@Override
 	public int getColumnCount() {
 		// TODO Auto-generated method stub
-		return 4;
+		return enteteRDV.length;
 	}
 
 	@Override
@@ -42,19 +43,25 @@ public class RDVTableModel extends AbstractTableModel{
 		// TODO Auto-generated method stub
 		return this.listeRDV.size();
 	}
+	
+	@Override
+	public String getColumnName(int index) {
+		return this.enteteRDV[index];
+	}
 
 	@Override
 	public Object getValueAt(int arg0, int col) {
 		if (col == 0){
-			return listeRDV.get(arg0).getDateRdv().getDate();
+			return (listeRDV.get(arg0).getDateRdv().getHours()+":"+ listeRDV.get(arg0).getDateRdv().getMinutes());
+			//return listeRDV.get(arg0).getDateRdv();
 		}
 		if(col == 1){
 			return listeRDV.get(arg0).getNomClient();
 		}
-		if(col == 1){
+		if(col == 2){
 			return listeRDV.get(arg0).getNomAnimal();
 		}
-		if(col == 1){
+		if(col == 3){
 			return listeRDV.get(arg0).getRace();
 		}
 		return null;

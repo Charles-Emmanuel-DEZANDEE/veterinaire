@@ -68,7 +68,7 @@ public class Personnels {
 	}
 	
 	public String toString(){
-		return this.CodePers + ' ' + this.Nom + ' ' + this.MotPasse + ' ' + this.Role + ' ' + this.Archive;
+		return this.Nom;
 	}
 
 }
