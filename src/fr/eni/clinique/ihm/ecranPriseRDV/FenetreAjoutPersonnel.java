@@ -162,13 +162,13 @@ public class FenetreAjoutPersonnel extends JDialog {
 						PriseRDVController.getInstance().ajouterPersonnel(newPersonnels);
 						
 						// mise a jour de la liste du personnels dans le tablePersonnels
-						FenetreAjoutPersonnel.this.tablePersonnels.getPersonnelsModel().getListePersonnel().add(newPersonnels);
+						//FenetreAjoutPersonnel.this.tablePersonnels.getPersonnelsModel().getListePersonnel().add(newPersonnels);
 						FenetreAjoutPersonnel.this.dispose();
 					} catch (BLLException e1) {
 						e1.printStackTrace();
 						JOptionPane.showMessageDialog(FenetreAjoutPersonnel.this, "Vous devez saisir tous les champs pour éffecuter un ajout");					
 					}
-
+ 
 
 				}
 			});

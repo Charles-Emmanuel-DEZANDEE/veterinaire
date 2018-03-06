@@ -1,4 +1,4 @@
-package fr.eni.clinique.ihm.animal;
+package fr.eni.clinique.ihm.ecranDossierMedical;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Animaux;
@@ -8,7 +8,7 @@ import fr.eni.clinique.dal.DAOFactory;
 
 import javax.swing.*;
 
-public class AnimalApp {
+public class DossierMedicalApp {
 	
 	public static void main(String[] args) {
 		
@@ -22,7 +22,7 @@ public class AnimalApp {
 //							"mutuelle", "mail", "remarque", false);
 					Clients client = DAOFactory.getClientsDAO().selectById(1L);
 					Animaux animal = DAOFactory.getAnimauxDAO().selectById(22L);
-					AnimalController.getInstance().nouveau(client);
+					DossierMedicalController.getInstance().init(animal);
 //					AnimalController.getInstance().update(client, animal);
 				} catch (BLLException e) {
 					e.printStackTrace();

@@ -2,7 +2,7 @@ package fr.eni.clinique.bo;
 
 public class Personnels {
 	
-	private int CodePers;
+	private Long CodePers;
 	private String Nom;
 	private String MotPasse;
 	private String Role;
@@ -12,7 +12,7 @@ public class Personnels {
 		
 	}
 	
-	public Personnels(int CodePers, String Nom, String MotPasse, String Role, boolean Archive){
+	public Personnels(Long CodePers, String Nom, String MotPasse, String Role, boolean Archive){
 		this.CodePers = CodePers;
 		this.Nom = Nom;
 		this.MotPasse = MotPasse;
@@ -27,11 +27,11 @@ public class Personnels {
 		this.Archive = Archive;
 	}
 
-	public int getCodePers() {
+	public Long getCodePers() {
 		return CodePers;
 	}
 
-	public void setCodePers(int codePers) {
+	public void setCodePers(Long codePers) {
 		CodePers = codePers;
 	}
 

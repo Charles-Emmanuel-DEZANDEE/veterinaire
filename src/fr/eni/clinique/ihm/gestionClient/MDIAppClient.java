@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
 
 public class MDIAppClient extends JFrame {
@@ -269,7 +270,7 @@ public class MDIAppClient extends JFrame {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			this.tableAnimaux.setPreferredSize(new Dimension(400, 300));
+			this.tableAnimaux.setPreferredSize(new Dimension(450, 300));
 			this.tableAnimaux.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		}
 		return this.tableAnimaux;
@@ -331,16 +332,23 @@ public class MDIAppClient extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-//					try {
-//						ClientController.getInstance().startApp();
-//					} catch (BLLException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					} catch (DALException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
+					Clients client = new Clients(Integer.valueOf(fieldCodeClient.getText()),
+							fieldNomClient.getText(), fieldPrenomClient.getText(),
+							fieldAdresse1Client.getText(), fieldAdresse2Client.getText(),
+							fieldCPClient.getText(), fieldVilleClient.getText(),
+							fieldNumTelClient.getText(), fieldAssuranceClient.getText(),
+							fieldEmailClient.getText(), fieldRemarqueClient.getText(), false);
+					try {
+						GererClientController.getInstance().supprimerClient(client);
+						GererClientController.getInstance().actualiserFenetre();
+						
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
@@ -354,16 +362,23 @@ public class MDIAppClient extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-//					try {
-//						ClientController.getInstance().startApp();
-//					} catch (BLLException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					} catch (DALException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
+					Clients client = new Clients(Integer.valueOf(fieldCodeClient.getText()),
+							fieldNomClient.getText(), fieldPrenomClient.getText(),
+							fieldAdresse1Client.getText(), fieldAdresse2Client.getText(),
+							fieldCPClient.getText(), fieldVilleClient.getText(),
+							fieldNumTelClient.getText(), fieldAssuranceClient.getText(),
+							fieldEmailClient.getText(), fieldRemarqueClient.getText(), false);
+					try {
+						GererClientController.getInstance().modifierClient(client);
+						GererClientController.getInstance().actualiserFenetre();
+						
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
@@ -397,6 +412,7 @@ public class MDIAppClient extends JFrame {
 	public JTextField getFieldCodeClient() {
 		if (this.fieldCodeClient == null) {
 			this.fieldCodeClient = new JTextField(15);
+			this.fieldCodeClient.setEditable(false);
 		}
 		return this.fieldCodeClient;
 	}

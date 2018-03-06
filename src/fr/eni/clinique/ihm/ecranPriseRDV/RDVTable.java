@@ -1,6 +1,7 @@
 package fr.eni.clinique.ihm.ecranPriseRDV;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import javax.swing.JTable;
 
@@ -11,7 +12,7 @@ public class RDVTable extends JTable{
 	
 	private RDVTableModel model;
 	
-	public RDVTable(int codeVet,Date dateRDV) throws BLLException{
+	public RDVTable(long codeVet,Date dateRDV) throws BLLException{
 		model = new RDVTableModel( codeVet,dateRDV);
 		setModel(model);
 	}

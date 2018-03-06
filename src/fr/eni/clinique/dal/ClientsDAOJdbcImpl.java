@@ -70,14 +70,14 @@ public class ClientsDAOJdbcImpl implements DaoClients {
         }
     }
 
-    public Clients selectById(int id) throws DALException {
+    public Clients selectById(Long id) throws DALException {
         try (            Connection connect = ConnectionSingleton.getConnect()
         ){
 
             String sql = "SELECT * FROM Clients WHERE CodeClient = ?";
             PreparedStatement stmt = connect.prepareStatement(sql);
 
-            stmt.setInt(1, id);//"reference,
+            stmt.setLong(1, id);//"reference,
 
             ResultSet res = stmt.executeQuery();
 
@@ -197,7 +197,7 @@ public class ClientsDAOJdbcImpl implements DaoClients {
                     "Assurance =?," +
                     "Email =?," +
                     "Remarque =?," +
-                    "Archive =?" +
+                    "Archive =? " +
                     "WHERE CodeClient =?";
             PreparedStatement stmt = connect.prepareStatement(sql);
             stmt.setString(1, a1.getClient());

@@ -46,7 +46,7 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
             if (nbRows == 1){
                 ResultSet rs = stmt.getGeneratedKeys();
                 if (rs.next()){
-                	r1.setCodePers(rs.getInt(1));
+                	r1.setCodePers(rs.getLong(1));
                 }
             }
             //on ferme les connections
@@ -56,12 +56,12 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
         }
     }
 
-    public Personnels selectById(int id) throws DALException {
+    public Personnels selectById(Long id) throws DALException {
     	try(Connection connect = ConnectionSingleton.getConnect();){
 	        String sql = "SELECT * FROM Personnels WHERE CodePers = ?";
 	        PreparedStatement stmt = connect.prepareStatement(sql);
 	
-	        stmt.setInt(1,id);//"reference,
+	        stmt.setLong(1,id);//"reference,
 	
 	        ResultSet res = stmt.executeQuery();
 	
@@ -69,7 +69,7 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
 
 	        if (res != null){
 	        	if (res.next()){
-	                data = new Personnels(res.getInt("CodePers"),
+	                data = new Personnels(res.getLong("CodePers"),
 	                		res.getString("Nom"),
 	                		res.getString("MotPasse"),
 	                		res.getString("Role"),
@@ -104,7 +104,7 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
             	int i = 0;
                 while (res.next()){
                     //data.add(this.selectById(res.getInt("id")));
-                        data.add(new Personnels(res.getInt("CodePers"),
+                        data.add(new Personnels(res.getLong("CodePers"),
                         		res.getString("Nom"),
                         		res.getString("MotPasse"),
                         		res.getString("Role"),
@@ -127,6 +127,45 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
         }
 
     }
+    
+    public List<Personnels> selectListeVeterniaires() throws DALException {
+    	try(Connection connect = ConnectionSingleton.getConnect();){
+            String sql = "SELECT * FROM Personnels where Archive='false' and Role='vet'";
+            PreparedStatement stmt = connect.prepareStatement(sql);
+
+
+            ResultSet res = stmt.executeQuery();
+            //on boucle sur les résultats
+            List<Personnels> data = new ArrayList<>();
+            
+            if (res != null){
+            	int i = 0;
+                while (res.next()){
+                    //data.add(this.selectById(res.getInt("id")));
+                        data.add(new Personnels(res.getLong("CodePers"),
+                        		res.getString("Nom"),
+                        		res.getString("MotPasse"),
+                        		res.getString("Role"),
+                        		res.getBoolean("Archive")));
+                        i++;
+                }
+
+                //on ferme les connections
+                stmt.close();
+                return data;
+            }else{
+            	//on ferme les connections
+                stmt.close();
+            	return null;
+            }
+            
+
+        } catch (SQLException e) {
+            throw new DALException(e.getMessage());
+        }
+
+    }
+    
 
     public void update(Personnels r1) throws DALException {
         try(Connection connect = ConnectionSingleton.getConnect();) {
@@ -143,7 +182,7 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
             stmt.setString(2,r1.getMotPasse());//"MotPasse,
             stmt.setString(3, r1.getRole());//"Role,\
             stmt.setBoolean(4,r1.isArchive());//"Archive,
-            stmt.setInt(5,r1.getCodePers());//"CodePers,
+            stmt.setLong(5,r1.getCodePers());//"CodePers,
 
 
             // on update
@@ -185,7 +224,7 @@ public class PersonnelsDAOJdbcImpl implements DaoPersonnels{
 	        Personnels data = null;
 	        if(res != null){
 	        	if (res.next()){
-	                data = new Personnels(res.getInt("CodePers"),
+	                data = new Personnels(res.getLong("CodePers"),
 	                		res.getString("Nom"),
 	                		res.getString("MotPasse"),
 	                		res.getString("Role"),

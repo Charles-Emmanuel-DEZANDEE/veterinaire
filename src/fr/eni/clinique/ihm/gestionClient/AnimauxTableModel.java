@@ -1,5 +1,6 @@
 package fr.eni.clinique.ihm.gestionClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -17,7 +18,7 @@ public class AnimauxTableModel extends AbstractTableModel{
 	private List<Animaux> listeAnimaux;
 	
 	public AnimauxTableModel() throws BLLException, DALException{
-		this.listeAnimaux = AnimauxManager.getInstance().getListeAnimaux();
+		this.listeAnimaux = new ArrayList<>();
 	}
 	
 	public List<Animaux> getListeAnimaux() {

@@ -1,10 +1,11 @@
-package fr.eni.clinique.ihm.ecranPriseRDV;
+package fr.eni.clinique.ihm.vet;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.ihm.ecranPersonnel.GererPersonnelController;
 
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
-public class PriseRDVApp {
+public class AgendaVetoApp {
 	
 	public static void main(String[] args) {
 		
@@ -13,7 +14,7 @@ public class PriseRDVApp {
 			@Override
 			public void run(){
 				try {
-					PriseRDVController.getInstance().startApp();
+					VetController.getInstance().startApp();
 				} catch (BLLException e) {
 					e.printStackTrace();
 				} 

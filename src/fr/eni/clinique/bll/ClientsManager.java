@@ -9,18 +9,18 @@ public class ClientsManager {
 	private static DaoClients daoClients;
 	private static ClientsManager instance;
 
-	public ClientsManager() throws DALException, BLLException {
+	public ClientsManager() throws BLLException {
 		daoClients = DAOFactory.getClientsDAO();
 	}
 	
-	public static ClientsManager getInstance() throws BLLException, DALException{
+	public static ClientsManager getInstance() throws BLLException{
 		if (ClientsManager.instance == null){
 			ClientsManager.instance = new ClientsManager();
 		}
 		return ClientsManager.instance;
 	}
 	
-	public Clients getClientById(int CodeClient) throws BLLException{
+	public Clients getClientById(Long CodeClient) throws BLLException{
 		Clients client = null;
 		try {
 			client = daoClients.selectById(CodeClient);
@@ -60,7 +60,7 @@ public class ClientsManager {
 		}
 	}
 	
-	public void archiverClient(int CodeClient) throws BLLException{
+	public void archiverClient(Long CodeClient) throws BLLException{
 		Clients client = null;
 		try {
 			client = this.getClientById(CodeClient);

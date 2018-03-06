@@ -1,15 +1,19 @@
 package fr.eni.clinique.dal;
 
-import fr.eni.clinique.bll.BLLException;
-import fr.eni.clinique.bo.Races;
-import fr.eni.clinique.dto.RDV;
-import fr.eni.clinique.bo.Agendas;
-import fr.eni.clinique.bo.Clients;
-import fr.eni.clinique.bo.Personnels;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import fr.eni.clinique.bo.Agendas;
+import fr.eni.clinique.dto.RDV;
 
 
 public class AgendaDAOJdbcImpl implements DaoAgenda {
@@ -41,31 +45,38 @@ public class AgendaDAOJdbcImpl implements DaoAgenda {
     }
 
     
-    public List<RDV> getRDVByVetEtDate(int codeVet, Date dateRDV) throws DALException {
+    public List<RDV> getRDVByVetEtDate(long codeVet, Date dateRDV) throws DALException {
         try (            Connection connect = ConnectionSingleton.getConnect()        ){
 
-            String sql = "select" + 
-		    "agd.CodeVeto," + 
-		    "agd.CodeAnimal," +
-		    "agd.DateRdv," +
-		    "cli.NomClient," +
-		    "anx.NomAnimal," +
+            String sql = "select " + 
+		    "agd.CodeVeto, " + 
+		    "agd.CodeAnimal, " +
+		    "agd.DateRdv, " +
+		    "cli.NomClient, " +
+		    "anx.NomAnimal, " +
 		    " anx.Race" +
 		    "from Agendas agd" +
-		    "join Animaux anx on (agd.CodeAnimal = anx.CodeAnimal)" +
-		    "join Clients cli on (cli.CodeClient = anx.CodeClient)" +
-		    "where agd.CodeVeto = ?" + // 1 codeVeto 
+		    "join Animaux anx on (agd.CodeAnimal = anx.CodeAnimal) " +
+		    "join Clients cli on (cli.CodeClient = anx.CodeClient) " +
+		    "where agd.CodeVeto = ? " + // 1 codeVeto 
 		    "and " +
-		    "DAY(agd.DateRdv) = DAY('?')" + // 2 date
+		    "DAY(agd.DateRdv) = DAY(?) " + // 2 date
 		    "and " +
-		    "MONTH(agd.DateRdv) = MONTH('?')" + // 3 date
+		    "MONTH(agd.DateRdv) = MONTH(?) " + // 3 date
 		    "and " +
-		    "YEAR(agd.DateRdv) = YEAR('?')"; // 4 date
+		    "YEAR(agd.DateRdv) = YEAR(?)"; // 4 date
             PreparedStatement stmt = connect.prepareStatement(sql);
-            stmt.setInt(1, codeVet);//"codeVeto,
-            stmt.setDate(1, dateRDV);//date
-            stmt.setDate(1, dateRDV);//date,
-            stmt.setDate(1, dateRDV);//date
+            System.out.println(stmt);
+            stmt.setLong(1, codeVet);//"codeVeto,
+            Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String dateString = formatter.format(dateRDV);
+            stmt.setString(2, dateString);//"date,
+            stmt.setString(3, dateString);//"date,
+            stmt.setString(4, dateString);//"date,            
+//            stmt.setTimestamp(2, new Timestamp(dateRDV.getTime()));//date
+//            stmt.setTimestamp(3, new Timestamp(dateRDV.getTime()));//date
+//            stmt.setTimestamp(4, new Timestamp(dateRDV.getTime()));//date
+
 
             ResultSet res = stmt.executeQuery();
             
@@ -158,10 +169,11 @@ public class AgendaDAOJdbcImpl implements DaoAgenda {
     }
 
 	@Override
-	public Agendas selectById(int id) throws DALException {
+	public Agendas selectById(Long id) throws DALException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 
 }

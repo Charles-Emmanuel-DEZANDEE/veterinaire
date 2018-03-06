@@ -145,6 +145,7 @@ public class FenetreRechercheClient extends JDialog {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					
 
 				}
 			});
@@ -168,11 +169,16 @@ public class FenetreRechercheClient extends JDialog {
 					if (ligneTableau.length == 1){
 						client = getTableClients().getClientsModel().getListeClient().get(ligneTableau[0]);
 						try {
+							//Récupérer la liste des animaux par client
 							animaux = AnimauxManager.getInstance().getAnimalByClient(client);
+							//Vider la table
 							parent.getTableAnimaux().getAnimauxModel().getListeAnimaux().clear();
+							//Actualiser la table
 							parent.getTableAnimaux().getAnimauxModel().fireTableDataChanged();
-							parent.getTableAnimaux().getAnimauxModel().getListeAnimaux();
-//							parent.getTableAnimaux().getAnimauxModel().Ani
+							//Parcourir la liste des animaux du client et les ajouter à la table
+							for (Animaux animal : animaux){
+								parent.getTableAnimaux().getAnimauxModel().getListeAnimaux().add(animal);
+							}
 						} catch (BLLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

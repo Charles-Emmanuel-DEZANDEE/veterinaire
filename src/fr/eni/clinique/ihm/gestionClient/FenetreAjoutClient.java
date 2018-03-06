@@ -211,6 +211,7 @@ public class FenetreAjoutClient extends JDialog {
 		public JTextField getFieldCodeClient() {
 			if (this.fieldCodeClient == null) {
 				this.fieldCodeClient = new JTextField(15);
+				this.fieldCodeClient.setEditable(false);
 			}
 			return this.fieldCodeClient;
 		}

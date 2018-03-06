@@ -15,7 +15,7 @@ public class DAOFactory {
 		return daoAnimau;
 	}
 	
-	public static DaoClients getClientsDAO() throws DALException, BLLException {
+	public static DaoClients getClientsDAO() throws BLLException {
 		DaoClients DaoClient = new ClientsDAOJdbcImpl();
 		return DaoClient;
 	}

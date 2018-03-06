@@ -4,23 +4,23 @@ import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.dal.DALException;
 
 public class VetController {
-    private MDIAppVet fenetreVet;
+    private FenetreVet fenetreVet;
     private static VetController instance;
 
 
-    private VetController() throws DALException, BLLException {
-        fenetreVet = new MDIAppVet();
+    private VetController() throws BLLException {
+        fenetreVet = new FenetreVet();
     }
 
-    public static synchronized VetController getInstance() throws DALException, BLLException{
+    public static synchronized VetController getInstance() throws BLLException{
         if (instance == null){
             instance = new VetController();
         }
         return instance;
     }
 
-//    public void startApp(){
-//        fenetreVet.init();
-//    }
+    public void startApp() throws BLLException {
+        fenetreVet.init();
+    }
 
 }
