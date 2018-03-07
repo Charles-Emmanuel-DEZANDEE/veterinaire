@@ -1,9 +1,11 @@
 package fr.eni.clinique.bll;
 
-import fr.eni.clinique.bo.Clients;
-import fr.eni.clinique.dal.*;
-
 import java.util.List;
+
+import fr.eni.clinique.bo.Clients;
+import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.dal.DAOFactory;
+import fr.eni.clinique.dal.DaoClients;
 
 public class ClientsManager {
 	private static DaoClients daoClients;
@@ -101,6 +103,10 @@ public class ClientsManager {
 		}
 		if(client.getClient() == null){
 			sb.append("Le nom est obligatoire \n");
+			valider = false;
+		}
+		if(client.getPrenomClient() == null){
+			sb.append("Le prenom est obligatoire \n");
 			valider = false;
 		}
 		if(client.getAdresse1() == null){
