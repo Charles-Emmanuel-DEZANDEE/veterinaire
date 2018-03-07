@@ -82,11 +82,11 @@ public class AppliTestDAL {
 
 
 			//Agendas ag1 = new Agendas(p1.getCodePers(), new Date(), a1.getCodeAnimal());
-			Agendas ag1 = new Agendas(83L, new Date(), a1.getCodeAnimal());
+			Agendas ag1 = new Agendas(6L, new Date(), a1.getCodeAnimal());
 			agendasDAO.insert(ag1);
 			System.out.println("********* ");
 			System.out.println("********* ");
-			System.out.println("Animal ajout� : " + ag1.toString());
+			System.out.println("rdv ajout� : " + ag1.toString());
 			System.out.println("********* ");
 			System.out.println("********* ");
 //			System.out.println("Ajout de la liste des animaux... ");
