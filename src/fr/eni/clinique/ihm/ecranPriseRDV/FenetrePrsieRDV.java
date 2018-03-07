@@ -32,7 +32,11 @@ import fr.eni.clinique.bll.PersonnelsManager;
 import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Personnels;
+import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dto.RDV;
+import fr.eni.clinique.ihm.ecranPersonnel.AjoutPersonnelController;
+import fr.eni.clinique.ihm.ecranPersonnel.FenetreGestionPersonnel;
+import fr.eni.clinique.ihm.gestionClient.AjoutClientController;
 import fr.eni.clinique.ihm.vet.DateLabelFormatter;
 
 
@@ -51,6 +55,8 @@ public class FenetrePrsieRDV extends JFrame  {
 	private JDatePickerImpl datePicker;
 	private JComboBox<String> CBoHeures;
 	private JComboBox<String> CBoMinutes;
+	private JButton buttonAjouterClient;
+	private JButton buttonAjouterAnimal;
 
 	public FenetrePrsieRDV() throws BLLException{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -94,6 +100,7 @@ public class FenetrePrsieRDV extends JFrame  {
 		//Ligne 3
 		gbc.gridx = 2;
 		gbc.gridy = 2;
+		gbc.anchor = GridBagConstraints.EAST;
 		panel.add(this.getValidSuppPanel(), gbc);
 		
 		setContentPane(panel);	
@@ -109,7 +116,49 @@ public class FenetrePrsieRDV extends JFrame  {
 			JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 			
 			this.datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-			return this.datePicker;
+			this.datePicker.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                        System.out.println("afficher les rdv d'un vétérinaire de la date selectionnée");
+                        //JComboBox cb = (JComboBox)e.getSource();
+                        Personnels vetoSelected = (Personnels)CBoVeterinaires.getSelectedItem();
+                        
+                        //recuperer la date selectionné
+                        Date date = (Date)getDatePicker().getModel().getValue();
+                        
+                       
+                        Date dateRDV = null;
+                        if (date == null){
+                        	dateRDV =  new java.util.Date();
+                        }else{
+                        	dateRDV = date;
+                        }
+                        
+                        //recuperer les RDV du veterinaire
+                        List<RDV> listeRDVParVeterinaire = new ArrayList<>();
+                        try {
+                        	listeRDVParVeterinaire = AgendaManager.getInstance().getRDVByVetEtDate(vetoSelected.getCodePers(), dateRDV);
+						} catch (BLLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+                        //mettre à jour le contenu du model de la table
+                        FenetrePrsieRDV.this.tableRDV.getRDVModel().getListeRDV().clear();
+                        
+                        for(RDV unRDV : listeRDVParVeterinaire){
+                        	FenetrePrsieRDV.this.tableRDV.getRDVModel().getListeRDV().add(unRDV);
+                        }
+                    	//mettre à jour la table
+                        FenetrePrsieRDV.this.tableRDV.getRDVModel().fireTableDataChanged();
+                        
+                        //on rafraichi la fenetre
+                        FenetrePrsieRDV.this.revalidate();
+                        FenetrePrsieRDV.this.repaint();
+
+                }
+            });
+			
 		}
 		return datePicker;
 	}	
@@ -120,57 +169,43 @@ public class FenetrePrsieRDV extends JFrame  {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(5, 5, 5, 5);
 		panel.setBorder(new TitledBorder("Quand"));
+		panel.setPreferredSize(new Dimension(230, 120));
+		panel.setMinimumSize(new Dimension(230, 120));
 		
 		//Ligne 1
+		gbc.gridwidth = 1;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		panel.add(new JLabel("Date"), gbc);
 		
+		//Ligne 3
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		//gbc.anchor = GridBagConstraints.WEST;
+		//panel.add(this.getHeuresEtMinutes(), gbc);
+		panel.add(this.getCobHeures(), gbc);
+		gbc.gridwidth = 1;
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		panel.add(new JLabel("H"), gbc);
+		gbc.gridwidth = 1;
+		gbc.gridx = 2;
+		gbc.gridy = 2;
+		gbc.anchor = GridBagConstraints.WEST;
+		panel.add(this.getCobMinutes(),gbc);
+		
+		
 		//Ligne 2
+		gbc.gridwidth = 3;
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		panel.add(this.getDatePicker(), gbc);
 		
-		//Ligne 3
-		gbc.gridx = 0;
-		gbc.gridy = 2;
-		panel.add(this.getCobHeures(), gbc);
-		gbc.gridx = 1;
-		gbc.gridy = 2;
-		panel.add(new JLabel("H"), gbc);
-		gbc.gridx = 2;
-		gbc.gridy = 2;
-		panel.add(this.getCobMinutes(), gbc);
-						
+		
+		
 		return panel;
 	}
-	
-	public JComboBox<String> getCobHeures() throws BLLException {
-        if (this.CBoHeures == null) {
-        	try {
-        		String[] listHeures =  {"9", "10", "11", "12",
-        				"14", "15", "16", "17"};
-				this.CBoHeures = new JComboBox(listHeures);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-        }
-        return this.CBoHeures;
-	}
-	
-	public JComboBox<String> getCobMinutes() throws BLLException {
-        if (this.CBoMinutes == null) {
-        	try {
-        		String[] listMinutes =  {"00", "15", "30", "45"};
-				this.CBoMinutes = new JComboBox(listMinutes);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-        }
-        return this.CBoMinutes;
-	}
-	
-	
 	
 	public JPanel getPourPanel()throws BLLException{
 		JPanel panel = new JPanel();
@@ -178,6 +213,8 @@ public class FenetrePrsieRDV extends JFrame  {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(5, 5, 5, 5);
 		panel.setBorder(new TitledBorder("Pour"));
+		panel.setPreferredSize(new Dimension(230, 120));
+		panel.setMinimumSize(new Dimension(230, 120));
 		//Ligne 1
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -187,18 +224,78 @@ public class FenetrePrsieRDV extends JFrame  {
 		//Ligne 2
 		gbc.gridx = 0;
 		gbc.gridy = 1;
+		//gbc.anchor = GridBagConstraints.WEST;
 		panel.add(this.getCobClients(), gbc);
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		//gbc.anchor = GridBagConstraints.WEST;
+		panel.add(this.getButtonAjouterClient(), gbc);
 		
 		//Ligne 3
 		gbc.gridx = 0;
 		gbc.gridy = 2;
+		//gbc.anchor = GridBagConstraints.WEST;
 		panel.add(this.getCobAnimaux(this.listClients.get(0)), gbc);
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		//gbc.anchor = GridBagConstraints.WEST;
+		panel.add(this.getButtonAjouterAnimal(), gbc);
 		
-		
-		
-						
 		return panel;
 	}
+	public JButton getButtonAjouterClient() {
+		if (this.buttonAjouterClient == null) {
+			this.buttonAjouterClient = new JButton("+");
+			
+			
+			this.buttonAjouterClient.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try {
+						//GererPersonnelController.getInstance().nouveauPersonnels();
+						//AjoutClientController.getInstance().afficherFenetreAjoutClient(FenetrePrsieRDV.this);
+						
+						//mettre à jour la table
+						//getTablePersonnels().getPersonnelsModel().fireTableDataChanged();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} 
+				}
+			});
+			
+		}
+		return this.buttonAjouterClient;
+	}
+	
+	public JButton getButtonAjouterAnimal() {
+		if (this.buttonAjouterAnimal == null) {
+			this.buttonAjouterAnimal = new JButton("+");
+			
+			
+			this.buttonAjouterAnimal.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try {
+						//GererPersonnelController.getInstance().nouveauPersonnels();
+						AjoutPersonnelController.getInstance().afficherFenetreAjout(FenetreGestionPersonnel.this, FenetreGestionPersonnel.this.getTablePersonnels());
+						
+						//mettre à jour la table
+						//getTablePersonnels().getPersonnelsModel().fireTableDataChanged();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
+			
+		}
+		return this.buttonAjouterAnimal;
+	}
+	
+	
 	
 	public JPanel getParPanel()throws BLLException{
 		JPanel panel = new JPanel();
@@ -206,6 +303,8 @@ public class FenetrePrsieRDV extends JFrame  {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(5, 5, 5, 5);
 		panel.setBorder(new TitledBorder("Par"));
+		panel.setPreferredSize(new Dimension(230, 120));
+		panel.setMinimumSize(new Dimension(230, 120));
 		//Ligne 1
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -215,12 +314,44 @@ public class FenetrePrsieRDV extends JFrame  {
 		//Ligne 2
 		gbc.gridx = 0;
 		gbc.gridy = 1;
+		gbc.anchor = GridBagConstraints.WEST;
 		panel.add(this.getCobVetrinaires(), gbc);
 		
 		//Ligne 3
 		gbc.gridx = 0;
 		gbc.gridy = 2;
-		panel.add(new JLabel(""), gbc);
+		gbc.anchor = GridBagConstraints.WEST;
+		panel.add(new JLabel("  "), gbc);
+		return panel;
+	}
+	
+	
+	public JPanel getHeuresEtMinutes()throws BLLException{
+		JPanel panel = new JPanel();
+		panel.setPreferredSize(new Dimension(300, 120));
+		panel.setMinimumSize(new Dimension(300, 40));
+		panel.add(this.getCobHeures());
+		panel.add(new JLabel("Hjkljlkjlkjkj"));
+		panel.add(this.getCobMinutes());
+		
+		return panel;
+
+	}
+	public JPanel getValidSuppPanel()throws BLLException{
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(5, 5, 5, 5);
+		
+		
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		panel.add(this.getButtonAjouterRDV(), gbc);
+		
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		panel.add(this.getButtonSupprimerRDV(), gbc);
+						
 		return panel;
 	}
 	
@@ -254,11 +385,9 @@ public class FenetrePrsieRDV extends JFrame  {
 		                        System.out.println("afficher les rdv d'un vétérinaire");
 		                        JComboBox cb = (JComboBox)e.getSource();
 		                        Personnels vetoSelected = (Personnels)cb.getSelectedItem();
-		                        String stringDateRDV = "";
 		                        
 		                        //recuperer la date selectionné
 		                        Date date = (Date)getDatePicker().getModel().getValue();
-		                        int dateInt = getDatePicker().getModel().getDay();
 		                        
 		                       
 		                        Date dateRDV = null;
@@ -370,22 +499,7 @@ public class FenetrePrsieRDV extends JFrame  {
 		  return listenomsAnimaux;		  
 	  }
 	  
-	public JPanel getValidSuppPanel()throws BLLException{
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridBagLayout());
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.insets = new Insets(5, 5, 5, 5);
-		
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		panel.add(this.getButtonAjouterPersonnel(), gbc);
-		
-		gbc.gridx = 1;
-		gbc.gridy = 0;
-		panel.add(this.getButtonSupprimerPersonnel(), gbc);
-						
-		return panel;
-	}
+	
 	
 	public RDVTable getTableRDV() throws BLLException{
 		if (this.tableRDV == null) {
@@ -395,13 +509,13 @@ public class FenetrePrsieRDV extends JFrame  {
 				e.printStackTrace();
 			}
 			this.tableRDV.setFillsViewportHeight(true);
-			this.tableRDV.setPreferredSize(new Dimension(600,300));
+			this.tableRDV.setPreferredSize(new Dimension(690,400));
 			this.tableRDV.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		}
 		return this.tableRDV;
 	}
 	
-	public JButton getButtonAjouterPersonnel() {
+	public JButton getButtonAjouterRDV() {
 		if (this.buttonAjouterRDV == null) {
 			this.buttonAjouterRDV = new JButton("ajout");
 			
@@ -427,7 +541,7 @@ public class FenetrePrsieRDV extends JFrame  {
 	}
 	
 	
-	public JButton getButtonSupprimerPersonnel() {
+	public JButton getButtonSupprimerRDV() {
 		if (this.buttonSupprimerRDV == null) {
 			this.buttonSupprimerRDV = new JButton("supp");
 			
@@ -461,6 +575,32 @@ public class FenetrePrsieRDV extends JFrame  {
 		}
 		return this.buttonSupprimerRDV;
 	}
+	
+	public JComboBox<String> getCobHeures() throws BLLException {
+        if (this.CBoHeures == null) {
+        	try {
+        		String[] listHeures =  {"9", "10", "11", "12",
+        				"14", "15", "16", "17"};
+				this.CBoHeures = new JComboBox(listHeures);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        }
+        return this.CBoHeures;
+	}
+	
+	public JComboBox<String> getCobMinutes() throws BLLException {
+        if (this.CBoMinutes == null) {
+        	try {
+        		String[] listMinutes =  {"00", "15", "30", "45"};
+				this.CBoMinutes = new JComboBox(listMinutes);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        }
+        return this.CBoMinutes;
+	}
+	
 
 	
 
