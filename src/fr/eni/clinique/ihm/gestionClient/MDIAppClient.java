@@ -26,6 +26,7 @@ import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.ihm.animal.AnimalController;
 import fr.eni.clinique.ihm.animal.FenetreAnimal;
+import fr.eni.clinique.ihm.ecranPriseRDV.FenetrePrsieRDV;
 
 public class MDIAppClient extends JFrame {
 	
@@ -48,7 +49,7 @@ public class MDIAppClient extends JFrame {
 	private JTextField fieldNomClient;
 	private Clients client;
     private FenetreAnimal fenetreAnimal;
-    
+
 	public void setClient(Clients client) {
 		this.client = client;
 	}
@@ -162,7 +163,7 @@ public class MDIAppClient extends JFrame {
 				this.panel2.add(this.getButtonRechercherClients(), gbc);
 				gbc.gridx = 0;
 				gbc.gridy = 1;
-				this.panel2.add(this.getLabelRechercherClients(), gbc);
+				 this.panel2.add(this.getLabelRechercherClients(), gbc);
 				gbc.gridx = 1;
 				gbc.gridy = 0;
 				this.panel2.add(this.getButtonAjouterClients(), gbc);
@@ -318,7 +319,7 @@ public class MDIAppClient extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					
 					try {
-						AnimalController.getInstance().nouveau(client);
+						AnimalController.getInstance().nouveau(client, null,MDIAppClient.this);
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -356,7 +357,7 @@ public class MDIAppClient extends JFrame {
 						animal = getTableAnimaux().getAnimauxModel().getListeAnimaux().get(ligneTableau[0]);
 					}
 					try {
-						AnimalController.getInstance().update(client, animal);
+						AnimalController.getInstance().update(client, animal,null, MDIAppClient.this);
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
