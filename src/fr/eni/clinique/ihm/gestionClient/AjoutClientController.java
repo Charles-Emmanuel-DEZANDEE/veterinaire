@@ -9,14 +9,14 @@ public class AjoutClientController {
     private FenetreAjoutClient fenetreAjoutClient;
     private static AjoutClientController instance;
 
-    public static synchronized AjoutClientController getInstance() throws DALException, BLLException{
+    public static synchronized AjoutClientController getInstance() throws BLLException{
         if (instance == null){
             instance = new AjoutClientController();
         }
         return instance;
     }
     
-    public void afficherFenetreAjoutClient(JFrame parent) throws BLLException, DALException{
+    public void afficherFenetreAjoutClient(JFrame parent) throws BLLException{
     	fenetreAjoutClient = new FenetreAjoutClient(parent);
     	fenetreAjoutClient.setVisible(true);
     }

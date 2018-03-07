@@ -30,6 +30,17 @@ public class ClientsManager {
 		}
 		return client;
 	}
+	
+	public List<Clients> getClientByNom(String NomClient) throws BLLException{
+		List<Clients> clients = null;
+		try {
+			clients = daoClients.selectByNom(NomClient);
+		}catch (DALException e){
+			e.printStackTrace();
+			throw new BLLException("Erreur récupération de la liste des clients par nom", e);
+		}
+		return clients;
+	}
 
 	public List<Clients> getListeClients() throws BLLException{
 		List<Clients> clients = null;
@@ -87,10 +98,6 @@ public class ClientsManager {
 
 		if(client == null){
 			throw new BLLException("client null");
-		}
-		if(client.getCodeClient() == 0){
-			sb.append("Le code client est obligatoire \n");
-			valider = false;
 		}
 		if(client.getClient() == null){
 			sb.append("Le nom est obligatoire \n");

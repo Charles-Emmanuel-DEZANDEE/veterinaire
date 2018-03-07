@@ -3,6 +3,7 @@ package fr.eni.clinique.ihm.gestionClient;
 import javax.swing.JFrame;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.ClientsManager;
 import fr.eni.clinique.dal.DALException;
 
 public class RechercheClientController {
@@ -20,4 +21,12 @@ public class RechercheClientController {
     	fenetreRechercheClient = new FenetreRechercheClient(parent);
     	fenetreRechercheClient.setVisible(true);
     }
+    
+	public void rechercherClient(String NomClient) throws BLLException, DALException {
+		ClientsManager.getInstance().getClientByNom(NomClient);
+		
+		//fenetreRechercheClient.initRechercheClient();
+		//fenetreRechercheClient.revalidate();
+		//fenetreRechercheClient.repaint();
+	}
 }
