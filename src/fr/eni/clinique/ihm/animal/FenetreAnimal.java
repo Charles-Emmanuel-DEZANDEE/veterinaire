@@ -17,7 +17,6 @@ import java.util.ListIterator;
 public class FenetreAnimal extends JFrame {
 
     private static final long serialVersionUID = 1L;
-    private static FenetreAnimal instance;
 
     private JLabel labelClient;
     private JLabel Client;
@@ -44,16 +43,9 @@ public class FenetreAnimal extends JFrame {
     private JButton buttonValider;
     private JButton buttonRetour;
 
-    //singleton
-    public static synchronized FenetreAnimal getInstance() throws BLLException {
-        if (instance == null) {
-            instance = new FenetreAnimal();
-        }
-        return instance;
-    }
 
 
-    private FenetreAnimal() throws BLLException {
+    public FenetreAnimal() throws BLLException {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -162,8 +154,8 @@ public class FenetreAnimal extends JFrame {
 
 
         setContentPane(panel);
-        instance.revalidate();
-        instance.repaint();
+        FenetreAnimal.this.revalidate();
+        FenetreAnimal.this.repaint();
     }
 
 
@@ -298,7 +290,7 @@ public class FenetreAnimal extends JFrame {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                         System.out.println("erreur champ");
-                        JOptionPane.showMessageDialog(instance, e1);//"Vous devez saisir tous les champs pour éffecuter un ajout");
+                        JOptionPane.showMessageDialog(FenetreAnimal.this, e1);//"Vous devez saisir tous les champs pour éffecuter un ajout");
 
                     }
                 }
@@ -383,8 +375,8 @@ public class FenetreAnimal extends JFrame {
                             cboRace.addItem(str);
                         }
                         //on rafraichi la fenetre
-                        instance.revalidate();
-                        instance.repaint();
+                        FenetreAnimal.this.revalidate();
+                        FenetreAnimal.this.repaint();
 
                 }
             });
