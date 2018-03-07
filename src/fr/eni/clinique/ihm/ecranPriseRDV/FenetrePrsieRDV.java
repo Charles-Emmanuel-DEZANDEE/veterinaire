@@ -383,7 +383,7 @@ public class FenetrePrsieRDV extends JFrame  {
 		                public void actionPerformed(ActionEvent e) {
 		                        System.out.println("afficher les rdv d'un vétérinaire");
                             try {
-                                rafraichirCboAnimal();
+                                rafraichierTable();
                             } catch (BLLException e1) {
                                 e1.printStackTrace();
                             }
@@ -397,7 +397,7 @@ public class FenetrePrsieRDV extends JFrame  {
         }
         return this.CBoVeterinaires;
  }
- public void rafraichirCboAnimal() throws BLLException {
+ public void rafraichierTable() throws BLLException {
      Personnels vetoSelected = (Personnels)getCobVetrinaires().getSelectedItem();
 
      //recuperer la date selectionné
@@ -446,33 +446,12 @@ public class FenetrePrsieRDV extends JFrame  {
 		                @Override
 		                public void actionPerformed(ActionEvent e) {
 		                        System.out.println("affichier les animaux d'un client");
-		                        JComboBox cb = (JComboBox)e.getSource();
-		                        Clients clientSelected = (Clients)cb.getSelectedItem();
-		                        List<Animaux> animauxDuClient = new ArrayList<>();
-		                        try {
-									animauxDuClient = AnimauxManager.getInstance().getAnimalByClient(clientSelected);
-								} catch (BLLException e2) {
-									// TODO Auto-generated catch block
-									e2.printStackTrace();
-								}
-		                        
-		                    System.out.println(clientSelected);
-
-		                    //on vide les items
-		                    CBoAnimaux.removeAllItems();
-		                    //on remplace les items
-		                    //List<String> newListAnimaux = FenetrePrsieRDV.this.nomsAnimaux(animauxDuClient);
-
-		                    ListIterator<Animaux> it = animauxDuClient.listIterator();
-		                        while(it.hasNext()) {
-		                            Animaux str = it.next();
-		                            CBoAnimaux.addItem(str.toString());
-		                        }
-		                        //on rafraichi la fenetre
-		                        FenetrePrsieRDV.this.revalidate();
-		                        FenetrePrsieRDV.this.repaint();
-
-		                }
+                            try {
+                                rafraichirCboAnimal();
+                            } catch (BLLException e1) {
+                                e1.printStackTrace();
+                            }
+                        }
 		            });
 				
 			} catch (Exception e) {
@@ -480,6 +459,33 @@ public class FenetrePrsieRDV extends JFrame  {
 			}
         }
         return this.CBoClients;
+ }
+ public void rafraichirCboAnimal() throws BLLException {
+     Clients clientSelected = (Clients)getCobClients().getSelectedItem();
+     List<Animaux> animauxDuClient = new ArrayList<>();
+     try {
+         animauxDuClient = AnimauxManager.getInstance().getAnimalByClient(clientSelected);
+     } catch (BLLException e2) {
+         // TODO Auto-generated catch block
+         e2.printStackTrace();
+     }
+
+     System.out.println(clientSelected);
+
+     //on vide les items
+     CBoAnimaux.removeAllItems();
+     //on remplace les items
+     //List<String> newListAnimaux = FenetrePrsieRDV.this.nomsAnimaux(animauxDuClient);
+
+     ListIterator<Animaux> it = animauxDuClient.listIterator();
+     while(it.hasNext()) {
+         Animaux str = it.next();
+         CBoAnimaux.addItem(str.toString());
+     }
+     //on rafraichi la fenetre
+     FenetrePrsieRDV.this.revalidate();
+     FenetrePrsieRDV.this.repaint();
+
  }
 	  
 	  public List<String> nomsClients(List<Clients> listeClients){
