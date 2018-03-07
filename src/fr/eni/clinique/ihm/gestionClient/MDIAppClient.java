@@ -25,6 +25,7 @@ import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.ihm.animal.AnimalController;
+import fr.eni.clinique.ihm.animal.FenetreAnimal;
 
 public class MDIAppClient extends JFrame {
 	
@@ -46,6 +47,8 @@ public class MDIAppClient extends JFrame {
 	private JTextField fieldCodeClient;
 	private JTextField fieldNomClient;
 	private Clients client;
+    private FenetreAnimal fenetreAnimal;
+    
 	public void setClient(Clients client) {
 		this.client = client;
 	}
@@ -159,7 +162,7 @@ public class MDIAppClient extends JFrame {
 				this.panel2.add(this.getButtonRechercherClients(), gbc);
 				gbc.gridx = 0;
 				gbc.gridy = 1;
-				 this.panel2.add(this.getLabelRechercherClients(), gbc);
+				this.panel2.add(this.getLabelRechercherClients(), gbc);
 				gbc.gridx = 1;
 				gbc.gridy = 0;
 				this.panel2.add(this.getButtonAjouterClients(), gbc);
