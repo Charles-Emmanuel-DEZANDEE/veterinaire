@@ -8,6 +8,7 @@ import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dto.RDV;
 import fr.eni.clinique.ihm.InternalFrame1;
 import fr.eni.clinique.ihm.animal.AnimalController;
+import fr.eni.clinique.ihm.ecranDossierMedical.DossierMedicalController;
 import fr.eni.clinique.ihm.ecranPersonnel.GererPersonnelController;
 import fr.eni.clinique.ihm.ecranPersonnel.PersonnelsTable;
 import fr.eni.clinique.ihm.ecranPriseRDV.RDVTable;
@@ -286,11 +287,8 @@ public class FenetreVet extends JFrame {
 							Long codeanimal = rdvSelected.getCodeAnimal();
 							Animaux animal = AnimauxManager.getInstance().getAnimalById(codeanimal);
 
-							//on cherche le client
-							Clients client = ClientsManager.getInstance().getClientById(animal.getCodeClient());
-
 							//on ouvre la fenetre animal
-							AnimalController.getInstance().update(client,animal);
+                            DossierMedicalController.getInstance().init(animal);
 						}
 
 					} catch (BLLException e1) {

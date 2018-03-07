@@ -71,7 +71,7 @@ public class AgendaDAOJdbcImpl implements DaoAgenda {
             PreparedStatement stmt = connect.prepareStatement(sql);
             System.out.println(stmt);
             stmt.setLong(1, codeVet);//"codeVeto,
-            Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Format formatter = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
             String dateString = formatter.format(dateRDV);
             stmt.setString(2, dateString);//"date,
             stmt.setString(3, dateString);//"date,

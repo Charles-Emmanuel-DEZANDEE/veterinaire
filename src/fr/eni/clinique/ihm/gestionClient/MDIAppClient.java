@@ -44,6 +44,15 @@ public class MDIAppClient extends JFrame {
 	private JLabel labelRemarqueClient;
 	private JTextField fieldCodeClient;
 	private JTextField fieldNomClient;
+	private Clients client;
+	public void setClient(Clients client) {
+		this.client = client;
+	}
+
+	public Clients getClient() {
+		return client;
+	}
+
 	public void setFieldCodeClient(JTextField fieldCodeClient) {
 		this.fieldCodeClient = fieldCodeClient;
 	}
@@ -263,6 +272,9 @@ public class MDIAppClient extends JFrame {
 			gbc.gridx = 0;
 			gbc.gridy = 0;
 			panel4.add(getTableAnimaux(), gbc);
+			gbc.gridx = 0;
+			gbc.gridy = 1;
+//			panel4.add(getButtonAjouterAnimal(), gbc);
 		}
 		return this.panel4;
 	}
@@ -281,6 +293,7 @@ public class MDIAppClient extends JFrame {
 	}
 
 	//Button
+	
 	public JButton getButtonRechercherClients() {
 		if (this.buttonRechercherClients == null) {
 			this.buttonRechercherClients = new JButton("Rechercher");
@@ -393,7 +406,18 @@ public class MDIAppClient extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-
+					
+					getFieldCodeClient().setText(String.valueOf(client.getCodeClient()));
+					getFieldNomClient().setText(client.getClient());
+					getFieldPrenomClient().setText(client.getPrenomClient());
+					getFieldAdresse1Client().setText(client.getAdresse1());
+					getFieldAdresse2Client().setText(client.getAdresse2());
+					getFieldCPClient().setText(client.getCodePostal());
+					getFieldVilleClient().setText(client.getVille());
+					getFieldNumTelClient().setText(client.getNumTel());
+					getFieldAssuranceClient().setText(client.getAssurance());
+					getFieldEmailClient().setText(client.getEmail());
+					getFieldRemarqueClient().setText(client.getRemarque());
 				}
 			});
 		}
