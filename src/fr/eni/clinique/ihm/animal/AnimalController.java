@@ -37,7 +37,7 @@ public class AnimalController {
 
     public void update(Clients client, Animaux animal) throws BLLException, DALException {
         fenetreAnimal.init(client,false);
-        int code = animal.getCodeAnimal();
+        long code = animal.getCodeAnimal();
         //on rempli les champs de l'animal
         fenetreAnimal.getCode().setText(String.valueOf(animal.getCodeAnimal()));
         fenetreAnimal.getFieldNom().setText(animal.getNomAnimal());

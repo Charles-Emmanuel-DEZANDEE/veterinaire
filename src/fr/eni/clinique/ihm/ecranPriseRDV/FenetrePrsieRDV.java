@@ -29,6 +29,7 @@ import fr.eni.clinique.bll.AnimauxManager;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.ClientsManager;
 import fr.eni.clinique.bll.PersonnelsManager;
+import fr.eni.clinique.bo.Agendas;
 import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Personnels;
@@ -333,7 +334,7 @@ public class FenetrePrsieRDV extends JFrame  {
 		panel.setPreferredSize(new Dimension(300, 120));
 		panel.setMinimumSize(new Dimension(300, 40));
 		panel.add(this.getCobHeures());
-		panel.add(new JLabel("Hjkljlkjlkjkj"));
+		panel.add(new JLabel("H"));
 		panel.add(this.getCobMinutes());
 		
 		return panel;
@@ -348,11 +349,11 @@ public class FenetrePrsieRDV extends JFrame  {
 		
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		panel.add(this.getButtonAjouterRDV(), gbc);
+		panel.add(this.getButtonSupprimerRDV(), gbc);
 		
 		gbc.gridx = 1;
 		gbc.gridy = 0;
-		panel.add(this.getButtonSupprimerRDV(), gbc);
+		panel.add(this.getButtonAjouterRDV(), gbc);
 						
 		return panel;
 	}
@@ -519,7 +520,7 @@ public class FenetrePrsieRDV extends JFrame  {
 	
 	public JButton getButtonAjouterRDV() {
 		if (this.buttonAjouterRDV == null) {
-			this.buttonAjouterRDV = new JButton("ajout");
+			this.buttonAjouterRDV = new JButton("Valider");
 			
 			
 			this.buttonAjouterRDV.addActionListener(new ActionListener() {
@@ -545,7 +546,7 @@ public class FenetrePrsieRDV extends JFrame  {
 	
 	public JButton getButtonSupprimerRDV() {
 		if (this.buttonSupprimerRDV == null) {
-			this.buttonSupprimerRDV = new JButton("supp");
+			this.buttonSupprimerRDV = new JButton("Supprimer");
 			
 			this.buttonSupprimerRDV.addActionListener(new ActionListener() {
 				
@@ -553,13 +554,14 @@ public class FenetrePrsieRDV extends JFrame  {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						int[] ligneTableau = getTableRDV().getSelectedRows();
-						Personnels personnelsASupp = null;
+						RDV rdvASupp = null;
 						
 						if (ligneTableau.length == 1){
-							//personnelsASupp = getTableRDV().getPersonnelsModel().getListePersonnel().get(ligneTableau[0]);
+							rdvASupp = getTableRDV().getRDVModel().getListeRDV().get(ligneTableau[0]);
+							Agendas agendaASupp = new Agendas(rdvASupp.getCodeVeto(), rdvASupp.getDateRdv(), rdvASupp.getCodeAnimal());
 							
 							//mise à jour en base
-							PriseRDVController.getInstance().removePersonnel(personnelsASupp);
+							PriseRDVController.getInstance().removeRDV(agendaASupp);
 							
 							//mise à jour de la liste du personnels dans la JTable
 							getTableRDV().getRDVModel().getListeRDV().remove(ligneTableau[0]);

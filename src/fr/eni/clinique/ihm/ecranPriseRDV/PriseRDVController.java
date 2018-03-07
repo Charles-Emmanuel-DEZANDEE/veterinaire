@@ -1,7 +1,9 @@
 package fr.eni.clinique.ihm.ecranPriseRDV;
 
+import fr.eni.clinique.bll.AgendaManager;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.PersonnelsManager;
+import fr.eni.clinique.bo.Agendas;
 import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
 
@@ -37,8 +39,8 @@ public class PriseRDVController {
     }
 
     
-    public void removePersonnel(Personnels personnelsASupp) throws BLLException{
-    		PersonnelsManager.getInstance().archivePersonnel(personnelsASupp);
+    public void removeRDV(Agendas rdvsASupp) throws BLLException{
+    		AgendaManager.getInstance().removeRDV(rdvsASupp);
 	}
     
     public void ajouterPersonnel(Personnels newPersonnel) throws BLLException{

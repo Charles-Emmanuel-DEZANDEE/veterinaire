@@ -9,9 +9,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.TitledBorder;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Personnels;
@@ -33,12 +35,37 @@ public class FenetreGestionPersonnel extends JFrame  {
 		setResizable(true);
 		setTitle("gestion du personnel");
 		initGestionPersonnel();
-		//pack();
+		pack();
 	}
 
 	public void initGestionPersonnel() throws BLLException{
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
+
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(5, 5, 5, 5);
+
+		// Ligne 1
+		gbc.gridwidth = 1;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		panel.add(this.getBoutonsPanel(), gbc);
+
+		// Ligne 2
+		gbc.gridwidth = 3;
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		
+		panel.add(getTablePersonnels(), gbc);
+		
+		JScrollPane scroll = new JScrollPane(panel);
+		setContentPane(scroll);	
+	}
+	
+	public JPanel getBoutonsPanel(){
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		panel.setBorder(new TitledBorder(""));
 
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(5, 5, 5, 5);
@@ -56,16 +83,22 @@ public class FenetreGestionPersonnel extends JFrame  {
 		gbc.gridy = 0;
 		gbc.anchor = GridBagConstraints.WEST;
 		panel.add(this.getButtonReinitialiserPersonnel(), gbc);
-
+		
 		// Ligne 2
-		gbc.gridwidth = 3;
 		gbc.gridx = 0;
 		gbc.gridy = 1;
+		panel.add(new JLabel("Ajouter"), gbc);
 		
-		panel.add(getTablePersonnels(), gbc);
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		panel.add(new JLabel("Supprimer"), gbc);
 		
-		JScrollPane scroll = new JScrollPane(panel);
-		setContentPane(scroll);	
+		gbc.gridx = 2;
+		gbc.gridy = 1;
+		gbc.anchor = GridBagConstraints.WEST;
+		panel.add(new JLabel("Réinitiliser"), gbc);
+		
+		return panel;
 	}
 	
 	public PersonnelsTable getTablePersonnels() throws BLLException{
@@ -77,7 +110,7 @@ public class FenetreGestionPersonnel extends JFrame  {
 				e.printStackTrace();
 			}
 			//this.tablePersonnels.setFillsViewportHeight(true);
-			this.tablePersonnels.setPreferredSize(new Dimension(400, 300));
+			this.tablePersonnels.setPreferredSize(new Dimension(690,400));
 			this.tablePersonnels.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		}
 		return this.tablePersonnels;
@@ -85,7 +118,7 @@ public class FenetreGestionPersonnel extends JFrame  {
 	
 	public JButton getButtonAjouterPersonnel() {
 		if (this.buttonAjouterPersonnel == null) {
-			this.buttonAjouterPersonnel = new JButton("ajout");
+			this.buttonAjouterPersonnel = new JButton("+");
 			
 			
 			this.buttonAjouterPersonnel.addActionListener(new ActionListener() {
@@ -112,7 +145,7 @@ public class FenetreGestionPersonnel extends JFrame  {
 	
 	public JButton getButtonSupprimerPersonnel() {
 		if (this.buttonSupprimerPersonnel == null) {
-			this.buttonSupprimerPersonnel = new JButton("supp");
+			this.buttonSupprimerPersonnel = new JButton("-");
 			
 			this.buttonSupprimerPersonnel.addActionListener(new ActionListener() {
 				
@@ -148,7 +181,7 @@ public class FenetreGestionPersonnel extends JFrame  {
 
 	public JButton getButtonReinitialiserPersonnel() {
 		if (this.buttonReinitialiserPersonnel == null) {
-			this.buttonReinitialiserPersonnel = new JButton("réinit");
+			this.buttonReinitialiserPersonnel = new JButton("->");
 			
 			this.buttonReinitialiserPersonnel.addActionListener(new ActionListener() {
 
