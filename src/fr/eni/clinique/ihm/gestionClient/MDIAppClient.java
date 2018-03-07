@@ -403,7 +403,7 @@ public class MDIAppClient extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						AjoutClientController.getInstance().afficherFenetreAjoutClient(MDIAppClient.this);
+						AjoutClientController.getInstance().afficherFenetreAjoutClient(MDIAppClient.this, null);
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

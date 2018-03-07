@@ -20,10 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
-
 import fr.eni.clinique.bll.AgendaManager;
 import fr.eni.clinique.bll.AnimauxManager;
 import fr.eni.clinique.bll.BLLException;
@@ -33,11 +29,8 @@ import fr.eni.clinique.bo.Agendas;
 import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Personnels;
-import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dto.RDV;
 import fr.eni.clinique.ihm.animal.AnimalController;
-import fr.eni.clinique.ihm.ecranPersonnel.AjoutPersonnelController;
-import fr.eni.clinique.ihm.ecranPersonnel.FenetreGestionPersonnel;
 import fr.eni.clinique.ihm.gestionClient.AjoutClientController;
 import fr.eni.clinique.ihm.vet.DateLabelFormatter;
 
@@ -256,7 +249,7 @@ public class FenetrePrsieRDV extends JFrame  {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						//GererPersonnelController.getInstance().nouveauPersonnels();
-						AjoutClientController.getInstance().afficherFenetreAjoutClient(FenetrePrsieRDV.this);
+						AjoutClientController.getInstance().afficherFenetreAjoutClient(null,FenetrePrsieRDV.this);
 						
 						//mettre à jour la table
 						//getTablePersonnels().getPersonnelsModel().fireTableDataChanged();
