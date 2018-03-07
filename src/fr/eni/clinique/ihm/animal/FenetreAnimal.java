@@ -52,7 +52,7 @@ public class FenetreAnimal extends JFrame {
 
     public FenetreAnimal() throws BLLException {
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
         setSize(600, 600);
         setResizable(false);

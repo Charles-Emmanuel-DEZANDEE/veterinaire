@@ -25,6 +25,7 @@ import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.ihm.animal.AnimalController;
+import fr.eni.clinique.ihm.animal.FenetreAnimal;
 import fr.eni.clinique.ihm.ecranPriseRDV.FenetrePrsieRDV;
 
 public class MDIAppClient extends JFrame {
@@ -47,6 +48,8 @@ public class MDIAppClient extends JFrame {
 	private JTextField fieldCodeClient;
 	private JTextField fieldNomClient;
 	private Clients client;
+    private FenetreAnimal fenetreAnimal;
+
 	public void setClient(Clients client) {
 		this.client = client;
 	}
@@ -401,7 +404,7 @@ public class MDIAppClient extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						AjoutClientController.getInstance().afficherFenetreAjoutClient(MDIAppClient.this);
+						AjoutClientController.getInstance().afficherFenetreAjoutClient(MDIAppClient.this, null);
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
