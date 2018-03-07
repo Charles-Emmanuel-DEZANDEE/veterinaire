@@ -341,6 +341,8 @@ public class FenetreDossierMedical extends JFrame {
                     try {
                         System.out.println("valider");
                         DossierMedicalController.getInstance().enregistrer(animal);
+                        instance.dispose();
+
                     } catch (DALException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
@@ -366,18 +368,8 @@ public class FenetreDossierMedical extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("retour");
-
-                    //on revient la page précédante
-//                    try {
-//                        System.out.println("annuler");
-//                    } catch (DALException e1) {
-//                        // TODO Auto-generated catch block
-//                        e1.printStackTrace();
-//                    } catch (BLLException e1) {
-//                        // TODO Auto-generated catch block
-//                        e1.printStackTrace();
-//                    }
-                }
+                    instance.dispose();
+                    }
             });
 
         }
