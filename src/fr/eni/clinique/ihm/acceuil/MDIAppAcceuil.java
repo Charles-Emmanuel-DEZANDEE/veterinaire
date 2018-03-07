@@ -1,11 +1,13 @@
 package fr.eni.clinique.ihm.acceuil;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.ihm.ecranPersonnel.GererPersonnelController;
 import fr.eni.clinique.ihm.ecranPriseRDV.PriseRDVController;
 import fr.eni.clinique.ihm.gestionClient.GererClientController;
 import fr.eni.clinique.ihm.log.LogInController;
+import fr.eni.clinique.ihm.vet.VetController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,8 +22,11 @@ public class MDIAppAcceuil extends JFrame implements ActionListener {
 
     private JDesktopPane desktopPane;
     private JMenuBar menuBarre;
+    private Personnels personnelConnecte;
 
-    private MDIAppAcceuil(int cas) {
+    private MDIAppAcceuil(int cas,Personnels pers) {
+
+        this.personnelConnecte = pers;
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -41,16 +46,16 @@ public class MDIAppAcceuil extends JFrame implements ActionListener {
     }
 
     //singleton
-    public static synchronized MDIAppAcceuil getInstance(int cas) throws DALException, BLLException {
+    public static synchronized MDIAppAcceuil getInstance(int cas,Personnels pers) throws DALException, BLLException {
         if (instance == null) {
-            instance = new MDIAppAcceuil(cas);
+            instance = new MDIAppAcceuil(cas, pers);
         }
         return instance;
     }
 
 
-    public void init(int cas) throws BLLException, DALException {
-        MDIAppAcceuil ecran = MDIAppAcceuil.getInstance(cas);
+    public void init(int cas, Personnels pers) throws BLLException, DALException {
+        MDIAppAcceuil ecran = MDIAppAcceuil.getInstance(cas,pers);
         ecran.setVisible(true);
     }
 
@@ -164,6 +169,11 @@ public class MDIAppAcceuil extends JFrame implements ActionListener {
                 }
                 break;
             case "agenda":
+                try {
+                    VetController.getInstance().startApp(this.personnelConnecte);
+                } catch (BLLException e1) {
+                    e1.printStackTrace();
+                }
                 System.out.println("agenda");
                 break;
             case "gestPerso":
