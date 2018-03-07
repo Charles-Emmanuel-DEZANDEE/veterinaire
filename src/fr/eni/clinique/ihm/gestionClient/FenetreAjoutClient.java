@@ -202,6 +202,12 @@ public class FenetreAjoutClient extends JDialog {
 	public JButton getButtonAnnulerAjoutClient(){
 		if (this.buttonAnnulerAjoutClient == null) {
 			this.buttonAnnulerAjoutClient = new JButton("Annuler");
+			this.buttonAnnulerAjoutClient.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					FenetreAjoutClient.this.dispose();
+				}
+			});
 		}
 		return this.buttonAnnulerAjoutClient;
 	}

@@ -182,6 +182,7 @@ public class FenetreRechercheClient extends JDialog {
 					
 					if (ligneTableau.length == 1){
 						client = getTableClients().getClientsModel().getListeClient().get(ligneTableau[0]);
+						parent.setClient(client);
 						try {
 							//Récupérer la liste des animaux par client
 							animaux = AnimauxManager.getInstance().getAnimalByClient(client);
