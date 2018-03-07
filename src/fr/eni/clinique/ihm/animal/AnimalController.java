@@ -16,7 +16,6 @@ public class AnimalController {
 
 
     private AnimalController() throws  BLLException {
-        fenetreAnimal = FenetreAnimal.getInstance();
     }
 
     public static synchronized AnimalController getInstance() throws BLLException {
@@ -27,6 +26,7 @@ public class AnimalController {
     }
 
     public void nouveau(Clients client) throws BLLException {
+        fenetreAnimal = new FenetreAnimal();
         fenetreAnimal.init(client,true);
         //on vide les champs texte de l'animal
         fenetreAnimal.getFieldCouleur().setText("");
@@ -36,6 +36,7 @@ public class AnimalController {
     }
 
     public void update(Clients client, Animaux animal) throws BLLException, DALException {
+        fenetreAnimal = new FenetreAnimal();
         fenetreAnimal.init(client,false);
         int code = animal.getCodeAnimal();
         //on rempli les champs de l'animal
