@@ -18,7 +18,7 @@ import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.ihm.ecranPriseRDV.FenetrePrsieRDV;
 
-public class FenetreAjoutClient extends JDialog {
+public class FenetreAjoutClient extends JFrame {
 
 	private static FenetreAjoutClient instance;
 	private JPanel panel2;
@@ -39,20 +39,19 @@ public class FenetreAjoutClient extends JDialog {
 	private MDIAppClient fenetreGestionClients;
 	private FenetrePrsieRDV fenetrePriseRDV;
 
-	public FenetreAjoutClient(JFrame parent, FenetrePrsieRDV fenetrePriseRDV) throws BLLException{
-		super(parent, "Ajouter Client", true);
+	public FenetreAjoutClient(MDIAppClient fenetreGestionClients, FenetrePrsieRDV fenetrePriseRDV) throws BLLException{
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(500, 500);
 		setResizable(false);
-		this.fenetreGestionClients = (MDIAppClient)parent;
+		this.fenetreGestionClients = fenetreGestionClients;
 		this.fenetrePriseRDV = fenetrePriseRDV;
 		initAjoutClient();
 	}
 	
-	public static synchronized FenetreAjoutClient getInstance(JFrame parent, FenetrePrsieRDV fenetrePriseRDV) throws DALException, BLLException{
+	public static synchronized FenetreAjoutClient getInstance(MDIAppClient fenetreGestionClients, FenetrePrsieRDV fenetrePriseRDV) throws DALException, BLLException{
         if (instance == null){
-            instance = new FenetreAjoutClient(parent, fenetrePriseRDV);
+            instance = new FenetreAjoutClient(fenetreGestionClients, fenetrePriseRDV);
         }
         return instance;
     }
@@ -121,7 +120,7 @@ public class FenetreAjoutClient extends JDialog {
 			this.panel3.add(this.getFieldNomClient(), gbc);
 			gbc.gridx = 0;
 			gbc.gridy = 2;
-			this.panel3.add(new JLabel("Pr�nom"), gbc);
+			this.panel3.add(new JLabel("Prenom"), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 2;
 			this.panel3.add(this.getFieldPrenomClient(), gbc);
@@ -148,7 +147,7 @@ public class FenetreAjoutClient extends JDialog {
 			this.panel3.add(this.getFieldVilleClient(), gbc);
 			gbc.gridx = 0;
 			gbc.gridy = 7;
-			this.panel3.add(new JLabel("Num�ro de t�l�phone"), gbc);
+			this.panel3.add(new JLabel("Numero de telephone"), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 7;
 			this.panel3.add(this.getFieldNumTelClient(), gbc);

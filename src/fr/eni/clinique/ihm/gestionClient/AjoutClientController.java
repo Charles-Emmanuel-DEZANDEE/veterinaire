@@ -17,8 +17,8 @@ public class AjoutClientController {
         return instance;
     }
     
-    public void afficherFenetreAjoutClient(JFrame parent,FenetrePrsieRDV fenetrePriseRDV) throws BLLException{
-    	fenetreAjoutClient = new FenetreAjoutClient(parent, fenetrePriseRDV);
+    public void afficherFenetreAjoutClient(MDIAppClient fenetreGestionClients, FenetrePrsieRDV fenetrePriseRDV) throws BLLException{
+    	fenetreAjoutClient = new FenetreAjoutClient(fenetreGestionClients, fenetrePriseRDV);
     	fenetreAjoutClient.setVisible(true);
     }
 }

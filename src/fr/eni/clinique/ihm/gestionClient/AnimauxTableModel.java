@@ -36,8 +36,8 @@ public class AnimauxTableModel extends AbstractTableModel{
 	}
 	
 	@Override
-	public String getColumnName(int index) {
-		return animaux[index];
+	public String getColumnName(int col) {
+		return animaux[col];
 	}
 
 	@Override
