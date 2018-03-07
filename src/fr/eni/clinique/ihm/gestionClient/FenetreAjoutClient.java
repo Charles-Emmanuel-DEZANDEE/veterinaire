@@ -38,7 +38,7 @@ public class FenetreAjoutClient extends JDialog {
 
 	public FenetreAjoutClient(JFrame parent) throws BLLException{
 		super(parent, "Ajouter Client", true);
-		setDefaultCloseOperation(HIDE_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(500, 500);
 		setResizable(false);
@@ -116,7 +116,7 @@ public class FenetreAjoutClient extends JDialog {
 			this.panel3.add(this.getFieldNomClient(), gbc);
 			gbc.gridx = 0;
 			gbc.gridy = 2;
-			this.panel3.add(new JLabel("Prénom"), gbc);
+			this.panel3.add(new JLabel("Prï¿½nom"), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 2;
 			this.panel3.add(this.getFieldPrenomClient(), gbc);
@@ -143,7 +143,7 @@ public class FenetreAjoutClient extends JDialog {
 			this.panel3.add(this.getFieldVilleClient(), gbc);
 			gbc.gridx = 0;
 			gbc.gridy = 7;
-			this.panel3.add(new JLabel("Numéro de téléphone"), gbc);
+			this.panel3.add(new JLabel("Numï¿½ro de tï¿½lï¿½phone"), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 7;
 			this.panel3.add(this.getFieldNumTelClient(), gbc);
