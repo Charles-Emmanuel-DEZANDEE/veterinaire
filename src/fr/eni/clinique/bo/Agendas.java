@@ -1,18 +1,18 @@
 package fr.eni.clinique.bo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Agendas {
 	
 	private long CodeVeto;
 	private Date DateRdv;
-	private long CodeAnimal;
+	private int CodeAnimal;
 	
 	public Agendas(){
 		
 	}
 	
-	public Agendas(long CodeVeto, Date DateRdv, long CodeAnimal){
+	public Agendas(long CodeVeto, Date DateRdv, int CodeAnimal){
 		this.CodeVeto = CodeVeto;
 		this.DateRdv = DateRdv;
 		this.CodeAnimal = CodeAnimal;
@@ -34,11 +34,11 @@ public class Agendas {
 		DateRdv = dateRdv;
 	}
 
-	public long getCodeAnimal() {
+	public int getCodeAnimal() {
 		return CodeAnimal;
 	}
 
-	public void setCodeAnimal(long codeAnimal) {
+	public void setCodeAnimal(int codeAnimal) {
 		CodeAnimal = codeAnimal;
 	}
 	

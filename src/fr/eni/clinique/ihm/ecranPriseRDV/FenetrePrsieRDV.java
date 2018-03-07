@@ -7,6 +7,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Properties;
@@ -23,15 +24,15 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import fr.eni.clinique.bll.AgendaManager;
 import fr.eni.clinique.bll.AnimauxManager;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.ClientsManager;
 import fr.eni.clinique.bll.PersonnelsManager;
-import fr.eni.clinique.bll.RacesManager;
 import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Personnels;
-import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.dto.RDV;
 import fr.eni.clinique.ihm.vet.DateLabelFormatter;
 
 
@@ -54,7 +55,7 @@ public class FenetrePrsieRDV extends JFrame  {
 	public FenetrePrsieRDV() throws BLLException{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setSize(600, 450);
+		setSize(400, 300);
 		setResizable(true);
 		setTitle("Prise de rendez-vous ");
 		initPriseRDV();
@@ -99,14 +100,17 @@ public class FenetrePrsieRDV extends JFrame  {
 	}
 	
 	public JDatePickerImpl getDatePicker() {
-		UtilDateModel model = new UtilDateModel();
-		Properties p = new Properties();
-		p.put("text.today", "Aujourd'hui");
-		p.put("text.month", "Mois");
-		p.put("text.year", "Année");
-		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-		
-		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		if (this.datePicker == null){
+			UtilDateModel model = new UtilDateModel();
+			Properties p = new Properties();
+			p.put("text.today", "Aujourd'hui");
+			p.put("text.month", "Mois");
+			p.put("text.year", "Année");
+			JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+			
+			this.datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+			return this.datePicker;
+		}
 		return datePicker;
 	}	
 	
@@ -242,6 +246,51 @@ public class FenetrePrsieRDV extends JFrame  {
         		
         		
 				this.CBoVeterinaires = new JComboBox(listVeterinaires.toArray());
+				
+				 this.CBoVeterinaires.addActionListener(new ActionListener() {
+
+		                @Override
+		                public void actionPerformed(ActionEvent e) {
+		                        System.out.println("afficher les rdv d'un vétérinaire");
+		                        JComboBox cb = (JComboBox)e.getSource();
+		                        Personnels vetoSelected = (Personnels)cb.getSelectedItem();
+		                        String stringDateRDV = "";
+		                        
+		                        //recuperer la date selectionné
+		                        Date date = (Date)getDatePicker().getModel().getValue();
+		                        int dateInt = getDatePicker().getModel().getDay();
+		                        
+		                       
+		                        Date dateRDV = null;
+		                        if (date == null){
+		                        	dateRDV =  new java.util.Date();
+		                        }else{
+		                        	dateRDV = date;
+		                        }
+		                        
+		                        //recuperer les RDV du veterinaire
+		                        List<RDV> listeRDVParVeterinaire = new ArrayList<>();
+		                        try {
+		                        	listeRDVParVeterinaire = AgendaManager.getInstance().getRDVByVetEtDate(vetoSelected.getCodePers(), dateRDV);
+								} catch (BLLException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+		                        //mettre à jour le contenu du model de la table
+		                        FenetrePrsieRDV.this.tableRDV.getRDVModel().getListeRDV().clear();
+		                        
+		                        for(RDV unRDV : listeRDVParVeterinaire){
+		                        	FenetrePrsieRDV.this.tableRDV.getRDVModel().getListeRDV().add(unRDV);
+		                        }
+		                    	//mettre à jour la table
+		                        FenetrePrsieRDV.this.tableRDV.getRDVModel().fireTableDataChanged();
+		                        
+		                        //on rafraichi la fenetre
+		                        FenetrePrsieRDV.this.revalidate();
+		                        FenetrePrsieRDV.this.repaint();
+
+		                }
+		            });
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -346,7 +395,7 @@ public class FenetrePrsieRDV extends JFrame  {
 				e.printStackTrace();
 			}
 			this.tableRDV.setFillsViewportHeight(true);
-			this.tableRDV.setPreferredSize(new Dimension(600,500 ));
+			this.tableRDV.setPreferredSize(new Dimension(600,300));
 			this.tableRDV.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		}
 		return this.tableRDV;
@@ -366,7 +415,7 @@ public class FenetrePrsieRDV extends JFrame  {
 						AjoutPersonnelController.getInstance().afficherFenetreAjout(FenetrePrsieRDV.this, FenetrePrsieRDV.this.getTableRDV());
 						
 						//mettre à jour la table
-						getTableRDV().getPersonnelsModel().fireTableDataChanged();
+						getTableRDV().getRDVModel().fireTableDataChanged();
 					} catch (BLLException e1) {
 						e1.printStackTrace();
 					}
@@ -397,10 +446,10 @@ public class FenetrePrsieRDV extends JFrame  {
 							PriseRDVController.getInstance().removePersonnel(personnelsASupp);
 							
 							//mise à jour de la liste du personnels dans la JTable
-							getTableRDV().getPersonnelsModel().getListePersonnel().remove(ligneTableau[0]);
+							getTableRDV().getRDVModel().getListeRDV().remove(ligneTableau[0]);
 							
 							//mettre à jour la table
-							getTableRDV().getPersonnelsModel().fireTableDataChanged();
+							getTableRDV().getRDVModel().fireTableDataChanged();
 						}
 						
 					} catch (BLLException e1) {
