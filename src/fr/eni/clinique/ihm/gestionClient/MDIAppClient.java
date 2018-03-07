@@ -282,6 +282,22 @@ public class MDIAppClient extends JFrame {
 		return this.tableAnimaux;
 	}
 
+	public void rafraichirTableAnimaux () throws BLLException {
+
+        List<Animaux> animaux = new ArrayList<>();
+
+        animaux = AnimauxManager.getInstance().getAnimalByClient(client);
+        //Vider la table
+        getTableAnimaux().getAnimauxModel().getListeAnimaux().clear();
+        //Actualiser la table
+        getTableAnimaux().getAnimauxModel().fireTableDataChanged();
+        //Parcourir la liste des animaux du client et les ajouter � la table
+        for (Animaux animal : animaux){
+            getTableAnimaux().getAnimauxModel().getListeAnimaux().add(animal);
+
+        }
+	}
+
 	//Button
 	public JButton getButtonAjouterAnimal() {
 		if (this.buttonAjouterAnimal == null) {

@@ -290,6 +290,8 @@ public class FenetreAnimal extends JFrame {
                     try {
                         System.out.println("valider");
                         AnimalController.getInstance().enregistrer(client, nouveau);
+                        // on rafraichi
+                        rafraichir();
                     } catch (DALException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
@@ -300,8 +302,6 @@ public class FenetreAnimal extends JFrame {
                         JOptionPane.showMessageDialog(FenetreAnimal.this, e1);//"Vous devez saisir tous les champs pour éffecuter un ajout");
 
                     }
-                    // on rafraichi
-                    rafraichir();
 
                 }
             });
@@ -321,7 +321,11 @@ public class FenetreAnimal extends JFrame {
                     System.out.println("annuler");
                     FenetreAnimal.this.dispose();
 // on rafraichi
-                    rafraichir();
+                    try {
+                        rafraichir();
+                    } catch (BLLException e1) {
+                        e1.printStackTrace();
+                    }
                 }
             });
 
@@ -329,16 +333,13 @@ public class FenetreAnimal extends JFrame {
         return this.buttonRetour;
     }
 
-    public void rafraichir() {
+    public void rafraichir() throws BLLException {
         //on rafraichi la table aprés la validation.
         if (instancePriseRdv != null) {
-            try {
                 instancePriseRdv.rafraichirCboAnimal();
-            } catch (BLLException e1) {
-                e1.printStackTrace();
-            }
         }
         if (instanceGestionClient != null) {
+            instanceGestionClient.rafraichirTableAnimaux();
 
         }
 
