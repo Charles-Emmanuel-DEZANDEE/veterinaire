@@ -44,55 +44,9 @@ public class MDIAppClient extends JFrame {
 	private JLabel labelAssuranceClient;
 	private JLabel labelEmailClient;
 	private JLabel labelRemarqueClient;
+	
 	private JTextField fieldCodeClient;
 	private JTextField fieldNomClient;
-	private Clients client;
-    private FenetreAnimal fenetreAnimal;
-    
-	public void setClient(Clients client) {
-		this.client = client;
-	}
-
-	public Clients getClient() {
-		return client;
-	}
-
-	public void setFieldCodeClient(JTextField fieldCodeClient) {
-		this.fieldCodeClient = fieldCodeClient;
-	}
-
-	public void setFieldNomClient(JTextField fieldNomClient) {
-		this.fieldNomClient = fieldNomClient;
-	}
-
-	public void setFieldPrenomClient(JTextField fieldPrenomClient) {
-		this.fieldPrenomClient = fieldPrenomClient;
-	}
-
-	public void setFieldCPClient(JTextField fieldCPClient) {
-		this.fieldCPClient = fieldCPClient;
-	}
-
-	public void setFieldVilleClient(JTextField fieldVilleClient) {
-		this.fieldVilleClient = fieldVilleClient;
-	}
-
-	public void setFieldNumTelClient(JTextField fieldNumTelClient) {
-		this.fieldNumTelClient = fieldNumTelClient;
-	}
-
-	public void setFieldAssuranceClient(JTextField fieldAssuranceClient) {
-		this.fieldAssuranceClient = fieldAssuranceClient;
-	}
-
-	public void setFieldEmailClient(JTextField fieldEmailClient) {
-		this.fieldEmailClient = fieldEmailClient;
-	}
-
-	public void setFieldRemarqueClient(JTextField fieldRemarqueClient) {
-		this.fieldRemarqueClient = fieldRemarqueClient;
-	}
-
 	private JTextField fieldPrenomClient;
 	private JTextField fieldAdresse1Client;
 	private JTextField fieldAdresse2Client;
@@ -102,6 +56,8 @@ public class MDIAppClient extends JFrame {
 	private JTextField fieldAssuranceClient;
 	private JTextField fieldEmailClient;
 	private JTextField fieldRemarqueClient;
+	
+	
 	private JButton buttonRechercherClients;
 	private JButton buttonAjouterClients;
 	private JButton buttonSupprimerClients;
@@ -114,6 +70,22 @@ public class MDIAppClient extends JFrame {
 	private JPanel panel3;
 	private JPanel panel4;
 	private AnimauxTable tableAnimaux;
+	private Clients client;
+    private FenetreAnimal fenetreAnimal;
+	
+	public void rafraichirChampsClient(Clients client){
+		fieldCodeClient.setText(String.valueOf(client.getCodeClient()));
+		fieldNomClient.setText(client.getClient());
+		fieldPrenomClient.setText(client.getPrenomClient());
+		fieldAdresse1Client.setText(client.getAdresse1());
+		fieldAdresse2Client.setText(client.getAdresse2());
+		fieldCPClient.setText(client.getCodePostal());
+		fieldVilleClient.setText(client.getVille());
+		fieldNumTelClient.setText(client.getNumTel());
+		fieldAssuranceClient.setText(client.getAssurance());
+		fieldEmailClient.setText(client.getEmail());
+		fieldRemarqueClient.setText(client.getRemarque());
+	}
 	
 	public MDIAppClient() {
 		
@@ -698,6 +670,50 @@ public class MDIAppClient extends JFrame {
 			this.fieldRemarqueClient = new JTextField(15);
 		}
 		return this.fieldRemarqueClient;
+	}
+	
+	public void setClient(Clients client) {
+		this.client = client;
+	}
+
+	public Clients getClient() {
+		return client;
+	}
+
+	public void setFieldCodeClient(JTextField fieldCodeClient) {
+		this.fieldCodeClient = fieldCodeClient;
+	}
+
+	public void setFieldNomClient(JTextField fieldNomClient) {
+		this.fieldNomClient = fieldNomClient;
+	}
+
+	public void setFieldPrenomClient(JTextField fieldPrenomClient) {
+		this.fieldPrenomClient = fieldPrenomClient;
+	}
+
+	public void setFieldCPClient(JTextField fieldCPClient) {
+		this.fieldCPClient = fieldCPClient;
+	}
+
+	public void setFieldVilleClient(JTextField fieldVilleClient) {
+		this.fieldVilleClient = fieldVilleClient;
+	}
+
+	public void setFieldNumTelClient(JTextField fieldNumTelClient) {
+		this.fieldNumTelClient = fieldNumTelClient;
+	}
+
+	public void setFieldAssuranceClient(JTextField fieldAssuranceClient) {
+		this.fieldAssuranceClient = fieldAssuranceClient;
+	}
+
+	public void setFieldEmailClient(JTextField fieldEmailClient) {
+		this.fieldEmailClient = fieldEmailClient;
+	}
+
+	public void setFieldRemarqueClient(JTextField fieldRemarqueClient) {
+		this.fieldRemarqueClient = fieldRemarqueClient;
 	}
 
 }
