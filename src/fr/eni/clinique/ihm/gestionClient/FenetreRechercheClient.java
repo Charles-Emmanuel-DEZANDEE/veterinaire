@@ -24,6 +24,7 @@ import com.sun.security.ntlm.Client;
 
 import fr.eni.clinique.bll.AnimauxManager;
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.ClientsManager;
 import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Personnels;
@@ -116,7 +117,7 @@ public class FenetreRechercheClient extends JDialog {
 			gbc.gridy = 0;
 			panel3.add(getTableClients(), gbc);
 			
-			JScrollPane scroll = new JScrollPane();
+			JScrollPane scroll = new JScrollPane(panel3);
 			scroll.setViewportView(panel3);
 
 		}
@@ -145,8 +146,21 @@ public class FenetreRechercheClient extends JDialog {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					//TODO
+					List<Clients> clients = new ArrayList<>();
+					String NomClient = getFieldRechercheClient().getText();
 					
-
+					try {
+						clients = ClientsManager.getInstance().getClientByNom(NomClient);
+						getTableClients().getClientsModel().getListeClient().clear();
+						getTableClients().getClientsModel().fireTableDataChanged();
+						for (Clients client : clients){
+							getTableClients().getClientsModel().getListeClient().add(client);
+						}
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
