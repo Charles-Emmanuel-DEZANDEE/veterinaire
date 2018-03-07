@@ -6,13 +6,13 @@ public class Agendas {
 	
 	private long CodeVeto;
 	private Date DateRdv;
-	private int CodeAnimal;
+	private long CodeAnimal;
 	
 	public Agendas(){
 		
 	}
 	
-	public Agendas(long CodeVeto, Date DateRdv, int CodeAnimal){
+	public Agendas(long CodeVeto, Date DateRdv, long CodeAnimal){
 		this.CodeVeto = CodeVeto;
 		this.DateRdv = DateRdv;
 		this.CodeAnimal = CodeAnimal;
@@ -34,11 +34,11 @@ public class Agendas {
 		DateRdv = dateRdv;
 	}
 
-	public int getCodeAnimal() {
+	public long getCodeAnimal() {
 		return CodeAnimal;
 	}
 
-	public void setCodeAnimal(int codeAnimal) {
+	public void setCodeAnimal(long codeAnimal) {
 		CodeAnimal = codeAnimal;
 	}
 	

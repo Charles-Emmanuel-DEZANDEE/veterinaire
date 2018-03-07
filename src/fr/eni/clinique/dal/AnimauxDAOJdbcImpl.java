@@ -83,7 +83,7 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 
 	        if (res != null){
 	        	if (res.next()){
-	                data = new Animaux(res.getInt("CodeAnimal"),
+	                data = new Animaux(res.getLong("CodeAnimal"),
 			                		   res.getString("NomAnimal"),
 			                		   res.getString("Sexe"),
 			                		   res.getString("Couleur"),
@@ -198,7 +198,7 @@ public class AnimauxDAOJdbcImpl implements DaoAnimaux{
 			stmt.setString(7,a1.getTatouage());
 			stmt.setString(8,a1.getAntecedents());
 			stmt.setBoolean(9, a1.isArchive());
-			stmt.setInt(10,a1.getCodeAnimal());
+			stmt.setLong(10,a1.getCodeAnimal());
 
 			stmt.executeUpdate();
          

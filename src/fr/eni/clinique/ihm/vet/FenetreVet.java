@@ -284,7 +284,7 @@ public class FenetreVet extends JFrame {
 							rdvSelected = getTableRDV().getRDVModel().getListeRDV().get(ligneTableau[0]);
 
 							// on cherche l'animal
-							Long codeanimal = rdvSelected.getCodeAnimal();
+							int codeanimal = rdvSelected.getCodeAnimal();
 							Animaux animal = AnimauxManager.getInstance().getAnimalById(codeanimal);
 
 							//on ouvre la fenetre animal

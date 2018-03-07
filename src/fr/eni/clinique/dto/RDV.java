@@ -6,12 +6,12 @@ public class RDV {
 	
 	private long CodeVeto;
 	private Date DateRdv;
-	private long CodeAnimal;
+	private int CodeAnimal;
 	private String nomClient;
 	private String nomAnimal;
 	private String race;
 	
-	public RDV(long CodeVeto, Date DateRdv, long CodeAnimal,
+	public RDV(long CodeVeto, Date DateRdv, int CodeAnimal,
 			String nomClient, String nomAnimal,String race  ){
 		this.CodeVeto = CodeVeto;
 		this.DateRdv = DateRdv;
@@ -66,11 +66,11 @@ public class RDV {
 		DateRdv = dateRdv;
 	}
 
-	public long getCodeAnimal() {
+	public int getCodeAnimal() {
 		return CodeAnimal;
 	}
 
-	public void setCodeAnimal(long codeAnimal) {
+	public void setCodeAnimal(int codeAnimal) {
 		CodeAnimal = codeAnimal;
 	}
 	

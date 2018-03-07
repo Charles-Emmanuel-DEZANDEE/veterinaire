@@ -2,7 +2,7 @@ package fr.eni.clinique.bo;
 
 public class Animaux {
 	
-	private int CodeAnimal;
+	private long CodeAnimal;
 	private String NomAnimal;
 	private String Sexe;
 	private String Couleur;
@@ -17,7 +17,7 @@ public class Animaux {
 		
 	}
 	
-	public Animaux(int CodeAnimal, String NomAnimal, String Sexe, String Couleur, String Race,
+	public Animaux(long CodeAnimal, String NomAnimal, String Sexe, String Couleur, String Race,
 			String Espece, int CodeClient, String Tatouage, String Antecedents, boolean Archive){
 		this.CodeAnimal = CodeAnimal;
 		this.NomAnimal = NomAnimal;
@@ -44,11 +44,11 @@ public class Animaux {
 		this.Archive = Archive;
 	}
 
-	public int getCodeAnimal() {
+	public long getCodeAnimal() {
 		return CodeAnimal;
 	}
 
-	public void setCodeAnimal(int codeAnimal) {
+	public void setCodeAnimal(long codeAnimal) {
 		CodeAnimal = codeAnimal;
 	}
 

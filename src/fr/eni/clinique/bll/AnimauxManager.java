@@ -26,7 +26,7 @@ public class AnimauxManager {
 		return AnimauxManager.instance;
 	}
 	
-	public Animaux getAnimalById(Long CodeAnimal) throws BLLException{
+	public Animaux getAnimalById(long CodeAnimal) throws BLLException{
 		Animaux animal = null;
 		try {
 			animal = daoAnimaux.selectById(CodeAnimal);

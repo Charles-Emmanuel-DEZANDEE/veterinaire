@@ -94,7 +94,7 @@ public class AgendaDAOJdbcImpl implements DaoAgenda {
                         	new RDV(
                         			res.getLong("CodeVeto"), 
                         			res.getTimestamp("DateRdv"), 
-                        			res.getLong("CodeAnimal"), 
+                        			res.getInt("CodeAnimal"), 
                         			res.getString("nomClient"), 
                         			res.getString("nomAnimal"), 
                         			res.getString("race")
@@ -158,7 +158,7 @@ public class AgendaDAOJdbcImpl implements DaoAgenda {
     public void delete(Agendas agenda) throws DALException {
         try (            Connection connect = ConnectionSingleton.getConnect()       ){
 
-            String sql = "DELETE FROM Races WHERE CodeVeto = ? and DateRdv = ? and CodeAnimal = ?";
+            String sql = "DELETE FROM Agendas WHERE CodeVeto = ? and DateRdv = ? and CodeAnimal = ?";
             PreparedStatement stmt = connect.prepareStatement(sql);
             stmt.setLong(1, agenda.getCodeVeto());
             //stmt.setDate(2, agenda.getDateRdv());
