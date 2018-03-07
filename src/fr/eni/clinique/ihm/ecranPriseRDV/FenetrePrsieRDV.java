@@ -34,6 +34,7 @@ import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dto.RDV;
+import fr.eni.clinique.ihm.animal.AnimalController;
 import fr.eni.clinique.ihm.ecranPersonnel.AjoutPersonnelController;
 import fr.eni.clinique.ihm.ecranPersonnel.FenetreGestionPersonnel;
 import fr.eni.clinique.ihm.gestionClient.AjoutClientController;
@@ -46,7 +47,7 @@ public class FenetrePrsieRDV extends JFrame  {
 	private JButton buttonAjouterRDV;
 	private JButton buttonSupprimerRDV;
 	private RDVTable tableRDV;
-	private JComboBox<String> listeClients;
+	private JComboBox<String> CBoClients;
 	private List<Clients> listClients;
 	private JComboBox<String> CBoVeterinaires;
 	private List<Personnels> listVeterinaires;
@@ -254,7 +255,7 @@ public class FenetrePrsieRDV extends JFrame  {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						//GererPersonnelController.getInstance().nouveauPersonnels();
-						//AjoutClientController.getInstance().afficherFenetreAjoutClient(FenetrePrsieRDV.this);
+						AjoutClientController.getInstance().afficherFenetreAjoutClient(FenetrePrsieRDV.this);
 						
 						//mettre à jour la table
 						//getTablePersonnels().getPersonnelsModel().fireTableDataChanged();
@@ -279,15 +280,16 @@ public class FenetrePrsieRDV extends JFrame  {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						//GererPersonnelController.getInstance().nouveauPersonnels();
-						AjoutPersonnelController.getInstance().afficherFenetreAjout(FenetreGestionPersonnel.this, FenetreGestionPersonnel.this.getTablePersonnels());
+						//recuperer le client selectionné
+						Clients clientSelected = (Clients)CBoClients.getSelectedItem();						
+						AnimalController.getInstance().nouveau(clientSelected);
 						
 						//mettre à jour la table
 						//getTablePersonnels().getPersonnelsModel().fireTableDataChanged();
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					}
+					} 
 				}
 			});
 			
@@ -429,12 +431,12 @@ public class FenetrePrsieRDV extends JFrame  {
 	
 	
   public JComboBox<String> getCobClients() throws BLLException {
-        if (this.listeClients == null) {
+        if (this.CBoClients == null) {
         	try {
         		this.listClients =  ClientsManager.getInstance().getListeClients();      		
-				this.listeClients = new JComboBox(listClients.toArray());
+				this.CBoClients = new JComboBox(listClients.toArray());
 				
-				 this.listeClients.addActionListener(new ActionListener() {
+				 this.CBoClients.addActionListener(new ActionListener() {
 
 		                @Override
 		                public void actionPerformed(ActionEvent e) {
@@ -472,7 +474,7 @@ public class FenetrePrsieRDV extends JFrame  {
 				e.printStackTrace();
 			}
         }
-        return this.listeClients;
+        return this.CBoClients;
  }
 	  
 	  public List<String> nomsClients(List<Clients> listeClients){
@@ -526,7 +528,7 @@ public class FenetrePrsieRDV extends JFrame  {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						//GererPersonnelController.getInstance().nouveauPersonnels();
-						AjoutPersonnelController.getInstance().afficherFenetreAjout(FenetrePrsieRDV.this, FenetrePrsieRDV.this.getTableRDV());
+						//AjoutPersonnelController.getInstance().afficherFenetreAjout(FenetrePrsieRDV.this, FenetrePrsieRDV.this.getTableRDV());
 						
 						//mettre à jour la table
 						getTableRDV().getRDVModel().fireTableDataChanged();

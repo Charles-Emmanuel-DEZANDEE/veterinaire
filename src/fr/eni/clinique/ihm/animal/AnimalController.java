@@ -15,18 +15,18 @@ public class AnimalController {
     private static AnimalController instance;
 
 
-    private AnimalController() throws DALException, BLLException {
+    private AnimalController() throws  BLLException {
         fenetreAnimal = FenetreAnimal.getInstance();
     }
 
-    public static synchronized AnimalController getInstance() throws DALException, BLLException {
+    public static synchronized AnimalController getInstance() throws BLLException {
         if (instance == null) {
             instance = new AnimalController();
         }
         return instance;
     }
 
-    public void nouveau(Clients client) throws BLLException, DALException {
+    public void nouveau(Clients client) throws BLLException {
         fenetreAnimal.init(client,true);
         //on vide les champs texte de l'animal
         fenetreAnimal.getFieldCouleur().setText("");
