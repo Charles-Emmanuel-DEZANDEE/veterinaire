@@ -308,9 +308,16 @@ public class MDIAppClient extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					
 					try {
+						if (client != null){
 						AnimalController.getInstance().nouveau(client, null,MDIAppClient.this);
+						}
+						else {
+							RechercheClientController.getInstance().afficherFenetreRechercheClient(MDIAppClient.this);
+						}
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (DALException e1) {
 						e1.printStackTrace();
 					}
 				}
@@ -326,6 +333,32 @@ public class MDIAppClient extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					if (client != null){
+						int[] ligneTableau = getTableAnimaux().getSelectedRows();
+						Animaux animal = null;
+
+						if (ligneTableau.length == 1){
+							animal = getTableAnimaux().getAnimauxModel().getListeAnimaux().get(ligneTableau[0]);
+						}
+						try {
+							AnimauxManager.getInstance().archiverAnimal(animal.getCodeAnimal());
+							rafraichirTableAnimaux();
+						} catch (BLLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
+					}
+					else {
+						try {
+							RechercheClientController.getInstance().afficherFenetreRechercheClient(MDIAppClient.this);
+						} catch (BLLException e1) {
+							e1.printStackTrace();
+						} catch (DALException e1) {
+							e1.printStackTrace();
+						}
+					}
+
 				}
 			});
 		}
@@ -339,19 +372,24 @@ public class MDIAppClient extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					int[] ligneTableau = getTableAnimaux().getSelectedRows();
-					Animaux animal = null;
-					
-					if (ligneTableau.length == 1){
-						animal = getTableAnimaux().getAnimauxModel().getListeAnimaux().get(ligneTableau[0]);
-					}
 					try {
-						AnimalController.getInstance().update(client, animal,null, MDIAppClient.this);
+						if (client != null){
+							int[] ligneTableau = getTableAnimaux().getSelectedRows();
+							Animaux animal = null;
+
+							if (ligneTableau.length == 1){
+								animal = getTableAnimaux().getAnimauxModel().getListeAnimaux().get(ligneTableau[0]);
+							}
+								AnimalController.getInstance().update(client, animal,null, MDIAppClient.this);
+
+						}
+						else {
+							RechercheClientController.getInstance().afficherFenetreRechercheClient(MDIAppClient.this);
+						}
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} catch (DALException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
