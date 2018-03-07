@@ -8,6 +8,8 @@ import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Races;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOFactory;
+import fr.eni.clinique.ihm.ecranPriseRDV.FenetrePrsieRDV;
+import fr.eni.clinique.ihm.gestionClient.MDIAppClient;
 
 
 public class AnimalController {
@@ -25,9 +27,9 @@ public class AnimalController {
         return instance;
     }
 
-    public void nouveau(Clients client) throws BLLException {
+    public void nouveau(Clients client, FenetrePrsieRDV rdv, MDIAppClient cli) throws BLLException {
         fenetreAnimal = new FenetreAnimal();
-        fenetreAnimal.init(client,true);
+        fenetreAnimal.init(client,true,rdv,cli);
         //on vide les champs texte de l'animal
         fenetreAnimal.getFieldCouleur().setText("");
         fenetreAnimal.getFieldNom().setText("");
@@ -35,9 +37,9 @@ public class AnimalController {
 
     }
 
-    public void update(Clients client, Animaux animal) throws BLLException, DALException {
+    public void update(Clients client, Animaux animal, FenetrePrsieRDV rdv, MDIAppClient cli) throws BLLException, DALException {
         fenetreAnimal = new FenetreAnimal();
-        fenetreAnimal.init(client,false);
+        fenetreAnimal.init(client,false,rdv,cli);
         long code = animal.getCodeAnimal();
         //on rempli les champs de l'animal
         fenetreAnimal.getCode().setText(String.valueOf(animal.getCodeAnimal()));

@@ -4,7 +4,10 @@ import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.RacesManager;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.ihm.acceuil.MDIAppAcceuil;
 import fr.eni.clinique.ihm.ecranPersonnel.FenetreAjoutPersonnel;
+import fr.eni.clinique.ihm.ecranPriseRDV.FenetrePrsieRDV;
+import fr.eni.clinique.ihm.gestionClient.MDIAppClient;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,6 +46,8 @@ public class FenetreAnimal extends JFrame {
     private JButton buttonValider;
     private JButton buttonRetour;
 
+    private FenetrePrsieRDV instancePriseRdv;
+    private MDIAppClient instanceGestionClient;
 
 
     public FenetreAnimal() throws BLLException {
@@ -56,8 +61,10 @@ public class FenetreAnimal extends JFrame {
 
     }
 
-    public void init(Clients client, Boolean nouveau) throws BLLException {
+    public void init(Clients client, Boolean nouveau, FenetrePrsieRDV instancePriseRdv, MDIAppClient instanceGestionClient) throws BLLException {
 
+        this.instancePriseRdv = instancePriseRdv;
+        this.instanceGestionClient = instanceGestionClient;
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
 
@@ -178,7 +185,7 @@ public class FenetreAnimal extends JFrame {
 
     public JLabel getClient(Clients client) {
         if (this.Client == null) {
-            this.Client = new JLabel(client.getClient()+ " - " + client.getPrenomClient());
+            this.Client = new JLabel(client.getClient() + " - " + client.getPrenomClient());
             this.Client.setFont(new Font("Serif", Font.PLAIN, 30));
         }
 
@@ -293,6 +300,9 @@ public class FenetreAnimal extends JFrame {
                         JOptionPane.showMessageDialog(FenetreAnimal.this, e1);//"Vous devez saisir tous les champs pour éffecuter un ajout");
 
                     }
+                    // on rafraichi
+                    rafraichir();
+
                 }
             });
 
@@ -308,8 +318,10 @@ public class FenetreAnimal extends JFrame {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                        System.out.println("annuler");
-                        FenetreAnimal.this.dispose();
+                    System.out.println("annuler");
+                    FenetreAnimal.this.dispose();
+// on rafraichi
+                    rafraichir();
                 }
             });
 
@@ -317,9 +329,24 @@ public class FenetreAnimal extends JFrame {
         return this.buttonRetour;
     }
 
+    public void rafraichir() {
+        //on rafraichi la table aprés la validation.
+        if (instancePriseRdv != null) {
+            try {
+                instancePriseRdv.rafraichirCboAnimal();
+            } catch (BLLException e1) {
+                e1.printStackTrace();
+            }
+        }
+        if (instanceGestionClient != null) {
+
+        }
+
+    }
+
     public JComboBox<String> getCboGenreAnimal() {
         if (this.cboGenreAnimal == null) {
-            String[] places = { "Femelle", "Male","hermaphrodite" };
+            String[] places = {"Femelle", "Male", "hermaphrodite"};
             this.cboGenreAnimal = new JComboBox<String>(places);
         }
         return this.cboGenreAnimal;
@@ -340,7 +367,7 @@ public class FenetreAnimal extends JFrame {
 
     public JComboBox<String> getCboEspece() throws BLLException {
         if (this.cboEspece == null) {
-            String[] places = { "Chat", "Chiens", "sourris", "cheval", "vache" };
+            String[] places = {"Chat", "Chiens", "sourris", "cheval", "vache"};
 //            cboEspece = new JComboBox<String>(places);
 
             try {
@@ -352,17 +379,17 @@ public class FenetreAnimal extends JFrame {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                        System.out.println("selection espece");
-                    JComboBox cb = (JComboBox)e.getSource();
-                    String espece = (String)cb.getSelectedItem();
+                    System.out.println("selection espece");
+                    JComboBox cb = (JComboBox) e.getSource();
+                    String espece = (String) cb.getSelectedItem();
                     System.out.println(espece);
 
-                        //on vide les items
-                        cboRace.removeAllItems();
-                        //on remplace les items
+                    //on vide les items
+                    cboRace.removeAllItems();
+                    //on remplace les items
                     List<String> newList = null;
                     try {
-                        newList = RacesManager.getInstance().getListeRaces((String)cb.getSelectedItem());
+                        newList = RacesManager.getInstance().getListeRaces((String) cb.getSelectedItem());
                     } catch (BLLException e1) {
                         e1.printStackTrace();
                     } catch (DALException e1) {
@@ -370,13 +397,13 @@ public class FenetreAnimal extends JFrame {
                     }
 
                     ListIterator<String> it = newList.listIterator();
-                        while(it.hasNext()) {
-                            String str = it.next();
-                            cboRace.addItem(str);
-                        }
-                        //on rafraichi la fenetre
-                        FenetreAnimal.this.revalidate();
-                        FenetreAnimal.this.repaint();
+                    while (it.hasNext()) {
+                        String str = it.next();
+                        cboRace.addItem(str);
+                    }
+                    //on rafraichi la fenetre
+                    FenetreAnimal.this.revalidate();
+                    FenetreAnimal.this.repaint();
 
                 }
             });

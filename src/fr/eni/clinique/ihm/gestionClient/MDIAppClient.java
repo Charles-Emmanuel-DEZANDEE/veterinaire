@@ -25,6 +25,7 @@ import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.ihm.animal.AnimalController;
+import fr.eni.clinique.ihm.ecranPriseRDV.FenetrePrsieRDV;
 
 public class MDIAppClient extends JFrame {
 	
@@ -315,7 +316,7 @@ public class MDIAppClient extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					
 					try {
-						AnimalController.getInstance().nouveau(client);
+						AnimalController.getInstance().nouveau(client, null,MDIAppClient.this);
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -353,7 +354,7 @@ public class MDIAppClient extends JFrame {
 						animal = getTableAnimaux().getAnimauxModel().getListeAnimaux().get(ligneTableau[0]);
 					}
 					try {
-						AnimalController.getInstance().update(client, animal);
+						AnimalController.getInstance().update(client, animal,null, MDIAppClient.this);
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
