@@ -59,6 +59,7 @@ public class FenetrePrsieRDV extends JFrame  {
 	private JComboBox<String> CBoMinutes;
 	private JButton buttonAjouterClient;
 	private JButton buttonAjouterAnimal;
+	private Clients clientAjoute;
 
 	public FenetrePrsieRDV() throws BLLException{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -288,7 +289,6 @@ public class FenetrePrsieRDV extends JFrame  {
 						//mettre à jour la table
 						//getTablePersonnels().getPersonnelsModel().fireTableDataChanged();
 					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} 
 				}
@@ -438,7 +438,17 @@ public class FenetrePrsieRDV extends JFrame  {
 
  }
 	
-	
+	public void rafraichirCBoClients(Clients client) throws BLLException{
+		this.listClients =  ClientsManager.getInstance().getListeClients();  
+		//recuperer le cilent ajouté
+		this.clientAjoute = client;
+		//on vide les items
+        getCobClients().addItem(client.toString());
+        //on rafraichi la fenetre
+        FenetrePrsieRDV.this.revalidate();
+        FenetrePrsieRDV.this.repaint();
+		
+	}
   public JComboBox<String> getCobClients() throws BLLException {
         if (this.CBoClients == null) {
         	try {
@@ -449,13 +459,44 @@ public class FenetrePrsieRDV extends JFrame  {
 
 		                @Override
 		                public void actionPerformed(ActionEvent e) {
-		                        System.out.println("affichier les animaux d'un client");
-                            try {
-                                rafraichirCboAnimal();
-                            } catch (BLLException e1) {
-                                e1.printStackTrace();
-                            }
-                        }
+
+		                        System.out.println("afficher les animaux d'un client");
+		                        //JComboBox cb = (JComboBox)e.getSource();
+		                        Clients clientSelected = (Clients)CBoClients.getSelectedItem();
+		                        Clients clientBy = null;
+		                        
+		                        if (clientSelected != null){
+		                        	clientBy = clientSelected;
+		                        }else if (clientAjoute != null){
+		                        	clientSelected = clientAjoute; 
+		                        }
+		                        
+		                        List<Animaux> animauxDuClient = new ArrayList<>();
+		                        try {
+									animauxDuClient = AnimauxManager.getInstance().getAnimalByClient(clientSelected);
+								} catch (BLLException e2) {
+									// TODO Auto-generated catch block
+									e2.printStackTrace();
+								}
+		                        
+		                    System.out.println(clientSelected);
+
+		                    //on vide les items
+		                    CBoAnimaux.removeAllItems();
+		                    //on remplace les items
+		                    //List<String> newListAnimaux = FenetrePrsieRDV.this.nomsAnimaux(animauxDuClient);
+
+		                    ListIterator<Animaux> it = animauxDuClient.listIterator();
+		                        while(it.hasNext()) {
+		                            Animaux str = it.next();
+		                            CBoAnimaux.addItem(str.toString());
+		                        }
+		                        //on rafraichi la fenetre
+		                        FenetrePrsieRDV.this.revalidate();
+		                        FenetrePrsieRDV.this.repaint();
+
+		                }
+
 		            });
 				
 			} catch (Exception e) {

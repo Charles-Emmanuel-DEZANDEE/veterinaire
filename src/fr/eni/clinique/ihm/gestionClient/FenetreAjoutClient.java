@@ -188,7 +188,12 @@ public class FenetreAjoutClient extends JFrame {
 							fieldEmailClient.getText(), fieldRemarqueClient.getText(), false);
 					try {
 						GererClientController.getInstance().ajouterClient(client);
-						FenetreAjoutClient.this.dispose();
+						//mettre a jout la CBoClients de fentre prise de RDV
+						fenetrePriseRDV.rafraichirCBoClients(client);
+						
+						//mettre a jout la CBoClients de gestion de clients
+						//fenetreGestionClients.rafraichirChampsClient(client);
+						//FenetreAjoutClient.this.dispose();
 						
 					} catch (DALException e1) {
 						// TODO Auto-generated catch block
