@@ -15,18 +15,19 @@ public class DossierMedicalController {
     private static DossierMedicalController instance;
 
 
-    private DossierMedicalController() throws DALException, BLLException {
-        fenetreDossierMedical = FenetreDossierMedical.getInstance();
+    private DossierMedicalController() throws BLLException {
     }
 
-    public static synchronized DossierMedicalController getInstance() throws DALException, BLLException {
+    public static synchronized DossierMedicalController getInstance() throws  BLLException {
         if (instance == null) {
             instance = new DossierMedicalController();
         }
         return instance;
     }
 
-    public void init(Animaux animal) throws BLLException, DALException {
+    public void init(Animaux animal) throws BLLException {
+        fenetreDossierMedical =  new FenetreDossierMedical();
+
         Clients client = ClientsManager.getInstance().getClientById(animal.getCodeClient());
         fenetreDossierMedical.init(animal, client);
         //On remplit le champ antécédents
