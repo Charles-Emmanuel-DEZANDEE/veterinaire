@@ -1,12 +1,16 @@
 package fr.eni.clinique.ihm.vet;
 
-import fr.eni.clinique.bll.BLLException;
-import fr.eni.clinique.bll.RacesManager;
+import fr.eni.clinique.bll.*;
+import fr.eni.clinique.bo.Animaux;
+import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.dto.RDV;
 import fr.eni.clinique.ihm.InternalFrame1;
+import fr.eni.clinique.ihm.animal.AnimalController;
 import fr.eni.clinique.ihm.ecranPersonnel.GererPersonnelController;
 import fr.eni.clinique.ihm.ecranPersonnel.PersonnelsTable;
+import fr.eni.clinique.ihm.ecranPriseRDV.RDVTable;
 import org.jdatepicker.impl.JDatePickerImpl;
 
 import javax.swing.*;
@@ -34,13 +38,15 @@ public class FenetreVet extends JFrame {
 
 	private JLabel labelVeto;
 	private JComboBox<String> cboVeto;
+	private List<Personnels> listVeterinaires;
+
 
 	private JLabel labelDate;
 	private JDatePickerImpl datePicker;
 
-	private JTable tableau;
-
+	private RDVTable tableRDV;
 	private JButton buttonDossierMedical;
+	private Personnels veterinaireConnecte;
 
 
 
@@ -51,12 +57,16 @@ public class FenetreVet extends JFrame {
 		setResizable(true);
 		setTitle("Agenda");
 		setVisible(true);
+//		pack();
 
 
 	}
 
 	// Lancement de la fenetre
-	public  void init() throws BLLException {
+	public  void init(Personnels vetoConnect) throws BLLException {
+		if (this.veterinaireConnecte ==null)
+		{this.veterinaireConnecte = vetoConnect;}
+
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 
@@ -74,20 +84,20 @@ public class FenetreVet extends JFrame {
 
 		gbc.gridx = 2;
 		gbc.gridy = 0;
-		gbc.anchor = GridBagConstraints.WEST;
+//		gbc.anchor = GridBagConstraints.WEST;
 		panel.add(this.getLabelDate(), gbc);
 
 		gbc.gridx = 3;
 		gbc.gridy = 0;
-		gbc.anchor = GridBagConstraints.WEST;
+//		gbc.anchor = GridBagConstraints.WEST;
 		panel.add(this.getDatePicker(), gbc);
 
 		// Ligne 2
 		gbc.gridwidth = 3;
 		gbc.gridx = 0;
 		gbc.gridy = 1;
+		panel.add(getTableRDV(), gbc);
 
-//		panel.add(get.table(), gbc);
 		gbc.gridwidth = 1;
 		gbc.gridx = 3;
 		gbc.gridy = 2;
@@ -113,50 +123,77 @@ public class FenetreVet extends JFrame {
 		return labelVeto;
 	}
 
+	public RDVTable getTableRDV() throws BLLException{
+		if (this.tableRDV == null) {
+			try {
+				this.tableRDV = new RDVTable(this.veterinaireConnecte.getCodePers(), new java.util.Date());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			this.tableRDV.setFillsViewportHeight(true);
+			this.tableRDV.setPreferredSize(new Dimension(300,200));
+			this.tableRDV.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		}
+		return this.tableRDV;
+	}
+
+
 	public JComboBox<String> getCboVeto() throws BLLException {
 		if (this.cboVeto == null) {
-			String[] places = { "M veto 1", "M veto 2", "M veto 3" };
-			cboVeto = new JComboBox<String>(places);
+			try {
+				this.listVeterinaires =  PersonnelsManager.getInstance().getListeVeterinaire();
 
-//			try {
-//				this.cboVeto = new JComboBox(RacesManager.getInstance().getListeEspece().toArray());
-//			} catch (DALException e) {
-//				e.printStackTrace();
-//			}
-//			this.cboVeto.addActionListener(new ActionListener() {
-//
-//				@Override
-//				public void actionPerformed(ActionEvent e) {
-//					System.out.println("selection espece");
-//					JComboBox cb = (JComboBox)e.getSource();
-//					String espece = (String)cb.getSelectedItem();
-//					System.out.println(espece);
-//
-//					//on vide les items
-//					cboRace.removeAllItems();
-//					//on remplace les items
-//					List<String> newList = null;
-//					try {
-//						newList = RacesManager.getInstance().getListeRaces((String)cb.getSelectedItem());
-//					} catch (BLLException e1) {
-//						e1.printStackTrace();
-//					} catch (DALException e1) {
-//						e1.printStackTrace();
-//					}
-//
-//					ListIterator<String> it = newList.listIterator();
-//					while(it.hasNext()) {
-//						String str = it.next();
-//						cboRace.addItem(str);
-//					}
-//					//on rafraichi la fenetre
-//					instance.revalidate();
-//					instance.repaint();
-//
-//				}
-//			});
+
+				this.cboVeto = new JComboBox(listVeterinaires.toArray());
+
+				this.cboVeto.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.out.println("afficher les rdv d'un vétérinaire");
+						JComboBox cb = (JComboBox)e.getSource();
+						Personnels vetoSelected = (Personnels)cb.getSelectedItem();
+						String stringDateRDV = "";
+
+						//recuperer la date selectionné
+						Date date = (Date)getDatePicker().getModel().getValue();
+						int dateInt = getDatePicker().getModel().getDay();
+
+
+						Date dateRDV = null;
+						if (date == null){
+							dateRDV =  new java.util.Date();
+						}else{
+							dateRDV = date;
+						}
+
+						//recuperer les RDV du veterinaire
+						List<RDV> listeRDVParVeterinaire = new ArrayList<>();
+						try {
+							listeRDVParVeterinaire = AgendaManager.getInstance().getRDVByVetEtDate(vetoSelected.getCodePers(), dateRDV);
+						} catch (BLLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						//mettre à jour le contenu du model de la table
+						FenetreVet.this.tableRDV.getRDVModel().getListeRDV().clear();
+
+						for(RDV unRDV : listeRDVParVeterinaire){
+							FenetreVet.this.tableRDV.getRDVModel().getListeRDV().add(unRDV);
+						}
+						//mettre à jour la table
+						FenetreVet.this.tableRDV.getRDVModel().fireTableDataChanged();
+
+						//on rafraichi la fenetre
+						FenetreVet.this.revalidate();
+						FenetreVet.this.repaint();
+
+					}
+				});
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-
 		return this.cboVeto;
 	}
 
@@ -168,19 +205,66 @@ public class FenetreVet extends JFrame {
 
 		return labelDate;
 	}
-//      https://stackoverflow.com/questions/26794698/how-do-i-implement-jdatepicker
 	public JDatePickerImpl getDatePicker() {
+		if (this.datePicker == null){
 		UtilDateModel model = new UtilDateModel();
-//model.setDate(20,04,2014);
-// Need this...
 		Properties p = new Properties();
 		p.put("text.today", "Aujourd'hui");
 		p.put("text.month", "Mois");
 		p.put("text.year", "Année");
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-// Don't know about the formatter, but there it is...
-		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-		return datePicker;
+		this.datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+			this.datePicker.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("afficher les rdv d'un vétérinaire");
+					Personnels vetoSelected = null;
+					try {
+						vetoSelected = (Personnels)getCboVeto().getSelectedItem();
+					} catch (BLLException e1) {
+						e1.printStackTrace();
+					}
+					String stringDateRDV = "";
+
+					//recuperer la date selectionné
+					Date date = (Date)getDatePicker().getModel().getValue();
+					int dateInt = getDatePicker().getModel().getDay();
+
+
+					Date dateRDV = null;
+					if (date == null){
+						dateRDV =  new java.util.Date();
+					}else{
+						dateRDV = date;
+					}
+
+					//recuperer les RDV du veterinaire
+					List<RDV> listeRDVParVeterinaire = new ArrayList<>();
+					try {
+						listeRDVParVeterinaire = AgendaManager.getInstance().getRDVByVetEtDate(vetoSelected.getCodePers(), dateRDV);
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					//mettre à jour le contenu du model de la table
+					FenetreVet.this.tableRDV.getRDVModel().getListeRDV().clear();
+
+					for(RDV unRDV : listeRDVParVeterinaire){
+						FenetreVet.this.tableRDV.getRDVModel().getListeRDV().add(unRDV);
+					}
+					//mettre à jour la table
+					FenetreVet.this.tableRDV.getRDVModel().fireTableDataChanged();
+
+					//on rafraichi la fenetre
+					FenetreVet.this.revalidate();
+					FenetreVet.this.repaint();
+
+				}
+			});
+
+		}
+		return this.datePicker;
 	}
 
 	public JButton getButtonDossierMedical() {
@@ -191,27 +275,30 @@ public class FenetreVet extends JFrame {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-//					try {
-//						int[] ligneTableau = getTableRDV().getSelectedRows();
-//						Personnels personnelsASupp = null;
-//
-//						if (ligneTableau.length == 1){
-//							personnelsASupp = getTableRDV().getPersonnelsModel().getListePersonnel().get(ligneTableau[0]);
-//
-//							//mise à jour en base
-//							GererPersonnelController.getInstance().removePersonnel(personnelsASupp);
-//
-//							//mise à jour de la liste du personnels dans la JTable
-//							getTableRDV().getPersonnelsModel().getListePersonnel().remove(ligneTableau[0]);
-//
-//							//mettre à jour la table
-//							getTableRDV().getPersonnelsModel().fireTableDataChanged();
-//						}
-//
-//					} catch (BLLException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
+					try {
+						int[] ligneTableau = getTableRDV().getSelectedRows();
+						RDV rdvSelected = null;
+
+						if (ligneTableau.length == 1){
+							rdvSelected = getTableRDV().getRDVModel().getListeRDV().get(ligneTableau[0]);
+
+							// on cherche l'animal
+							Long codeanimal = rdvSelected.getCodeAnimal();
+							Animaux animal = AnimauxManager.getInstance().getAnimalById(codeanimal);
+
+							//on cherche le client
+							Clients client = ClientsManager.getInstance().getClientById(animal.getCodeClient());
+
+							//on ouvre la fenetre animal
+							AnimalController.getInstance().update(client,animal);
+						}
+
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (DALException e1) {
+						e1.printStackTrace();
+					}
 				}
 			});
 

@@ -91,13 +91,13 @@ public class AnimalController {
         }
 
         //on cache la fenetre
-//        fenetreAnimal.cacher();
+        fenetreAnimal.dispose();
 
     }
 
     public void annuler (){
         //on cache la fenetre
-        fenetreAnimal.cacher();
+        fenetreAnimal.dispose();
 
         //todo on retourne a la page du clients
 

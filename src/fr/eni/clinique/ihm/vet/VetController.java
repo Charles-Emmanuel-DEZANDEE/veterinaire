@@ -1,6 +1,7 @@
 package fr.eni.clinique.ihm.vet;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
 
 public class VetController {
@@ -19,8 +20,9 @@ public class VetController {
         return instance;
     }
 
-    public void startApp() throws BLLException {
-        fenetreVet.init();
+    public void startApp(Personnels vetoConnect) throws BLLException {
+        fenetreVet.init(vetoConnect);
     }
+
 
 }
