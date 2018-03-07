@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,7 +19,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
+import fr.eni.clinique.bll.AnimauxManager;
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
 
@@ -311,9 +315,6 @@ public class MDIAppClient extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						AjoutClientController.getInstance().afficherFenetreAjoutClient(MDIAppClient.this);
-					} catch (DALException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -392,16 +393,7 @@ public class MDIAppClient extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-//					try {
-//						ClientController.getInstance().startApp();
-//					} catch (BLLException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					} catch (DALException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
+
 				}
 			});
 		}

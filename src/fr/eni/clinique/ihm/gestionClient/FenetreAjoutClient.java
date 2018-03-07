@@ -36,7 +36,7 @@ public class FenetreAjoutClient extends JDialog {
 	private JTextField fieldEmailClient;
 	private JTextField fieldRemarqueClient;
 
-	public FenetreAjoutClient(JFrame parent) throws BLLException, DALException {
+	public FenetreAjoutClient(JFrame parent) throws BLLException{
 		super(parent, "Ajouter Client", true);
 		setDefaultCloseOperation(HIDE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -52,7 +52,7 @@ public class FenetreAjoutClient extends JDialog {
         return instance;
     }
 	
-	public void initAjoutClient() throws BLLException, DALException {
+	public void initAjoutClient() throws BLLException{
 		JPanel panel = new JPanel();
 		
 		panel.setLayout(new GridBagLayout());
@@ -177,8 +177,7 @@ public class FenetreAjoutClient extends JDialog {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					Clients client = new Clients(Integer.valueOf(fieldCodeClient.getText()),
-							fieldNomClient.getText(), fieldPrenomClient.getText(),
+					Clients client = new Clients(fieldNomClient.getText(), fieldPrenomClient.getText(),
 							fieldAdresse1Client.getText(), fieldAdresse2Client.getText(),
 							fieldCPClient.getText(), fieldVilleClient.getText(),
 							fieldNumTelClient.getText(), fieldAssuranceClient.getText(),
