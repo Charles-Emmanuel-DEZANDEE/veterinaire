@@ -47,15 +47,15 @@ public class LogInController {
                 switch (role) {
                     case "adm":
                         System.out.println("admin");
-                        AcceuilController.getInstance().start(3);
+                        AcceuilController.getInstance().start(3,user);
                         break;
                     case "sec":
                         System.out.println("secretaire");
-                        AcceuilController.getInstance().start(1);
+                        AcceuilController.getInstance().start(1,user);
                         break;
                     case "vet":
                         System.out.println("veterinaire");
-                        AcceuilController.getInstance().start(2);
+                        AcceuilController.getInstance().start(2,user);
                         break;
                     default:
                         System.out.println("Pas de role existant");

@@ -316,15 +316,8 @@ public class FenetreAnimal extends JFrame {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-//                    try {
-//                        System.out.println("annuler");
-//                    } catch (DALException e1) {
-//                        // TODO Auto-generated catch block
-//                        e1.printStackTrace();
-//                    } catch (BLLException e1) {
-//                        // TODO Auto-generated catch block
-//                        e1.printStackTrace();
-//                    }
+                        System.out.println("annuler");
+                        FenetreAnimal.this.dispose();
                 }
             });
 
