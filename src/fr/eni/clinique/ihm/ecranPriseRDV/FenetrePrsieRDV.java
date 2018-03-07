@@ -20,6 +20,10 @@ import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
 import fr.eni.clinique.bll.AgendaManager;
 import fr.eni.clinique.bll.AnimauxManager;
 import fr.eni.clinique.bll.BLLException;
