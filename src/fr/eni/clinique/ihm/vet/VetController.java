@@ -10,7 +10,6 @@ public class VetController {
 
 
     private VetController() throws BLLException {
-        fenetreVet = new FenetreVet();
     }
 
     public static synchronized VetController getInstance() throws BLLException{
@@ -21,6 +20,7 @@ public class VetController {
     }
 
     public void startApp(Personnels vetoConnect) throws BLLException {
+        fenetreVet = new FenetreVet();
         fenetreVet.init(vetoConnect);
     }
 

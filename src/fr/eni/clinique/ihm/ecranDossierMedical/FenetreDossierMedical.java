@@ -19,7 +19,6 @@ import java.util.ListIterator;
 public class FenetreDossierMedical extends JFrame {
 
     private static final long serialVersionUID = 1L;
-    private static FenetreDossierMedical instance;
 
 //    private JPanel panelClient;
 //    private JPanel panelGauche;
@@ -58,15 +57,15 @@ public class FenetreDossierMedical extends JFrame {
     private JButton buttonRetour;
 
     //singleton
-    public static synchronized FenetreDossierMedical getInstance() throws BLLException {
-        if (instance == null) {
-            instance = new FenetreDossierMedical();
-        }
-        return instance;
-    }
+//    public static synchronized FenetreDossierMedical getFenetreDossierMedical.this() throws BLLException {
+//        if (FenetreDossierMedical.this == null) {
+//            FenetreDossierMedical.this = new FenetreDossierMedical();
+//        }
+//        return FenetreDossierMedical.this;
+//    }
 
 
-    private FenetreDossierMedical() throws BLLException {
+    public FenetreDossierMedical() throws BLLException {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -107,8 +106,8 @@ public class FenetreDossierMedical extends JFrame {
 
 
         setContentPane(panel);
-        instance.revalidate();
-        instance.repaint();
+        FenetreDossierMedical.this.revalidate();
+        FenetreDossierMedical.this.repaint();
     }
 
     public JPanel getPanelValidation (Animaux animal){
@@ -341,16 +340,13 @@ public class FenetreDossierMedical extends JFrame {
                     try {
                         System.out.println("valider");
                         DossierMedicalController.getInstance().enregistrer(animal);
-                        instance.dispose();
+                        FenetreDossierMedical.this.dispose();
 
-                    } catch (DALException e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
                     } catch (BLLException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                         System.out.println("erreur champ");
-                        JOptionPane.showMessageDialog(instance, e1);
+                        JOptionPane.showMessageDialog(FenetreDossierMedical.this, e1);
 
                     }
                 }
@@ -368,7 +364,7 @@ public class FenetreDossierMedical extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("retour");
-                    instance.dispose();
+                    FenetreDossierMedical.this.dispose();
                     }
             });
 

@@ -24,6 +24,7 @@ import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Animaux;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.ihm.animal.AnimalController;
 
 public class MDIAppClient extends JFrame {
 	
@@ -103,6 +104,9 @@ public class MDIAppClient extends JFrame {
 	private JButton buttonSupprimerClients;
 	private JButton buttonValiderClients;
 	private JButton buttonAnnulerClients;
+	private JButton buttonAjouterAnimal;
+	private JButton buttonSupprimerAnimal;
+	private JButton buttonEditerAnimal;
 	private JPanel panel2;
 	private JPanel panel3;
 	private JPanel panel4;
@@ -272,9 +276,18 @@ public class MDIAppClient extends JFrame {
 			gbc.gridx = 0;
 			gbc.gridy = 0;
 			panel4.add(getTableAnimaux(), gbc);
+			gbc.anchor = GridBagConstraints.WEST;
 			gbc.gridx = 0;
 			gbc.gridy = 1;
-//			panel4.add(getButtonAjouterAnimal(), gbc);
+			panel4.add(getButtonAjouterAnimal(), gbc);
+			gbc.anchor = GridBagConstraints.CENTER;
+			gbc.gridx = 1;
+			gbc.gridy = 1;
+			panel4.add(getButtonSupprimerAnimal(), gbc);
+			gbc.anchor = GridBagConstraints.EAST;
+			gbc.gridx = 2;
+			gbc.gridy = 1;
+			panel4.add(getButtonEditerAnimal(), gbc);
 		}
 		return this.panel4;
 	}
@@ -293,6 +306,66 @@ public class MDIAppClient extends JFrame {
 	}
 
 	//Button
+	public JButton getButtonAjouterAnimal() {
+		if (this.buttonAjouterAnimal == null) {
+			this.buttonAjouterAnimal = new JButton("Ajouter");
+			this.buttonAjouterAnimal.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					try {
+						AnimalController.getInstance().nouveau(client);
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
+		}
+		return this.buttonAjouterAnimal;
+	}
+	
+	public JButton getButtonSupprimerAnimal() {
+		if (this.buttonSupprimerAnimal == null) {
+			this.buttonSupprimerAnimal = new JButton("Supprimer");
+			this.buttonSupprimerAnimal.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
+		}
+		return this.buttonSupprimerAnimal;
+	}
+	
+	public JButton getButtonEditerAnimal() {
+		if (this.buttonEditerAnimal == null) {
+			this.buttonEditerAnimal = new JButton("Editer");
+			this.buttonEditerAnimal.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					int[] ligneTableau = getTableAnimaux().getSelectedRows();
+					Animaux animal = null;
+					
+					if (ligneTableau.length == 1){
+						animal = getTableAnimaux().getAnimauxModel().getListeAnimaux().get(ligneTableau[0]);
+					}
+					try {
+						AnimalController.getInstance().update(client, animal);
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
+		}
+		return this.buttonEditerAnimal;
+	}
 	
 	public JButton getButtonRechercherClients() {
 		if (this.buttonRechercherClients == null) {

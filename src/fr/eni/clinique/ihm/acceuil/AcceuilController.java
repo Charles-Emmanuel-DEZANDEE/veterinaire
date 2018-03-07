@@ -1,6 +1,7 @@
 package fr.eni.clinique.ihm.acceuil;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dal.DALException;
 
 public class AcceuilController {
@@ -19,10 +20,10 @@ public class AcceuilController {
         return instance;
     }
 
-    public void start(int cas) throws BLLException, DALException {
-        fenetreAcceuil = MDIAppAcceuil.getInstance(cas);
+    public void start(int cas, Personnels pers) throws BLLException, DALException {
+        fenetreAcceuil = MDIAppAcceuil.getInstance(cas, pers);
 
-        fenetreAcceuil.init(cas);
+        fenetreAcceuil.init(cas,pers);
     }
 
 

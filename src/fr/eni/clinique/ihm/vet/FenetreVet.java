@@ -294,8 +294,6 @@ public class FenetreVet extends JFrame {
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					} catch (DALException e1) {
-						e1.printStackTrace();
 					}
 				}
 			});
