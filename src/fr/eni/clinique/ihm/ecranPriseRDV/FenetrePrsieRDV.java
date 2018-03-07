@@ -33,6 +33,9 @@ import fr.eni.clinique.dto.RDV;
 import fr.eni.clinique.ihm.animal.AnimalController;
 import fr.eni.clinique.ihm.gestionClient.AjoutClientController;
 import fr.eni.clinique.ihm.vet.DateLabelFormatter;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
 
 public class FenetrePrsieRDV extends JFrame  {
@@ -276,7 +279,7 @@ public class FenetrePrsieRDV extends JFrame  {
 					try {
 						//recuperer le client selectionné
 						Clients clientSelected = (Clients)CBoClients.getSelectedItem();						
-						AnimalController.getInstance().nouveau(clientSelected);
+						AnimalController.getInstance().nouveau(clientSelected,FenetrePrsieRDV.this,null);
 						
 						//mettre à jour la table
 						//getTablePersonnels().getPersonnelsModel().fireTableDataChanged();
@@ -379,48 +382,56 @@ public class FenetrePrsieRDV extends JFrame  {
 		                @Override
 		                public void actionPerformed(ActionEvent e) {
 		                        System.out.println("afficher les rdv d'un vétérinaire");
-		                        JComboBox cb = (JComboBox)e.getSource();
-		                        Personnels vetoSelected = (Personnels)cb.getSelectedItem();
-		                        
-		                        //recuperer la date selectionné
-		                        Date date = (Date)getDatePicker().getModel().getValue();
-		                        
-		                       
-		                        Date dateRDV = null;
-		                        if (date == null){
-		                        	dateRDV =  new java.util.Date();
-		                        }else{
-		                        	dateRDV = date;
-		                        }
-		                        
-		                        //recuperer les RDV du veterinaire
-		                        List<RDV> listeRDVParVeterinaire = new ArrayList<>();
-		                        try {
-		                        	listeRDVParVeterinaire = AgendaManager.getInstance().getRDVByVetEtDate(vetoSelected.getCodePers(), dateRDV);
-								} catch (BLLException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
-		                        //mettre à jour le contenu du model de la table
-		                        FenetrePrsieRDV.this.tableRDV.getRDVModel().getListeRDV().clear();
-		                        
-		                        for(RDV unRDV : listeRDVParVeterinaire){
-		                        	FenetrePrsieRDV.this.tableRDV.getRDVModel().getListeRDV().add(unRDV);
-		                        }
-		                    	//mettre à jour la table
-		                        FenetrePrsieRDV.this.tableRDV.getRDVModel().fireTableDataChanged();
-		                        
-		                        //on rafraichi la fenetre
-		                        FenetrePrsieRDV.this.revalidate();
-		                        FenetrePrsieRDV.this.repaint();
+                            try {
+                                rafraichirCboAnimal();
+                            } catch (BLLException e1) {
+                                e1.printStackTrace();
+                            }
 
-		                }
+
+                        }
 		            });
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
         }
         return this.CBoVeterinaires;
+ }
+ public void rafraichirCboAnimal() throws BLLException {
+     Personnels vetoSelected = (Personnels)getCobVetrinaires().getSelectedItem();
+
+     //recuperer la date selectionné
+     Date date = (Date)getDatePicker().getModel().getValue();
+
+
+     Date dateRDV = null;
+     if (date == null){
+         dateRDV =  new java.util.Date();
+     }else{
+         dateRDV = date;
+     }
+
+     //recuperer les RDV du veterinaire
+     List<RDV> listeRDVParVeterinaire = new ArrayList<>();
+     try {
+         listeRDVParVeterinaire = AgendaManager.getInstance().getRDVByVetEtDate(vetoSelected.getCodePers(), dateRDV);
+     } catch (BLLException e1) {
+         // TODO Auto-generated catch block
+         e1.printStackTrace();
+     }
+     //mettre à jour le contenu du model de la table
+     FenetrePrsieRDV.this.tableRDV.getRDVModel().getListeRDV().clear();
+
+     for(RDV unRDV : listeRDVParVeterinaire){
+         FenetrePrsieRDV.this.tableRDV.getRDVModel().getListeRDV().add(unRDV);
+     }
+     //mettre à jour la table
+     FenetrePrsieRDV.this.tableRDV.getRDVModel().fireTableDataChanged();
+
+     //on rafraichi la fenetre
+     FenetrePrsieRDV.this.revalidate();
+     FenetrePrsieRDV.this.repaint();
+
  }
 	
 	
