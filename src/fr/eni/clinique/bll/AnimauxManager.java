@@ -137,7 +137,7 @@ public class AnimauxManager {
 			valider = false;
 		}
 		if(animal.getEspece() == null){
-			sb.append("L'Esp�ce est obligatoire \n");
+			sb.append("L'Espece est obligatoire \n");
 			valider = false;
 		}
 		if(!valider){

@@ -10,12 +10,14 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.ihm.animal.FenetreAnimal;
 import fr.eni.clinique.ihm.ecranPriseRDV.FenetrePrsieRDV;
 
 public class FenetreAjoutClient extends JFrame {
@@ -36,7 +38,7 @@ public class FenetreAjoutClient extends JFrame {
 	private JTextField fieldAssuranceClient;
 	private JTextField fieldEmailClient;
 	private JTextField fieldRemarqueClient;
-	private MDIAppClient fenetreGestionClients;
+	private MDIAppClient parent;
 	private FenetrePrsieRDV fenetrePriseRDV;
 
 	public FenetreAjoutClient(MDIAppClient fenetreGestionClients, FenetrePrsieRDV fenetrePriseRDV) throws BLLException{
@@ -55,7 +57,7 @@ public class FenetreAjoutClient extends JFrame {
     }
 	
 	public void initAjoutClient(MDIAppClient fenetreGestionClients, FenetrePrsieRDV fenetrePriseRDV) throws BLLException{
-		this.fenetreGestionClients = fenetreGestionClients;
+		this.parent = fenetreGestionClients;
 		this.fenetrePriseRDV = fenetrePriseRDV;
 		JPanel panel = new JPanel();
 		
@@ -193,18 +195,19 @@ public class FenetreAjoutClient extends JFrame {
 							fenetrePriseRDV.rafraichirCBoClients(client);
 						}
 						//mettre a jout la CBoClients de gestion de clients
-						if(fenetreGestionClients != null){
-							fenetreGestionClients.rafraichirChampsClient(client);
+						if(parent != null){
+							parent.rafraichirChampsClient(client);
 						}
-						
+						parent.rafraichirTableAnimaux(client);
 						FenetreAjoutClient.this.dispose();
 						
 					} catch (DALException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+                        e1.printStackTrace();
+                        JOptionPane.showMessageDialog(FenetreAjoutClient.this, e1);
+
 					}
 				}
 			});

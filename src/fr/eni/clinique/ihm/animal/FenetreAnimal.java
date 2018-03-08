@@ -48,7 +48,7 @@ public class FenetreAnimal extends JFrame {
 
     private FenetrePrsieRDV instancePriseRdv;
     private MDIAppClient instanceGestionClient;
-
+    private Clients clientActuel;
 
     public FenetreAnimal() throws BLLException {
 
@@ -62,7 +62,7 @@ public class FenetreAnimal extends JFrame {
     }
 
     public void init(Clients client, Boolean nouveau, FenetrePrsieRDV instancePriseRdv, MDIAppClient instanceGestionClient) throws BLLException {
-
+    	this.clientActuel = client;
         this.instancePriseRdv = instancePriseRdv;
         this.instanceGestionClient = instanceGestionClient;
         JPanel panel = new JPanel();
@@ -339,7 +339,7 @@ public class FenetreAnimal extends JFrame {
                 instancePriseRdv.rafraichirCboAnimal();
         }
         if (instanceGestionClient != null) {
-            instanceGestionClient.rafraichirTableAnimaux();
+            instanceGestionClient.rafraichirTableAnimaux(clientActuel);
 
         }
 

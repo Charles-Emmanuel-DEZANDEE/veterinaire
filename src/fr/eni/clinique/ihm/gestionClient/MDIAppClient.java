@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.TitledBorder;
 
 import fr.eni.clinique.bll.AnimauxManager;
 import fr.eni.clinique.bll.BLLException;
@@ -93,7 +94,7 @@ public class MDIAppClient extends JFrame {
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setSize(1000, 500);
+		setSize(800, 500);
 		setResizable(false);
 		setTitle("Clients");
 		setVisible(true);
@@ -106,10 +107,11 @@ public class MDIAppClient extends JFrame {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(5, 5, 5, 5);
 		
-		gbc.gridwidth = 1;
+		gbc.gridwidth = 0;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		panel.add(this.getPanel2(), gbc);
+		gbc.gridwidth = 1;
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		panel.add(this.getPanel3(), gbc);
@@ -127,8 +129,10 @@ public class MDIAppClient extends JFrame {
 				
 				this.panel2 = new JPanel();
 				this.panel2.setLayout(new GridBagLayout());
+				this.panel2.setBorder(new TitledBorder(""));
+				this.panel2.setPreferredSize(new Dimension(780, 65));
 				GridBagConstraints gbc = new GridBagConstraints();
-				gbc.insets = new Insets(5, 5, 5, 5);
+				gbc.insets = new Insets(5, 35, 5, 5);
 				
 				gbc.gridwidth = 1;
 				gbc.gridx = 0;
@@ -277,12 +281,13 @@ public class MDIAppClient extends JFrame {
 				e.printStackTrace();
 			}
 			this.tableAnimaux.setPreferredSize(new Dimension(450, 300));
+			this.tableAnimaux.setBorder(new TitledBorder(""));
 			this.tableAnimaux.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		}
 		return this.tableAnimaux;
 	}
 
-	public void rafraichirTableAnimaux () throws BLLException {
+	public void rafraichirTableAnimaux (Clients client) throws BLLException {
 
         List<Animaux> animaux = new ArrayList<>();
 
@@ -342,7 +347,7 @@ public class MDIAppClient extends JFrame {
 						}
 						try {
 							AnimauxManager.getInstance().archiverAnimal(animal.getCodeAnimal());
-							rafraichirTableAnimaux();
+							rafraichirTableAnimaux(client);
 						} catch (BLLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

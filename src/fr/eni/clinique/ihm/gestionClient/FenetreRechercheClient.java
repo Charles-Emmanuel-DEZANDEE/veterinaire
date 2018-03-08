@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.TitledBorder;
 
 import com.sun.corba.se.spi.orbutil.fsm.Action;
 import com.sun.security.ntlm.Client;
@@ -132,6 +133,7 @@ public class FenetreRechercheClient extends JDialog {
 				e.printStackTrace();
 			}
 			this.tableClients.setPreferredSize(new Dimension(400, 300));
+			this.tableClients.setBorder(new TitledBorder(""));
 			this.tableClients.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		}
 		return this.tableClients;
@@ -184,16 +186,7 @@ public class FenetreRechercheClient extends JDialog {
 						client = getTableClients().getClientsModel().getListeClient().get(ligneTableau[0]);
 						parent.setClient(client);
 						try {
-							//Récupérer la liste des animaux par client
-							animaux = AnimauxManager.getInstance().getAnimalByClient(client);
-							//Vider la table
-							parent.getTableAnimaux().getAnimauxModel().getListeAnimaux().clear();
-							//Actualiser la table
-							parent.getTableAnimaux().getAnimauxModel().fireTableDataChanged();
-							//Parcourir la liste des animaux du client et les ajouter à la table
-							for (Animaux animal : animaux){
-								parent.getTableAnimaux().getAnimauxModel().getListeAnimaux().add(animal);
-							}
+							parent.rafraichirTableAnimaux(client);
 						} catch (BLLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
