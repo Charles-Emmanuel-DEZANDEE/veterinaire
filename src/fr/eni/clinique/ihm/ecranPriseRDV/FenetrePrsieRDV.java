@@ -38,7 +38,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 
-public class FenetrePrsieRDV extends JFrame implements Update {
+public class FenetrePrsieRDV extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JButton buttonAjouterRDV;
@@ -57,7 +57,6 @@ public class FenetrePrsieRDV extends JFrame implements Update {
 	private JButton buttonAjouterAnimal;
 	private Clients clientAjoute;
 
-	private Update update;
 
 	public FenetrePrsieRDV() throws BLLException{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -66,7 +65,6 @@ public class FenetrePrsieRDV extends JFrame implements Update {
 		setResizable(true);
 		setTitle("Prise de rendez-vous ");
 		initPriseRDV();
-        update = this;
 		pack();
 	}
 
@@ -472,36 +470,12 @@ public class FenetrePrsieRDV extends JFrame implements Update {
 		                public void actionPerformed(ActionEvent e) {
 
 		                        System.out.println("afficher les animaux d'un client");
-		                        //JComboBox cb = (JComboBox)e.getSource();
-		                        Clients clientSelected = (Clients)CBoClients.getSelectedItem();
-		                        Clients clientBy = null;
-		                        
-		                        if (clientSelected != null){
-		                        	clientBy = clientSelected;
-		                        }else if (clientAjoute != null){
-		                        	clientSelected = clientAjoute; 
-		                        }
-		                        
-		                        List<Animaux> animauxDuClient = new ArrayList<>();
-		                        try {
-									animauxDuClient = AnimauxManager.getInstance().getAnimalByClient(clientSelected);
-								} catch (BLLException e2) {
-									// TODO Auto-generated catch block
-									e2.printStackTrace();
-								}
-		                        
-		                    System.out.println(clientSelected);
-
-		                    //on vide les items
-		                    CBoAnimaux.removeAllItems();
-		                    //on remplace les items
-		                    //List<String> newListAnimaux = FenetrePrsieRDV.this.nomsAnimaux(animauxDuClient);
-
-		                    ListIterator<Animaux> it = animauxDuClient.listIterator();
-		                        while(it.hasNext()) {
-		                            Animaux str = it.next();
-		                            CBoAnimaux.addItem(str.toString());
-		                        }
+						//on met à jour la liste d'animaux
+							try {
+								rafraichirCboAnimal();
+							} catch (BLLException e1) {
+								e1.printStackTrace();
+							}
 		                        //on rafraichi la fenetre
 		                        FenetrePrsieRDV.this.revalidate();
 		                        FenetrePrsieRDV.this.repaint();
@@ -528,19 +502,10 @@ public class FenetrePrsieRDV extends JFrame implements Update {
 
      System.out.println(clientSelected);
 
+     //on met à) jour la combobox
+
      CBoAnimaux.setModel(new DefaultComboBoxModel(animauxDuClient.toArray()));
 
-
-//     //on vide les items
-//     CBoAnimaux.removeAllItems();
-//     //on remplace les items
-//     //List<String> newListAnimaux = FenetrePrsieRDV.this.nomsAnimaux(animauxDuClient);
-//
-//     ListIterator<Animaux> it = animauxDuClient.listIterator();
-//     while(it.hasNext()) {
-//         Animaux str = it.next();
-//         CBoAnimaux.addItem(str.toString());
-//     }
      //on rafraichi la fenetre
      FenetrePrsieRDV.this.revalidate();
      FenetrePrsieRDV.this.repaint();
@@ -674,9 +639,4 @@ public class FenetrePrsieRDV extends JFrame implements Update {
         return this.CBoMinutes;
 	}
 
-
-    @Override
-    public void updatePanPriseRdv() {
-//       getCobAnimaux() getCbAnimal().setModel(new DefaultComboBoxModel(getAnimaux().toArray()));
-    }
 }
