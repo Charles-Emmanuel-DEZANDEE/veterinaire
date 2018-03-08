@@ -22,8 +22,6 @@ public class FenetreLogIn extends JFrame {
     private JButton buttonLogValider;
     private JButton buttonRetour;
 
-
-
     public FenetreLogIn() {
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);

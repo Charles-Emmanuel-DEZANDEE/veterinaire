@@ -201,12 +201,8 @@ public class FenetreAjoutClient extends JFrame {
 						parent.rafraichirTableAnimaux(client);
 						FenetreAjoutClient.this.dispose();
 						
-					} catch (DALException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					} catch (BLLException e1) {
-                        e1.printStackTrace();
-                        JOptionPane.showMessageDialog(FenetreAjoutClient.this, e1);
+                        JOptionPane.showMessageDialog(FenetreAjoutClient.this, "Veuillez remplir tous les champs");
 
 					}
 				}

@@ -10,10 +10,10 @@ public class GererClientController {
     private static GererClientController instance;
 
 
-    private GererClientController() throws DALException, BLLException {
+    private GererClientController() throws BLLException {
     }
 
-    public static synchronized GererClientController getInstance() throws DALException, BLLException{
+    public static synchronized GererClientController getInstance() throws BLLException{
         if (instance == null){
             instance = new GererClientController();
         }
@@ -44,8 +44,12 @@ public class GererClientController {
 		fenetreGestionClient.repaint();
 	}
 
-	public void ajouterClient(Clients client) throws BLLException, DALException {
-		ClientsManager.getInstance().addClient(client);
+	public void ajouterClient(Clients client) throws BLLException {
+			try {
+				ClientsManager.getInstance().addClient(client);
+			} catch (BLLException e) {
+				throw new BLLException("Echec ajout d'un client", e);
+			}
 	}
 	
 	public void modifierClient(Clients client) throws BLLException, DALException {

@@ -10,6 +10,8 @@ import fr.eni.clinique.ihm.ecranPriseRDV.FenetrePrsieRDV;
 import fr.eni.clinique.ihm.gestionClient.MDIAppClient;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,14 +51,17 @@ public class FenetreAnimal extends JFrame {
     private FenetrePrsieRDV instancePriseRdv;
     private MDIAppClient instanceGestionClient;
     private Clients clientActuel;
-
+    private JPanel panel1;
+    private JPanel panel2;
+    private JPanel panel3;
+    
     public FenetreAnimal() throws BLLException {
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setSize(600, 600);
+        setSize(500, 380);
         setResizable(false);
-        setTitle("ecran animal");
+        setTitle("Animaux");
         setVisible(true);
 
     }
@@ -67,104 +72,120 @@ public class FenetreAnimal extends JFrame {
         this.instanceGestionClient = instanceGestionClient;
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
-
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Ligne 1
+        gbc.gridwidth = 1;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(this.getLabelClient(), gbc);
-        gbc.gridwidth = 3;
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        panel.add(this.getClient(client), gbc);
-
-        // Ligne 2
-        if (!nouveau) {
-            gbc.gridwidth = 1;
-            gbc.gridx = 0;
-            gbc.gridy = 1;
-            panel.add(this.getLabelCode(), gbc);
-            gbc.gridx = 1;
-            gbc.gridy = 1;
-            panel.add(this.getCode(), gbc);
-        }
-
-        //ligne 3
-        gbc.gridwidth = 1;
+        panel.add(this.getPanel1(client, nouveau), gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        panel.add(this.getPanel2(client), gbc);
         gbc.gridx = 0;
         gbc.gridy = 2;
-        panel.add(this.getLabelNom(), gbc);
-        gbc.gridwidth = 2;
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        panel.add(this.getFieldNom(), gbc);
-        gbc.gridwidth = 1;
-        gbc.gridx = 3;
-        gbc.gridy = 2;
-        panel.add(this.getCboGenreAnimal(), gbc);
-
-        //ligne 4
-        gbc.gridwidth = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        panel.add(this.getLabelCouleur(), gbc);
-        gbc.gridwidth = 2;
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        panel.add(this.getFieldCouleur(), gbc);
-
-        //ligne 5
-        gbc.gridwidth = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        panel.add(this.getLabelEspece(), gbc);
-        gbc.gridwidth = 1;
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        panel.add(this.getCboEspece(), gbc);
-        gbc.gridwidth = 1;
-        gbc.gridx = 2;
-        gbc.gridy = 4;
-        panel.add(this.getLabelRace(), gbc);
-        gbc.gridwidth = 1;
-        gbc.gridx = 3;
-        gbc.gridy = 4;
-        panel.add(this.getCboRace(), gbc);
-
-        //ligne 6
-        gbc.gridwidth = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        panel.add(this.getLabelTatouage(), gbc);
-        gbc.gridwidth = 2;
-        gbc.gridx = 1;
-        gbc.gridy = 5;
-        panel.add(this.getFieldTatouage(), gbc);
-
-        //ligne 7
-        gbc.gridwidth = 4;
-        gbc.gridx = 0;
-        gbc.gridy = 6;
-        panel.add(new JLabel("-----------------------------"), gbc);
-
-        //ligne 8
-        gbc.gridwidth = 1;
-        gbc.gridx = 2;
-        gbc.gridy = 7;
-        panel.add(this.getButtonAnnuler(), gbc);
-        gbc.gridwidth = 1;
-        gbc.gridx = 3;
-        gbc.gridy = 7;
-        panel.add(this.getButtonLogValider(client, nouveau), gbc);
-
-
+        panel.add(this.getPanel3(), gbc);
+        
         setContentPane(panel);
         FenetreAnimal.this.revalidate();
         FenetreAnimal.this.repaint();
     }
 
+	public JPanel getPanel1(Clients client, Boolean nouveau) throws BLLException{
+		if (this.panel1 == null) {
+			
+			this.panel1 = new JPanel();
+			this.panel1.setLayout(new GridBagLayout());
+			this.panel1.setBorder(new TitledBorder(""));
+			this.panel1.setPreferredSize(new Dimension(480,50));
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5, 5, 5, 5);
+			
+	        gbc.gridwidth = 1;
+	        gbc.gridx = 0;
+	        gbc.gridy = 0;
+	        this.panel1.add(this.getButtonLogValider(client, nouveau), gbc);
+	        gbc.gridx = 1;
+	        gbc.gridy = 0;
+	        this.panel1.add(this.getButtonAnnuler());
+		}
+		return this.panel1;
+	}
+	
+	public JPanel getPanel2(Clients client) throws BLLException{
+		if (this.panel2 == null) {
+			
+			this.panel2 = new JPanel();
+			this.panel2.setLayout(new GridBagLayout());
+			this.panel2.setBorder(new TitledBorder("Client : "));
+			this.panel2.setPreferredSize(new Dimension(480,50));
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5, 5, 5, 5);
+			
+	        gbc.gridwidth = 1;
+	        gbc.gridx = 0;
+	        gbc.gridy = 0;
+	        this.panel2.add(this.getClient(client));
+		}
+		return this.panel2;
+	}
+	
+	public JPanel getPanel3() throws BLLException{
+		if (this.panel3 == null) {
+			
+			this.panel3 = new JPanel();
+			this.panel3.setLayout(new GridBagLayout());
+//			this.panel3.setPreferredSize(new Dimension(480,50));
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5, 5, 5, 5);
+			
+	        gbc.gridwidth = 1;
+	        gbc.gridx = 0;
+	        gbc.gridy = 0;
+	        this.panel3.add(new JLabel("Code"), gbc);
+	        gbc.gridx = 1;
+	        gbc.gridy = 0;
+	        this.panel3.add(this.getCode(), gbc);
+	        gbc.gridx = 0;
+	        gbc.gridy = 1;
+	        this.panel3.add(new JLabel("Nom"), gbc);
+	        gbc.gridx = 1;
+	        gbc.gridy = 1;
+	        this.panel3.add(this.getFieldNom(), gbc);
+	        gbc.gridx = 2;
+	        gbc.gridy = 1;
+	        this.panel3.add(this.getCboGenreAnimal(), gbc);
+	        gbc.gridx = 0;
+	        gbc.gridy = 2;
+	        this.panel3.add(new JLabel("Couleur"), gbc);
+	        gbc.gridx = 1;
+	        gbc.gridy = 2;
+	        this.panel3.add(this.getFieldCouleur(), gbc);
+	        gbc.gridx = 0;
+	        gbc.gridy = 3;
+	        this.panel3.add(new JLabel("Espece"), gbc);
+	        gbc.gridx = 1;
+	        gbc.gridy = 3;
+	        gbc.anchor = GridBagConstraints.WEST;
+	        this.panel3.add(this.getCboEspece(), gbc);
+	        gbc.gridx = 1;
+	        gbc.gridy = 3;
+	        gbc.anchor = GridBagConstraints.EAST;
+	        this.panel3.add(new JLabel("Race"), gbc);
+	        gbc.gridx = 2;
+	        gbc.gridy = 3;
+	        gbc.anchor = GridBagConstraints.WEST;
+	        this.panel3.add(this.getCboRace(), gbc);
+	        gbc.gridx = 0;
+	        gbc.gridy = 4;
+	        this.panel3.add(new JLabel("Tatouage"), gbc);
+	        gbc.gridx = 1;
+	        gbc.gridy = 4;
+	        this.panel3.add(this.getFieldTatouage(), gbc);
+		}
+		return this.panel3;
+	}
+	
 
     public void cacher() {
         setVisible(false);
@@ -186,7 +207,6 @@ public class FenetreAnimal extends JFrame {
     public JLabel getClient(Clients client) {
         if (this.Client == null) {
             this.Client = new JLabel(client.getClient() + " - " + client.getPrenomClient());
-            this.Client.setFont(new Font("Serif", Font.PLAIN, 30));
         }
 
         return Client;
@@ -205,7 +225,6 @@ public class FenetreAnimal extends JFrame {
         if (this.Code == null) {
             this.Code = new JTextField("");
             this.Code.setEditable(false);
-            this.Code.setFont(new Font("Serif", Font.PLAIN, 10));
         }
 
         return Code;
@@ -347,7 +366,7 @@ public class FenetreAnimal extends JFrame {
 
     public JComboBox<String> getCboGenreAnimal() {
         if (this.cboGenreAnimal == null) {
-            String[] places = {"Femelle", "Male", "hermaphrodite"};
+            String[] places = {"Femelle", "Male", "Hermaphrodite"};
             this.cboGenreAnimal = new JComboBox<String>(places);
         }
         return this.cboGenreAnimal;
