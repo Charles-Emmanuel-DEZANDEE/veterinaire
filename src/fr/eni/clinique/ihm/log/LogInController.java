@@ -11,8 +11,7 @@ public class LogInController {
     private static LogInController instance;
 
 
-    private LogInController() throws DALException, BLLException {
-        fenetreLogIn = FenetreLogIn.getInstance();
+    public LogInController() throws DALException, BLLException {
     }
 
     public static synchronized LogInController getInstance() throws DALException, BLLException {
@@ -23,6 +22,7 @@ public class LogInController {
     }
 
     public void startApp() throws BLLException, DALException {
+        fenetreLogIn = new FenetreLogIn();
         fenetreLogIn.initLog();
     }
 

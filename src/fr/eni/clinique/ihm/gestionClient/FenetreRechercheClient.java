@@ -47,7 +47,7 @@ public class FenetreRechercheClient extends JDialog {
 	public FenetreRechercheClient(JFrame parent) throws BLLException {
 		super(parent, "Recherche Client", true);
 		this.parent = (MDIAppClient)parent;
-		setDefaultCloseOperation(HIDE_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(500, 500);
 		setResizable(false);
@@ -184,13 +184,13 @@ public class FenetreRechercheClient extends JDialog {
 						client = getTableClients().getClientsModel().getListeClient().get(ligneTableau[0]);
 						parent.setClient(client);
 						try {
-							//Récupérer la liste des animaux par client
+							//Rï¿½cupï¿½rer la liste des animaux par client
 							animaux = AnimauxManager.getInstance().getAnimalByClient(client);
 							//Vider la table
 							parent.getTableAnimaux().getAnimauxModel().getListeAnimaux().clear();
 							//Actualiser la table
 							parent.getTableAnimaux().getAnimauxModel().fireTableDataChanged();
-							//Parcourir la liste des animaux du client et les ajouter à la table
+							//Parcourir la liste des animaux du client et les ajouter ï¿½ la table
 							for (Animaux animal : animaux){
 								parent.getTableAnimaux().getAnimauxModel().getListeAnimaux().add(animal);
 							}

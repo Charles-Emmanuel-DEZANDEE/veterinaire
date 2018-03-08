@@ -58,10 +58,10 @@ public class FenetrePrsieRDV extends JFrame {
 
 
 	public FenetrePrsieRDV() throws BLLException{
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(400, 300);
-		setResizable(true);
+		setResizable(false);
 		setTitle("Prise de rendez-vous ");
 		initPriseRDV();
 		pack();

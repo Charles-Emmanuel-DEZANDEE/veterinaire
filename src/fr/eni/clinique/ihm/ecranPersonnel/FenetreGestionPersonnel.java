@@ -29,10 +29,10 @@ public class FenetreGestionPersonnel extends JFrame  {
 
 	public FenetreGestionPersonnel() throws BLLException{
 
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(450, 350);
-		setResizable(true);
+		setResizable(false);
 		setTitle("gestion du personnel");
 		initGestionPersonnel();
 		pack();
