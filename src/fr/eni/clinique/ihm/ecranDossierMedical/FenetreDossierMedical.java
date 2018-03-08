@@ -49,13 +49,15 @@ public class FenetreDossierMedical extends JFrame {
 
     private JLabel labelTatouage;
 //    private JTextField fieldTatouage;
-
     private JLabel labelAntecedents;
     private JTextArea fieldAntecedents;
-
     private JButton buttonValider;
     private JButton buttonRetour;
-
+    private JPanel panel1;
+    private JPanel panel2;
+    private JPanel panel2a;
+    private JPanel panel2b;
+    private JPanel panel2c;
     //singleton
 //    public static synchronized FenetreDossierMedical getFenetreDossierMedical.this() throws BLLException {
 //        if (FenetreDossierMedical.this == null) {
@@ -64,165 +66,155 @@ public class FenetreDossierMedical extends JFrame {
 //        return FenetreDossierMedical.this;
 //    }
 
-
     public FenetreDossierMedical() throws BLLException {
-
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setSize(600, 600);
+        setSize(600, 500);
         setResizable(false);
-        setTitle("Dossier médical");
+        setTitle("Dossier medical");
         setVisible(true);
-
     }
 
     public void init(Animaux animal, Clients client) throws BLLException {
-
-
-
-        //panel principal
-
+    	
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
-
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
-
-        //ligne 1
+        
         gbc.gridwidth = 1;
-        gbc.gridx = 3;
+        gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(getPanelValidation(animal), gbc);
-
-        //ligne 2
-        gbc.gridwidth = 2;
+        panel.add(this.getPanel1(animal), gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
-        panel.add(getPanelGauche(animal,client), gbc);
-        gbc.gridwidth = 3;
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        panel.add(getPanelDroit(), gbc);
-
-
+        panel.add(this.getPanel2(client, animal), gbc);
+        
         setContentPane(panel);
         FenetreDossierMedical.this.revalidate();
         FenetreDossierMedical.this.repaint();
+    }	
+    
+    public JPanel getPanel1(Animaux animal){
+		if (this.panel1 == null) {
+			
+			this.panel1 = new JPanel();
+			this.panel1.setLayout(new GridBagLayout());
+			this.panel1.setBorder(new TitledBorder(""));
+			this.panel1.setPreferredSize(new Dimension(550, 45));
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5, 5, 5, 5);
+			
+			gbc.gridwidth = 1;
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			this.panel1.add(this.getButtonLogValider(animal), gbc);
+			gbc.gridx = 1;
+			gbc.gridy = 0;
+			this.panel1.add(this.getButtonAnnuler(), gbc);
+			
+		}
+		return this.panel1;
     }
-
-    public JPanel getPanelValidation (Animaux animal){
-            //panel validation
-            JPanel panelValidation = new JPanel();
-            panelValidation.setLayout(new GridBagLayout());
-            panelValidation.setBorder(new TitledBorder(""));
-
-            GridBagConstraints gbcValider = new GridBagConstraints();
-            gbcValider.insets = new Insets(5, 5, 5, 5);
-            //ligne 8
-            gbcValider.gridwidth = 1;
-            gbcValider.gridx = 2;
-            gbcValider.gridy = 0;
-            panelValidation.add(this.getButtonAnnuler(), gbcValider);
-            gbcValider.gridwidth = 1;
-            gbcValider.gridx = 3;
-            gbcValider.gridy = 0;
-            panelValidation.add(this.getButtonLogValider(animal), gbcValider);
-
-        return panelValidation;
+    
+    public JPanel getPanel2(Clients client, Animaux animal){
+		if (this.panel2 == null) {
+			
+			this.panel2 = new JPanel();
+			this.panel2.setLayout(new GridBagLayout());
+			this.panel2.setBorder(new TitledBorder(""));
+			this.panel2.setPreferredSize(new Dimension(550, 400));
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5, 5, 5, 5);
+			
+			gbc.gridwidth = 1;
+			gbc.gridheight = 1;
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			this.panel2.add(this.getPanel2a(client), gbc);
+			gbc.gridx = 0;
+			gbc.gridy = 1;
+			this.panel2.add(this.getPanel2b(animal), gbc);
+			gbc.gridheight = 0;
+			gbc.gridx = 1;
+			gbc.gridy = 0;
+			this.panel2.add(this.getPanel2c(client), gbc);
+		}
+		return this.panel2;
     }
+    
+    public JPanel getPanel2a(Clients client){
+		if (this.panel2a == null) {
+			
+			this.panel2a = new JPanel();
+			this.panel2a.setLayout(new GridBagLayout());
+			this.panel2a.setBorder(new TitledBorder("Client : "));
+			this.panel2a.setPreferredSize(new Dimension(170, 80));
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5, 5, 5, 5);
+			
+			gbc.gridwidth = 1;
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			this.panel2.add(this.getClient(client), gbc);
 
-    public JPanel getPanelClient (Clients client){
-            JPanel panel = new JPanel();
-            panel.setLayout(new GridBagLayout());
-
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.insets = new Insets(5, 5, 5, 5);
-            panel.setBorder(new TitledBorder("Client : "));
-
+		}
+		return this.panel2a;
+    }
+    
+    public JPanel getPanel2b(Animaux animal){
+		if (this.panel2b == null) {
+			
+			this.panel2b = new JPanel();
+			this.panel2b.setLayout(new GridBagLayout());
+			this.panel2b.setBorder(new TitledBorder(""));
+			this.panel2b.setPreferredSize(new Dimension(170, 290));
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5, 5, 5, 5);
+			
+			gbc.gridwidth = 1;
+			gbc.anchor = GridBagConstraints.NORTH;
+	        gbc.gridx = 0;
+	        gbc.gridy = 0;
+	        this.panel2b.add(new JLabel("Animal : "), gbc);
+	        gbc.gridx = 1;
+	        gbc.gridy = 0;
+	        this.panel2b.add(this.getLabelCode(animal), gbc);
+	        gbc.gridx = 1;
+	        gbc.gridy = 1;
+	        this.panel2b.add(this.getLabelNom(animal), gbc);
+	        gbc.gridx = 1;
+	        gbc.gridy = 2;
+	        this.panel2b.add(this.getLabelCouleurSexe(animal), gbc);
+	        gbc.gridx = 1;
+	        gbc.gridy = 3;
+	        this.panel2b.add(this.getLabelEspeceRace(animal), gbc);
+	        gbc.gridx = 1;
+	        gbc.gridy = 4;
+	        this.panel2b.add(this.getLabelTatouage(animal), gbc);
+		}
+		return this.panel2b;
+    }
+    
+    public JPanel getPanel2c(Clients client){
+		if (this.panel2c == null) {
+			
+			this.panel2c = new JPanel();
+			this.panel2c.setLayout(new GridBagLayout());
+			this.panel2c.setBorder(new TitledBorder(""));
+			this.panel2c.setPreferredSize(new Dimension(320, 370));
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5, 5, 5, 5);
+			
+	        gbc.gridx = 0;
+	        gbc.gridy = 0;
+	        this.panel2c.add(new JLabel("Antecedents/consultations"), gbc);
             gbc.gridx = 0;
             gbc.gridy = 1;
-            panel.add(this.getClient(client), gbc);
-
-        return panel;
+            this.panel2c.add(this.getFieldAntecedents(), gbc);
+		}
+		return this.panel2c;
     }
-
-    public JPanel getPanelGauche (Animaux animal, Clients client){
-
-            JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-
-        //ligne 1
-            gbc.gridwidth = 1;
-            gbc.gridx = 0;
-            gbc.gridy = 0;
-            panel.add(this.getPanelClient(client), gbc);
-
-
-            //ligne 3
-            gbc.gridwidth = 1;
-            gbc.gridx = 0;
-            gbc.gridy = 2;
-            panel.add(this.getLabelAnimal(), gbc);
-            gbc.gridwidth = 1;
-            gbc.gridx = 1;
-            gbc.gridy = 2;
-            panel.add(this.getLabelCode(animal), gbc);
-
-
-            //ligne 4
-            gbc.gridwidth = 1;
-            gbc.gridx = 1;
-            gbc.gridy = 3;
-            panel.add(this.getLabelNom(animal), gbc);
-
-            //ligne 5
-            gbc.gridwidth = 1;
-            gbc.gridx = 1;
-            gbc.gridy = 4;
-            panel.add(this.getLabelCouleurSexe(animal), gbc);
-
-            //ligne 6
-            gbc.gridwidth = 1;
-            gbc.gridx = 1;
-            gbc.gridy = 5;
-            panel.add(this.getLabelEspeceRace(animal), gbc);
-
-            //ligne 7
-            gbc.gridwidth = 1;
-            gbc.gridx = 1;
-            gbc.gridy = 6;
-            panel.add(this.getLabelTatouage(animal), gbc);
-
-        return panel;
-
-    }
-
-    public JPanel getPanelDroit (){
-
-            JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-            // Ligne 1
-            gbc.gridwidth = 1;
-            gbc.gridx = 0;
-            gbc.gridy = 0;
-            panel.add(this.getlabelAntecedents(), gbc);
-
-            // Ligne 2
-            gbc.gridwidth = 2;
-            gbc.gridx = 0;
-            gbc.gridy = 1;
-            panel.add(this.getFieldAntecedents(), gbc);
-
-        return panel;
-
-    }
-
 
     public void cacher() {
         setVisible(false);
@@ -235,7 +227,6 @@ public class FenetreDossierMedical extends JFrame {
     public JLabel getLabelClient() {
         if (this.labelClient == null) {
             this.labelClient = new JLabel("Client : ");
-            this.labelClient.setFont(new Font("Serif", Font.PLAIN, 20));
         }
 
         return labelClient;
@@ -243,47 +234,30 @@ public class FenetreDossierMedical extends JFrame {
 
     public JLabel getClient(Clients client) {
         if (this.Client == null) {
-            this.Client = new JLabel(client.getClient() + " - " + client.getPrenomClient());
-            this.Client.setFont(new Font("Serif", Font.PLAIN, 20));
+            this.Client = new JLabel(client.getClient() + " " + client.getPrenomClient());
         }
-
         return Client;
-    }
-
-    public JLabel getLabelAnimal() {
-        if (this.labelAnimal == null) {
-            this.labelAnimal = new JLabel("Animal : ");
-            this.labelAnimal.setFont(new Font("Serif", Font.PLAIN, 20));
-        }
-
-        return labelAnimal;
     }
 
     public JLabel getLabelCode(Animaux animal) {
         if (this.labelCode == null) {
             this.labelCode = new JLabel(String.valueOf(animal.getCodeAnimal()));
-            this.labelCode.setFont(new Font("Serif", Font.PLAIN, 20));
         }
 
         return labelCode;
     }
 
-
     public JLabel getLabelNom(Animaux animal) {
         if (this.labelNom == null) {
             this.labelNom = new JLabel(animal.getNomAnimal());
-            this.labelNom.setFont(new Font("Serif", Font.PLAIN, 20));
         }
 
         return labelNom;
     }
-
-
-
+    
     public JLabel getLabelCouleurSexe(Animaux animal) {
         if (this.labelCouleurSexe == null) {
             this.labelCouleurSexe = new JLabel(animal.getCouleur() + "   " + sexAAfficher(animal.getSexe()));
-            this.labelCouleurSexe.setFont(new Font("Serif", Font.PLAIN, 20));
         }
 
         return labelCouleurSexe;
@@ -293,7 +267,6 @@ public class FenetreDossierMedical extends JFrame {
     public JLabel getLabelEspeceRace(Animaux animal) {
         if (this.labelEspeceRace == null) {
             this.labelEspeceRace = new JLabel(animal.getEspece() + " " + animal.getRace());
-            this.labelEspeceRace.setFont(new Font("Serif", Font.PLAIN, 20));
         }
 
         return labelEspeceRace;
@@ -303,27 +276,17 @@ public class FenetreDossierMedical extends JFrame {
     public JLabel getLabelTatouage(Animaux animal) {
         if (this.labelTatouage == null) {
             if (animal.getTatouage().equals("") || animal.getTatouage().equals(null)) {
-                this.labelTatouage = new JLabel("Non tatoué");
+                this.labelTatouage = new JLabel("Non tatou�");
             } else {
-                this.labelTatouage = new JLabel("Toutage : "+animal.getTatouage());
+                this.labelTatouage = new JLabel("Toutage : " + animal.getTatouage());
             }
-            this.labelTatouage.setFont(new Font("Serif", Font.PLAIN, 20));
         }
         return labelTatouage;
     }
 
-    public JLabel getlabelAntecedents() {
-        if (this.labelAntecedents == null) {
-            this.labelAntecedents = new JLabel("Antécédents / Consultations");
-            this.labelAntecedents.setFont(new Font("Serif", Font.PLAIN, 20));
-        }
-
-        return labelAntecedents;
-    }
-
     public JTextArea getFieldAntecedents() {
         if (this.fieldAntecedents == null) {
-            this.fieldAntecedents = new JTextArea("test",1,10);
+            this.fieldAntecedents = new JTextArea("Test",18,27);
 //            this.fieldAntecedents.setBounds(10,30, 200,200);
         }
         return this.fieldAntecedents;
