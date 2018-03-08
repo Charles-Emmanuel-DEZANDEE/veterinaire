@@ -78,6 +78,7 @@ public class FenetreLogIn extends JFrame {
 	public void createLogPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
+        panel.setBackground(new Color(212, 223, 230));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
