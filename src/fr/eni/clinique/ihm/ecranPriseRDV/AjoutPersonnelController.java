@@ -3,9 +3,6 @@ package fr.eni.clinique.ihm.ecranPriseRDV;
 import javax.swing.JFrame;
 
 import fr.eni.clinique.bll.BLLException;
-import fr.eni.clinique.bll.PersonnelsManager;
-import fr.eni.clinique.bo.Personnels;
-import fr.eni.clinique.dal.DALException;
 
 public class AjoutPersonnelController {
     private FenetreAjoutPersonnel fenetreAjoutPersonnel;
