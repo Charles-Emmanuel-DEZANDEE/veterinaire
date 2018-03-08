@@ -34,7 +34,7 @@ public class FenetreAjoutPersonnel extends JDialog {
 
 	public FenetreAjoutPersonnel(JFrame parent, PersonnelsTable tablePersonnels) throws BLLException {
 		super(parent, "Ajouter Personnel", true);
-		setDefaultCloseOperation(HIDE_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(450, 300);
 		setResizable(false);

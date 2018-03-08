@@ -51,7 +51,7 @@ public class FenetreVet extends JFrame {
 	private JPanel panel2;
 	
 	public FenetreVet() {
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(600, 500);
 		setResizable(false);

@@ -48,7 +48,7 @@ public class FenetreRechercheClient extends JDialog {
 	public FenetreRechercheClient(JFrame parent) throws BLLException {
 		super(parent, "Recherche Client", true);
 		this.parent = (MDIAppClient)parent;
-		setDefaultCloseOperation(HIDE_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(500, 500);
 		setResizable(false);

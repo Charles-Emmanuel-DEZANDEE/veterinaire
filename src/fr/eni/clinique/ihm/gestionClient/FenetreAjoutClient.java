@@ -42,7 +42,7 @@ public class FenetreAjoutClient extends JFrame {
 	private FenetrePrsieRDV fenetrePriseRDV;
 
 	public FenetreAjoutClient(MDIAppClient fenetreGestionClients, FenetrePrsieRDV fenetrePriseRDV) throws BLLException{
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(500, 500);
 		setResizable(false);

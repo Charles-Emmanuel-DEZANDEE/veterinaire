@@ -17,14 +17,13 @@ import java.awt.event.ActionListener;
 public class MDIAppAcceuil extends JFrame implements ActionListener {
 
     private static final long serialVersionUID = 1L;
-    private static MDIAppAcceuil instance;
 
 
     private JDesktopPane desktopPane;
     private JMenuBar menuBarre;
     private Personnels personnelConnecte;
 
-    private MDIAppAcceuil(int cas,Personnels pers) {
+    public MDIAppAcceuil(int cas, Personnels pers) {
 
         this.personnelConnecte = pers;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,15 +44,9 @@ public class MDIAppAcceuil extends JFrame implements ActionListener {
     }
 
     //singleton
-    public static synchronized MDIAppAcceuil getInstance(int cas,Personnels pers) throws DALException, BLLException {
-        if (instance == null) {
-            instance = new MDIAppAcceuil(cas, pers);
-        }
-        return instance;
-    }
-    
+
     public void init(int cas, Personnels pers) throws BLLException, DALException {
-        MDIAppAcceuil ecran = MDIAppAcceuil.getInstance(cas,pers);
+        MDIAppAcceuil ecran = new MDIAppAcceuil(cas,pers);
         ecran.setVisible(true);
     }
 

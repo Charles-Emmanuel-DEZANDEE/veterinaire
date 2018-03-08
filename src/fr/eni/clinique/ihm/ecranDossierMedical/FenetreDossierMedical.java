@@ -67,7 +67,7 @@ public class FenetreDossierMedical extends JFrame {
 //    }
 
     public FenetreDossierMedical() throws BLLException {
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setSize(600, 500);
         setResizable(false);
@@ -276,7 +276,7 @@ public class FenetreDossierMedical extends JFrame {
     public JLabel getLabelTatouage(Animaux animal) {
         if (this.labelTatouage == null) {
             if (animal.getTatouage().equals("") || animal.getTatouage().equals(null)) {
-                this.labelTatouage = new JLabel("Non tatoué");
+                this.labelTatouage = new JLabel("Non tatouï¿½");
             } else {
                 this.labelTatouage = new JLabel("Toutage : " + animal.getTatouage());
             }

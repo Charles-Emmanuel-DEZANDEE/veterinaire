@@ -21,7 +21,7 @@ public class AcceuilController {
     }
 
     public void start(int cas, Personnels pers) throws BLLException, DALException {
-        fenetreAcceuil = MDIAppAcceuil.getInstance(cas, pers);
+        fenetreAcceuil = new MDIAppAcceuil(cas, pers);
 
         fenetreAcceuil.init(cas,pers);
     }

@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 public class FenetreLogIn extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-    private static FenetreLogIn instance;
 
 	private JLabel labelLogNom;
 	private JLabel labelLogPassword;
@@ -23,19 +22,11 @@ public class FenetreLogIn extends JFrame {
     private JButton buttonLogValider;
     private JButton buttonRetour;
 
-	//singleton
-    public static synchronized FenetreLogIn getInstance() throws DALException, BLLException{
-        if (instance == null){
-            instance = new FenetreLogIn();
-        }
-        return instance;
-    }
 
 
+    public FenetreLogIn() {
 
-    private FenetreLogIn() {
-
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setSize(500, 300);
         setResizable(false);
@@ -46,8 +37,8 @@ public class FenetreLogIn extends JFrame {
 	public void initLog() throws BLLException, DALException {
 
         createLogPanel();
-        instance.revalidate();
-        instance.repaint();
+        FenetreLogIn.this.revalidate();
+        FenetreLogIn.this.repaint();
     }
 
     public void showError (int cas){
@@ -79,8 +70,8 @@ public class FenetreLogIn extends JFrame {
         panel.add(this.getButtonRetourn(), gbc);
 
         setContentPane(panel);
-        instance.revalidate();
-        instance.repaint();
+        FenetreLogIn.this.revalidate();
+        FenetreLogIn.this.repaint();
 
     }
 

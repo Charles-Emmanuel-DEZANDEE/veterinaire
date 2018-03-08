@@ -6,16 +6,14 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Properties;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.*;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-import fr.eni.clinique.ihm.Update;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -59,10 +57,10 @@ public class FenetrePrsieRDV extends JFrame {
 
 
 	public FenetrePrsieRDV() throws BLLException{
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(400, 300);
-		setResizable(true);
+		setResizable(false);
 		setTitle("Prise de rendez-vous ");
 		initPriseRDV();
 		pack();
@@ -393,7 +391,7 @@ public class FenetrePrsieRDV extends JFrame {
 		                public void actionPerformed(ActionEvent e) {
 		                        System.out.println("afficher les rdv d'un vétérinaire");
                             try {
-                                rafraichierTable();
+                                rafraichirTable();
                             } catch (BLLException e1) {
                                 e1.printStackTrace();
                             }
@@ -407,7 +405,7 @@ public class FenetrePrsieRDV extends JFrame {
         }
         return this.CBoVeterinaires;
  }
- public void rafraichierTable() throws BLLException {
+ public void rafraichirTable() throws BLLException {
      Personnels vetoSelected = (Personnels)getCobVetrinaires().getSelectedItem();
 
      //recuperer la date selectionné
@@ -554,7 +552,7 @@ public class FenetrePrsieRDV extends JFrame {
 	
 	public JButton getButtonAjouterRDV() {
 		if (this.buttonAjouterRDV == null) {
-			this.buttonAjouterRDV = new JButton("Valider");
+			this.buttonAjouterRDV = new JButton("Ajouter RDV");
 			
 			
 			this.buttonAjouterRDV.addActionListener(new ActionListener() {
@@ -564,9 +562,30 @@ public class FenetrePrsieRDV extends JFrame {
 					try {
 						//GererPersonnelController.getInstance().nouveauPersonnels();
 						//AjoutPersonnelController.getInstance().afficherFenetreAjout(FenetrePrsieRDV.this, FenetrePrsieRDV.this.getTableRDV());
-						
+
+						//le véto
+						Personnels veto = (Personnels)getCobVetrinaires().getSelectedItem();
+						long codeVeto = veto.getCodePers();
+						//l'animal
+						Animaux animal = (Animaux)CBoAnimaux.getSelectedItem();
+
+						//la date
+
+						String heure = getCobHeures().getSelectedItem().toString();
+						String minutes = getCobMinutes().getSelectedItem().toString();
+
+						Calendar c =  Calendar.getInstance();
+						c.set(datePicker.getModel().getYear(), datePicker.getModel().getMonth(), datePicker.getModel().getDay(), Integer.valueOf(heure), Integer.valueOf(minutes), 00);
+						Date dateRdv = c.getTime();
+
+						//l'agenda
+						Agendas agenda = new Agendas(codeVeto, dateRdv, animal.getCodeAnimal());
+
+						PriseRDVController.getInstance().ajouterRdv(agenda);
+
 						//mettre à jour la table
-						getTableRDV().getRDVModel().fireTableDataChanged();
+						rafraichirTable();
+
 					} catch (BLLException e1) {
 						e1.printStackTrace();
 					}

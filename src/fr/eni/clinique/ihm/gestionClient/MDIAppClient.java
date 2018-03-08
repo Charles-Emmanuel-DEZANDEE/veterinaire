@@ -92,7 +92,7 @@ public class MDIAppClient extends JFrame {
 	
 	public MDIAppClient() {
 		
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(800, 500);
 		setResizable(false);
