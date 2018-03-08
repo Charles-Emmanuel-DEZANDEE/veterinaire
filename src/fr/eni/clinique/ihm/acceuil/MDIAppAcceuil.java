@@ -27,11 +27,12 @@ public class MDIAppAcceuil extends JFrame implements ActionListener {
     private MDIAppAcceuil(int cas,Personnels pers) {
 
         this.personnelConnecte = pers;
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds(0, 0, screenSize.width, screenSize.height);
+		setSize(1000, 500);
+		setResizable(false);
+		setTitle("Clinique Veterinaire");
+//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//        setBounds(0, 0, screenSize.width, screenSize.height);
 
         // initialiser l'ecran MDI
         desktopPane = new JDesktopPane();
@@ -41,8 +42,6 @@ public class MDIAppAcceuil extends JFrame implements ActionListener {
 
         // Barre de menus
         setJMenuBar(getMenuBarre(cas));
-
-
     }
 
     //singleton
@@ -52,13 +51,11 @@ public class MDIAppAcceuil extends JFrame implements ActionListener {
         }
         return instance;
     }
-
-
+    
     public void init(int cas, Personnels pers) throws BLLException, DALException {
         MDIAppAcceuil ecran = MDIAppAcceuil.getInstance(cas,pers);
         ecran.setVisible(true);
     }
-
 
     public void createMenuBar(int cas) {
 
@@ -67,7 +64,7 @@ public class MDIAppAcceuil extends JFrame implements ActionListener {
         menuBarre.add(menuFichier);
 
         // Sous menu Déconnexion
-        JMenuItem menuItemDeco = new JMenuItem("Déconnexion");
+        JMenuItem menuItemDeco = new JMenuItem("Deconnexion");
         menuItemDeco.setActionCommand("deconnexion");
         menuItemDeco.addActionListener(this);
         menuFichier.add(menuItemDeco);

@@ -15,6 +15,8 @@ import fr.eni.clinique.ihm.ecranPriseRDV.RDVTable;
 import org.jdatepicker.impl.JDatePickerImpl;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,27 +42,22 @@ public class FenetreVet extends JFrame {
 	private JLabel labelVeto;
 	private JComboBox<String> cboVeto;
 	private List<Personnels> listVeterinaires;
-
-
 	private JLabel labelDate;
 	private JDatePickerImpl datePicker;
-
 	private RDVTable tableRDV;
 	private JButton buttonDossierMedical;
 	private Personnels veterinaireConnecte;
-
-
-
+	private JPanel panel1;
+	private JPanel panel2;
+	
 	public FenetreVet() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setSize(600, 600);
-		setResizable(true);
+		setSize(600, 500);
+		setResizable(false);
 		setTitle("Agenda");
 		setVisible(true);
 //		pack();
-
-
 	}
 
 	// Lancement de la fenetre
@@ -70,54 +67,71 @@ public class FenetreVet extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
-
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(5, 5, 5, 5);
-
-		// Ligne 1
+		
+		gbc.gridwidth = 1;
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		panel.add(this.getLabelVeto(), gbc);
-
-		gbc.gridx = 1;
-		gbc.gridy = 0;
-		panel.add(this.getCboVeto(), gbc);
-
-		gbc.gridx = 2;
-		gbc.gridy = 0;
-//		gbc.anchor = GridBagConstraints.WEST;
-		panel.add(this.getLabelDate(), gbc);
-
-		gbc.gridx = 3;
-		gbc.gridy = 0;
-//		gbc.anchor = GridBagConstraints.WEST;
-		panel.add(this.getDatePicker(), gbc);
-
-		// Ligne 2
-		gbc.gridwidth = 3;
+		panel.add(this.getPanel1(), gbc);
+		gbc.gridwidth = 1;
 		gbc.gridx = 0;
 		gbc.gridy = 1;
-		panel.add(getTableRDV(), gbc);
-
-		gbc.gridwidth = 1;
-		gbc.gridx = 3;
+		panel.add(this.getPanel2(), gbc);
+		gbc.gridx = 0;
 		gbc.gridy = 2;
+		gbc.anchor = GridBagConstraints.EAST;
 		panel.add(this.getButtonDossierMedical(), gbc);
-
-
-
-		//ligne 3
-
+		
 		setContentPane(panel);
-
-//		JScrollPane scroll = new JScrollPane(panel);
-//		setContentPane(scroll);
-
+	}
+	
+	public JPanel getPanel1() throws BLLException{
+		if (this.panel1 == null) {
+			
+			this.panel1 = new JPanel();
+			this.panel1.setLayout(new GridBagLayout());
+			this.panel1.setBorder(new TitledBorder("De"));
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5, 25, 5, 5);
+			
+			gbc.gridwidth = 1;
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			this.panel1.add(new JLabel("Veterinaire "), gbc);
+			gbc.gridx = 1;
+			gbc.gridy = 0;
+			this.panel1.add(this.getCboVeto(), gbc);
+			gbc.gridx = 2;
+			gbc.gridy = 0;
+			this.panel1.add(new JLabel("Date "), gbc);
+			gbc.gridx = 3;
+			gbc.gridy = 0;
+			this.panel1.add(this.getDatePicker(), gbc);
+		}
+		return this.panel1;
+	}
+	
+	public JPanel getPanel2() throws BLLException{
+		if (this.panel2 == null) {
+			
+			this.panel2 = new JPanel();
+			this.panel2.setLayout(new GridBagLayout());
+			this.panel2.setBorder(new TitledBorder(""));
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5, 5, 5, 5);
+			
+			gbc.gridwidth = 1;
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			this.panel2.add(this.getTableRDV(), gbc);
+		}
+		return this.panel2;
 	}
 
 	public JLabel getLabelVeto() {
 		if (this.labelVeto == null) {
-			this.labelVeto = new JLabel("Veterinaire : ");
+			this.labelVeto = new JLabel("Veterinaire ");
 			this.labelVeto.setFont(new Font("Serif", Font.PLAIN, 20));
 		}
 
@@ -132,7 +146,7 @@ public class FenetreVet extends JFrame {
 				e.printStackTrace();
 			}
 			this.tableRDV.setFillsViewportHeight(true);
-			this.tableRDV.setPreferredSize(new Dimension(300,200));
+			this.tableRDV.setPreferredSize(new Dimension(500,300));
 			this.tableRDV.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		}
 		return this.tableRDV;
