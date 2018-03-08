@@ -29,6 +29,7 @@ import fr.eni.clinique.bo.Clients;
 import fr.eni.clinique.bo.Personnels;
 import fr.eni.clinique.dto.RDV;
 import fr.eni.clinique.ihm.animal.AnimalController;
+import fr.eni.clinique.ihm.ecranPersonnel.FenetreAjoutPersonnel;
 import fr.eni.clinique.ihm.gestionClient.AjoutClientController;
 import fr.eni.clinique.ihm.vet.DateLabelFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -560,12 +561,8 @@ public class FenetrePrsieRDV extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						//GererPersonnelController.getInstance().nouveauPersonnels();
-						//AjoutPersonnelController.getInstance().afficherFenetreAjout(FenetrePrsieRDV.this, FenetrePrsieRDV.this.getTableRDV());
-
 						//le véto
 						Personnels veto = (Personnels)getCobVetrinaires().getSelectedItem();
-						long codeVeto = veto.getCodePers();
 						//l'animal
 						Animaux animal = (Animaux)CBoAnimaux.getSelectedItem();
 
@@ -579,10 +576,24 @@ public class FenetrePrsieRDV extends JFrame {
 						Date dateRdv = c.getTime();
 
 						//l'agenda
-						Agendas agenda = new Agendas(codeVeto, dateRdv, animal.getCodeAnimal());
-
-						PriseRDVController.getInstance().ajouterRdv(agenda);
-
+						Agendas agenda = new Agendas(veto.getCodePers(), dateRdv, animal.getCodeAnimal());
+						//recuperer la liste des rdv du jour choisi du veterinaire selectionné
+						List<RDV> listeRDV = FenetrePrsieRDV.this.tableRDV.getRDVModel().getListeRDV();
+						
+						//tester si un rdv existe déja
+						boolean existe = false;
+						Date date = null;
+						for(RDV rdv : listeRDV){
+							date = rdv.getDateRdv();
+							if(date.getHours()== dateRdv.getHours() && date.getMinutes()== dateRdv.getMinutes()){
+								JOptionPane.showMessageDialog(FenetrePrsieRDV.this, "Désolé, ce RDV est déjà pris ! ");	
+								existe = true;
+							}
+						}
+						// si aucun rdv n'existe, nous le créons
+						if(existe == false){
+							PriseRDVController.getInstance().ajouterRdv(agenda);
+						}
 						//mettre à jour la table
 						rafraichirTable();
 
