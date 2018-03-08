@@ -101,27 +101,27 @@ public class ClientsManager {
 		if(client == null){
 			throw new BLLException("client null");
 		}
-		if(client.getClient() == null){
+		if(client.getClient().equals("")){
 			sb.append("Le nom est obligatoire \n");
 			valider = false;
 		}
-		if(client.getPrenomClient() == null){
+		if(client.getPrenomClient().equals("")){
 			sb.append("Le prenom est obligatoire \n");
 			valider = false;
 		}
-		if(client.getAdresse1() == null){
+		if(client.getAdresse1().equals("")){
 			sb.append("L'adresse est obligatoire \n");
 			valider = false;
 		}
-		if(client.getCodePostal() == null){
+		if(client.getCodePostal().equals("")){
 			sb.append("Le code postal est obligatoire \n");
 			valider = false;
 		}
-		if(client.getVille() == null){
+		if(client.getVille().equals("")){
 			sb.append("La ville est obligatoire \n");
 			valider = false;
 		}
-		if(client.getEmail() == null){
+		if(client.getEmail().equals("")){
 			sb.append("L'email est obligatoire \n");
 			valider = false;
 		}
