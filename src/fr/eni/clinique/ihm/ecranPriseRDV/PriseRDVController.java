@@ -46,6 +46,10 @@ public class PriseRDVController {
     public void ajouterPersonnel(Personnels newPersonnel) throws BLLException{
     	PersonnelsManager.getInstance().addPersonnel(newPersonnel);
     }
+
+    public void ajouterRdv (Agendas agenda) throws BLLException {
+    	AgendaManager.getInstance().addAgenda(agenda);
+	}
     
     
     public String roleAEnregistrer(String roleSelectionne){
