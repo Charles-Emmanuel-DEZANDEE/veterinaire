@@ -14,7 +14,6 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-import fr.eni.clinique.ihm.Update;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
