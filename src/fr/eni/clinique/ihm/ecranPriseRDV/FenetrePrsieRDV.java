@@ -443,7 +443,17 @@ public class FenetrePrsieRDV extends JFrame  {
 		//recuperer le cilent ajouté
 		this.clientAjoute = client;
 		//on vide les items
-        getCobClients().addItem(client.toString());
+       // getCobClients().addItem(client.toString());
+		getCobClients().removeAllItems();
+		this.listClients =  ClientsManager.getInstance().getListeClients();  
+		this.CBoClients= null;
+		this.CBoClients = new JComboBox(listClients.toArray());
+		
+		/*ListIterator<Clients> it = listClients.listIterator();
+         while(it.hasNext()) {
+        	 Clients str = it.next();
+        	 CBoClients.addItem(str.toString());
+         }*/
         //on rafraichi la fenetre
         FenetrePrsieRDV.this.revalidate();
         FenetrePrsieRDV.this.repaint();
@@ -468,12 +478,12 @@ public class FenetrePrsieRDV extends JFrame  {
 		                        if (clientSelected != null){
 		                        	clientBy = clientSelected;
 		                        }else if (clientAjoute != null){
-		                        	clientSelected = clientAjoute; 
+		                        	clientBy = clientAjoute; 
 		                        }
 		                        
 		                        List<Animaux> animauxDuClient = new ArrayList<>();
 		                        try {
-									animauxDuClient = AnimauxManager.getInstance().getAnimalByClient(clientSelected);
+									animauxDuClient = AnimauxManager.getInstance().getAnimalByClient(clientBy);
 								} catch (BLLException e2) {
 									// TODO Auto-generated catch block
 									e2.printStackTrace();
