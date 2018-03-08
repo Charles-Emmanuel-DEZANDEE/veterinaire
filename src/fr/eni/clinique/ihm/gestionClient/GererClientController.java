@@ -11,7 +11,6 @@ public class GererClientController {
 
 
     private GererClientController() throws DALException, BLLException {
-        fenetreGestionClient = new MDIAppClient();
     }
 
     public static synchronized GererClientController getInstance() throws DALException, BLLException{
@@ -22,6 +21,7 @@ public class GererClientController {
     }
 
 	public void startApp() throws BLLException, DALException {
+		fenetreGestionClient = new MDIAppClient();
 		fenetreGestionClient.init();
 		fenetreGestionClient.revalidate();
 		fenetreGestionClient.repaint();

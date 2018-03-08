@@ -44,9 +44,7 @@ public class FenetreAjoutClient extends JFrame {
 		setLocationRelativeTo(null);
 		setSize(500, 500);
 		setResizable(false);
-		this.fenetreGestionClients = fenetreGestionClients;
-		this.fenetrePriseRDV = fenetrePriseRDV;
-		initAjoutClient();
+		initAjoutClient(fenetreGestionClients,fenetrePriseRDV );
 	}
 	
 	public static synchronized FenetreAjoutClient getInstance(MDIAppClient fenetreGestionClients, FenetrePrsieRDV fenetrePriseRDV) throws DALException, BLLException{
@@ -56,7 +54,9 @@ public class FenetreAjoutClient extends JFrame {
         return instance;
     }
 	
-	public void initAjoutClient() throws BLLException{
+	public void initAjoutClient(MDIAppClient fenetreGestionClients, FenetrePrsieRDV fenetrePriseRDV) throws BLLException{
+		this.fenetreGestionClients = fenetreGestionClients;
+		this.fenetrePriseRDV = fenetrePriseRDV;
 		JPanel panel = new JPanel();
 		
 		panel.setLayout(new GridBagLayout());
@@ -189,11 +189,15 @@ public class FenetreAjoutClient extends JFrame {
 					try {
 						GererClientController.getInstance().ajouterClient(client);
 						//mettre a jout la CBoClients de fentre prise de RDV
-						fenetrePriseRDV.rafraichirCBoClients(client);
-						
+						if(fenetrePriseRDV != null){
+							fenetrePriseRDV.rafraichirCBoClients(client);
+						}
 						//mettre a jout la CBoClients de gestion de clients
-						//fenetreGestionClients.rafraichirChampsClient(client);
-						//FenetreAjoutClient.this.dispose();
+						if(fenetreGestionClients != null){
+							fenetreGestionClients.rafraichirChampsClient(client);
+						}
+						
+						FenetreAjoutClient.this.dispose();
 						
 					} catch (DALException e1) {
 						// TODO Auto-generated catch block
