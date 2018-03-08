@@ -117,7 +117,7 @@ public class FenetreVet extends JFrame {
 
 	public JLabel getLabelVeto() {
 		if (this.labelVeto == null) {
-			this.labelVeto = new JLabel("Vétérinaire : ");
+			this.labelVeto = new JLabel("Veterinaire : ");
 			this.labelVeto.setFont(new Font("Serif", Font.PLAIN, 20));
 		}
 

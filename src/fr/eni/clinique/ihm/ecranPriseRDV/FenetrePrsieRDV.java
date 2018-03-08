@@ -12,14 +12,10 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Properties;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
+import fr.eni.clinique.ihm.Update;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -42,7 +38,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 
-public class FenetrePrsieRDV extends JFrame  {
+public class FenetrePrsieRDV extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JButton buttonAjouterRDV;
@@ -60,6 +56,7 @@ public class FenetrePrsieRDV extends JFrame  {
 	private JButton buttonAjouterClient;
 	private JButton buttonAjouterAnimal;
 	private Clients clientAjoute;
+
 
 	public FenetrePrsieRDV() throws BLLException{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -364,8 +361,12 @@ public class FenetrePrsieRDV extends JFrame  {
         		this.listAnimaux =  AnimauxManager.getInstance().getAnimalByClient(client);
         		
         		
-				this.CBoAnimaux = new JComboBox(listAnimaux.toArray());
-			} catch (Exception e) {
+				this.CBoAnimaux = new JComboBox();
+                this.CBoAnimaux.setPreferredSize(new Dimension(170, 27));
+                this.CBoAnimaux.setModel(new DefaultComboBoxModel(listAnimaux.toArray()));
+                this.CBoAnimaux.setSelectedIndex(0);
+
+            } catch (Exception e) {
 				e.printStackTrace();
 			}
         }
@@ -379,7 +380,12 @@ public class FenetrePrsieRDV extends JFrame  {
         		this.listVeterinaires =  PersonnelsManager.getInstance().getListeVeterinaire();
         		
         		
-				this.CBoVeterinaires = new JComboBox(listVeterinaires.toArray());
+//				this.CBoVeterinaires = new JComboBox(listVeterinaires.toArray());
+                this.CBoVeterinaires = new JComboBox();
+                this.CBoVeterinaires.setPreferredSize(new Dimension(170, 27));
+                this.CBoVeterinaires.setModel(new DefaultComboBoxModel(listVeterinaires.toArray()));
+                this.CBoVeterinaires.setSelectedIndex(0);
+
 				
 				 this.CBoVeterinaires.addActionListener(new ActionListener() {
 
@@ -442,18 +448,11 @@ public class FenetrePrsieRDV extends JFrame  {
 		this.listClients =  ClientsManager.getInstance().getListeClients();  
 		//recuperer le cilent ajouté
 		this.clientAjoute = client;
-		//on vide les items
-       // getCobClients().addItem(client.toString());
-		getCobClients().removeAllItems();
-		this.listClients =  ClientsManager.getInstance().getListeClients();  
-		this.CBoClients= null;
-		this.CBoClients = new JComboBox(listClients.toArray());
-		
-		/*ListIterator<Clients> it = listClients.listIterator();
-         while(it.hasNext()) {
-        	 Clients str = it.next();
-        	 CBoClients.addItem(str.toString());
-         }*/
+		//on met à jour la combobox
+        getCobClients().setModel(new DefaultComboBoxModel(this.listClients.toArray()));
+//        getCobClients().addItem(client.toString());
+
+
         //on rafraichi la fenetre
         FenetrePrsieRDV.this.revalidate();
         FenetrePrsieRDV.this.repaint();
@@ -471,36 +470,12 @@ public class FenetrePrsieRDV extends JFrame  {
 		                public void actionPerformed(ActionEvent e) {
 
 		                        System.out.println("afficher les animaux d'un client");
-		                        //JComboBox cb = (JComboBox)e.getSource();
-		                        Clients clientSelected = (Clients)CBoClients.getSelectedItem();
-		                        Clients clientBy = null;
-		                        
-		                        if (clientSelected != null){
-		                        	clientBy = clientSelected;
-		                        }else if (clientAjoute != null){
-		                        	clientBy = clientAjoute; 
-		                        }
-		                        
-		                        List<Animaux> animauxDuClient = new ArrayList<>();
-		                        try {
-									animauxDuClient = AnimauxManager.getInstance().getAnimalByClient(clientBy);
-								} catch (BLLException e2) {
-									// TODO Auto-generated catch block
-									e2.printStackTrace();
-								}
-		                        
-		                    System.out.println(clientSelected);
-
-		                    //on vide les items
-		                    CBoAnimaux.removeAllItems();
-		                    //on remplace les items
-		                    //List<String> newListAnimaux = FenetrePrsieRDV.this.nomsAnimaux(animauxDuClient);
-
-		                    ListIterator<Animaux> it = animauxDuClient.listIterator();
-		                        while(it.hasNext()) {
-		                            Animaux str = it.next();
-		                            CBoAnimaux.addItem(str.toString());
-		                        }
+						//on met à jour la liste d'animaux
+							try {
+								rafraichirCboAnimal();
+							} catch (BLLException e1) {
+								e1.printStackTrace();
+							}
 		                        //on rafraichi la fenetre
 		                        FenetrePrsieRDV.this.revalidate();
 		                        FenetrePrsieRDV.this.repaint();
@@ -527,16 +502,10 @@ public class FenetrePrsieRDV extends JFrame  {
 
      System.out.println(clientSelected);
 
-     //on vide les items
-     CBoAnimaux.removeAllItems();
-     //on remplace les items
-     //List<String> newListAnimaux = FenetrePrsieRDV.this.nomsAnimaux(animauxDuClient);
+     //on met à) jour la combobox
 
-     ListIterator<Animaux> it = animauxDuClient.listIterator();
-     while(it.hasNext()) {
-         Animaux str = it.next();
-         CBoAnimaux.addItem(str.toString());
-     }
+     CBoAnimaux.setModel(new DefaultComboBoxModel(animauxDuClient.toArray()));
+
      //on rafraichi la fenetre
      FenetrePrsieRDV.this.revalidate();
      FenetrePrsieRDV.this.repaint();
@@ -669,8 +638,5 @@ public class FenetrePrsieRDV extends JFrame  {
         }
         return this.CBoMinutes;
 	}
-	
-
-	
 
 }
