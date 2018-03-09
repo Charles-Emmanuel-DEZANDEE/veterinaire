@@ -87,21 +87,20 @@ public class FenetreRechercheClient extends JDialog {
 			gbc.insets = new Insets(5, 5, 5, 5);
 			
 			gbc.gridx = 0;
-			gbc.gridy = 1;
-			gbc.gridheight = 2;
+			gbc.gridy = 0;
 			panel2.add(this.getFieldRechercheClient(), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 0;
 			panel2.add(this.getButtonRechercheClient(), gbc);
-			gbc.gridx = 1;
-			gbc.gridy = 2;
-			panel2.add(new JLabel("Rechercher"), gbc);	
+//			gbc.gridx = 1;
+//			gbc.gridy = 2;
+//			panel2.add(new JLabel("Rechercher"), gbc);	
 			gbc.gridx = 2;
 			gbc.gridy = 0;
 			panel2.add(this.getButtonValiderRechercheClient(), gbc);
-			gbc.gridx = 2;
-			gbc.gridy = 2;
-			panel2.add(new JLabel("Valider"), gbc);	
+//			gbc.gridx = 2;
+//			gbc.gridy = 2;
+//			panel2.add(new JLabel("Valider"), gbc);	
 		}
 		return this.panel2;
 	}

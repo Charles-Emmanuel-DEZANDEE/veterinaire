@@ -87,16 +87,16 @@ public class FenetreAjoutClient extends JFrame {
 			gbc.gridx = 0;
 			gbc.gridy = 0;
 			panel2.add(this.getButtonValiderAjoutClient(), gbc);
-			gbc.gridx = 0;
-			gbc.gridy = 1;
-			panel2.add(new JLabel("Valider"), gbc);
+//			gbc.gridx = 0;
+//			gbc.gridy = 1;
+//			panel2.add(new JLabel("Valider"), gbc);
 			gbc.gridx = 1;
 			gbc.gridy = 0;
 			panel2.add(this.getButtonAnnulerAjoutClient(), gbc);
-			gbc.gridx = 1;
-			gbc.gridy = 1;
-			panel2.add(new JLabel("Annuler"), gbc);
-			
+//			gbc.gridx = 1;
+//			gbc.gridy = 1;
+//			panel2.add(new JLabel("Annuler"), gbc);
+//			
 		}
 		return this.panel2;
 		
